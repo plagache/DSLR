@@ -3,6 +3,7 @@
 
 import sys
 import numpy
+import math
 
 from handle_data import create_dataframe
 
@@ -17,47 +18,70 @@ if nbr_arg >= 2:
 
 def print_dataset():
     # print("\nDataset :\n", dataset)
-    print("\nDataset from index 2 to 9:\n", dataset.loc[2:9])
-    print("\nDataset column 0:\n", dataset.iloc[:,0])
-    print("\nDataset column 2 with name:\n", dataset.loc[:,"Hogwarts House"])
-    print("\nDataset column 2 with index:\n", dataset.iloc[:,1])
+    # print("\nDataset from index 2 to 9:\n", dataset.loc[2:9])
+    # print("\nDataset column 0:\n", dataset.iloc[:,0])
+    # print("\nDataset column 2 with name:\n", dataset.loc[:,"Hogwarts House"])
+    # print("\nDataset column 2 with index:\n", dataset.iloc[:,1])
+    # print("\nDataset column 2 with name:\n", dataset.loc[:,"Arithmancy"])
+    # print("\nDataset column 2 with index:\n", dataset.iloc[:,7])
+    print("\nDataset column 2 with name:\n", dataset.loc[:,"Herbology"])
+    print("\nDataset column 2 with index:\n", dataset.iloc[:,8])
     print("\nColumn label of index 1:\n", dataset.columns[1])
     print("\nDataset columns label:\n", dataset.columns)
 
-# print_dataset()
+print_dataset()
 
 
 
 def ft_count(array):
     counter = 0
     for element in array:
-        counter += 1
+        if element == element:
+            counter += 1
     return counter
 
-count = ft_count(dataset.iloc[:,7])
-print(count)
+count = ft_count(dataset.iloc[:,8])
+print("my count: ", count)
+print("count:", dataset.iloc[:,8].count())
 
 def ft_mean(array):
-    print (array)
     total : float = 0
-    print(total)
     for element in array:
-        print(total)
-        # print(element)
-        # print(type(element))
-        # print(isinstance(element, (int, float)))
-        if isinstance(element, (int, float)) == True:
-        # if type(element) == 'float':
+        # if isinstance(element, (int, float)) == True:
+        if element == element:
             total += element
-            # print("element", element)
-            # print("total\n", total)
-        # print("total\n", total)
     return total / ft_count(array)
 
 
+mean = ft_mean(dataset.iloc[:,8])
+print("my mean:", mean)
+print("mean:", dataset.iloc[:,8].mean())
+# mean = ft_mean(dataset.iloc[:,7])
+# print("my mean: ", mean)
+# mean = ft_mean(dataset.iloc[:,6])
+# print("my mean: ", mean)
 
 
-mean = ft_mean(dataset.iloc[:,7])
-mean = ft_mean(dataset.iloc[:,6])
+def standard_deviation(array):
 
-print(mean)
+    count = ft_count(array)
+    mean = ft_mean(array)
+    variance = 0
+    deviation = 0
+    standard_deviation = 0
+
+    for element in array:
+        if element == element:
+            deviation += (element - mean)**2
+
+    variance = deviation / count
+
+    standard_deviation = math.sqrt(variance)
+
+    return standard_deviation
+
+std = standard_deviation(dataset.iloc[:,8])
+
+print("my standard_deviation:", std)
+
+print("standard_deviation:", numpy.std(dataset.iloc[:,8]))
