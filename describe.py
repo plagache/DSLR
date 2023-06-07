@@ -32,7 +32,6 @@ def print_dataset():
 print_dataset()
 
 
-
 def ft_count(array):
     counter = 0
     for element in array:
@@ -43,6 +42,7 @@ def ft_count(array):
 count = ft_count(dataset.iloc[:,8])
 print("my count: ", count)
 print("count:", dataset.iloc[:,8].count())
+
 
 def ft_mean(array):
     total : float = 0
@@ -85,3 +85,48 @@ std = standard_deviation(dataset.iloc[:,8])
 print("my standard_deviation:", std)
 
 print("standard_deviation:", numpy.std(dataset.iloc[:,8]))
+
+
+def minimum(array):
+    minimum = 0
+    for element in array:
+        if element == element:
+            if element < minimum:
+                minimum = element
+    return minimum
+
+min = minimum(dataset.iloc[:,8])
+
+print("my minimum:", min)
+
+print("minimum:", dataset.iloc[:,8].min())
+
+
+def maximum(array):
+    maximum = 0
+    for element in array:
+        if element == element:
+            if element > maximum:
+                maximum = element
+    return maximum
+
+max = maximum(dataset.iloc[:,8])
+
+print("my maximum:", max)
+
+print("maximum:", dataset.iloc[:,8].max())
+
+
+def percentile(array, percent : float):
+    sorted_array = array.sort_values()
+    # percent = 0
+    return sorted_array
+
+percentile = percentile(dataset.iloc[:,8], 0.25)
+
+print("my percentile:", percentile)
+
+print("percentile:", dataset.iloc[:,8].max())
+
+
+print(dataset.iloc[:,8].describe())
