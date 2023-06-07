@@ -118,15 +118,37 @@ print("maximum:", dataset.iloc[:,8].max())
 
 
 def percentile(array, percent : float):
-    sorted_array = array.sort_values()
+    sorted_array = array.sort_values(ignore_index=True)
+    # print("\nsorted array:", sorted_array)
+    value = 0
+    count = ft_count(dataset.iloc[:,8])
+    index = count * percent
+    floor = math.floor(index)
+    ceil = math.ceil(index)
+    # print("\nindex:", index)
+    # print("\nfloor:", floor)
+    # print("\nceil:", ceil)
+
+    floor_value = sorted_array.loc[floor]
+    # print("\nfloor value:", floor_value)
+    ceil_value = sorted_array.loc[ceil]
+    # print("\nceil value:", ceil_value)
+
+    value = floor_value * percent + ceil_value * (1 - percent)
+    # for element in array:
+    #     if element == element:
+    
+    # -4.308182
     # percent = 0
-    return sorted_array
+    return value
 
-percentile = percentile(dataset.iloc[:,8], 0.25)
+my25 = percentile(dataset.iloc[:,8], 0.25)
+print("my 25%:", my25)
 
-print("my percentile:", percentile)
+my50 = percentile(dataset.iloc[:,8], 0.5)
+print("my 50%:", my50)
 
-print("percentile:", dataset.iloc[:,8].max())
-
+my75 = percentile(dataset.iloc[:,8], 0.75)
+print("my 75%:", my75)
 
 print(dataset.iloc[:,8].describe())
