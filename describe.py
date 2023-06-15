@@ -44,16 +44,14 @@ numerical_features = dataset.select_dtypes(include=[numpy.float64])
 
 def cleanup(dataframe):
     cleaned_series = []
-    for label, content in dataframe.items():
-        clean_content = []
-        for _, item in content.items():
-            if item == item:
-                clean_content.append(item)
-        cleaned_series.append(pandas.Series(clean_content, name=label))
+    for _, serie in dataframe.items():
+        serie.dropna(inplace=True, ignore_index=True)
+        cleaned_series.append(serie)
     return pandas.concat(cleaned_series, axis=1)
 
 cleaned = cleanup(numerical_features)
-# print(cleaned)
+print(cleaned)
+exit(0)
 
 def ft_count(array):
     counter = 0
