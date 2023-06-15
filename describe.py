@@ -50,8 +50,7 @@ def cleanup(dataframe):
     return pandas.concat(cleaned_series, axis=1)
 
 cleaned = cleanup(numerical_features)
-print(cleaned)
-exit(0)
+# print(cleaned)
 
 def ft_count(array):
     counter = 0
