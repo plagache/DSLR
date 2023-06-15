@@ -28,9 +28,26 @@ def print_dataset():
     print("\nDataset column 2 with index:\n", dataset.iloc[:,8])
     print("\nColumn label of index 1:\n", dataset.columns[1])
     print("\nDataset columns label:\n", dataset.columns)
+    print("\nDataset info:\n", dataset.info)
+    print("\nDataset len:\n", len(dataset.columns))
+    print("\nDataset :\n", dataset.dtypes)
 
-print_dataset()
+# print_dataset()
 
+herbology = dataset.loc[:,"Herbology"]
+column_8 = dataset.iloc[:,8]
+# print(herbology)
+# print(column_8)
+
+def list_numerical_feature(dataset):
+
+    array = []
+    for column in dataset.columns :
+        if dataset.columns.dtype == "float64":
+            print("numerical_feature")
+    return array
+
+numerical_feature = list_numerical_feature(dataset)
 
 def ft_count(array):
     counter = 0
@@ -39,9 +56,9 @@ def ft_count(array):
             counter += 1
     return counter
 
-count = ft_count(dataset.iloc[:,8])
+count = ft_count(herbology)
 print("my count: ", count)
-print("count:", dataset.iloc[:,8].count())
+print("count:", herbology.count())
 
 
 def ft_mean(array):
