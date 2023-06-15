@@ -4,8 +4,8 @@ extract:
 describe: extract
 	./describe.py datasets/dataset_train.csv
 
-classe: extract
-	./create_classes.py datasets/dataset_train.csv
+scatter: extract
+	./scatter.py datasets/dataset_train.csv
 
 clean:
 	rm -rf datasets
