@@ -4,6 +4,7 @@
 import sys
 import numpy
 import math
+import pandas
 
 from handle_data import create_dataframe
 
@@ -24,12 +25,12 @@ def print_dataset():
     # print("\nDataset column 2 with index:\n", dataset.iloc[:,1])
     # print("\nDataset column 2 with name:\n", dataset.loc[:,"Arithmancy"])
     # print("\nDataset column 2 with index:\n", dataset.iloc[:,7])
-    print("\nDataset column 2 with name:\n", dataset.loc[:,"Herbology"])
-    print("\nDataset column 2 with index:\n", dataset.iloc[:,8])
-    print("\nColumn label of index 1:\n", dataset.columns[1])
-    print("\nDataset columns label:\n", dataset.columns)
-    print("\nDataset info:\n", dataset.info)
-    print("\nDataset len:\n", len(dataset.columns))
+    # print("\nDataset column 2 with name:\n", dataset.loc[:,"Herbology"])
+    # print("\nDataset column 2 with index:\n", dataset.iloc[:,8])
+    # print("\nColumn label of index 1:\n", dataset.columns[1])
+    # print("\nDataset columns label:\n", dataset.columns)
+    # print("\nDataset info:\n", dataset.info)
+    # print("\nDataset len:\n", len(dataset.columns))
     print("\nDataset :\n", dataset.dtypes)
 
 # print_dataset()
@@ -39,15 +40,20 @@ column_8 = dataset.iloc[:,8]
 # print(herbology)
 # print(column_8)
 
-def list_numerical_feature(dataset):
+numerical_features = dataset.select_dtypes(include=[numpy.float64])
 
-    array = []
-    for column in dataset.columns :
-        if dataset.columns.dtype == "float64":
-            print("numerical_feature")
-    return array
+def cleanup(dataframe):
+    cleaned_series = []
+    for label, content in dataframe.items():
+        clean_content = []
+        for _, item in content.items():
+            if item == item:
+                clean_content.append(item)
+        cleaned_series.append(pandas.Series(clean_content, name=label))
+    return pandas.concat(cleaned_series, axis=1)
 
-numerical_feature = list_numerical_feature(dataset)
+cleaned = cleanup(numerical_features)
+# print(cleaned)
 
 def ft_count(array):
     counter = 0
