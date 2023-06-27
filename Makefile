@@ -9,3 +9,6 @@ scatter: extract
 
 clean:
 	rm -rf datasets
+
+.SILENT: clean scatter describe extract
+.PHONY: clean scatter describe extract

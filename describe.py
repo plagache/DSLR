@@ -8,17 +8,17 @@ import pandas
 
 from handle_data import create_dataframe
 
-print(sys.argv)
+#print(sys.argv)
 
 nbr_arg = len(sys.argv)
 
 if nbr_arg >= 2:
-    print(sys.argv[1])
+    # print(sys.argv[1])
     dataset = create_dataframe(sys.argv[1])
 
 
 def print_dataset():
-    # print("\nDataset :\n", dataset)
+    print("\nDataset :\n", dataset)
     # print("\nDataset from index 2 to 9:\n", dataset.loc[2:9])
     # print("\nDataset column 0:\n", dataset.iloc[:,0])
     # print("\nDataset column 2 with name:\n", dataset.loc[:,"Hogwarts House"])
@@ -35,11 +35,6 @@ def print_dataset():
 
 # print_dataset()
 
-herbology = dataset.loc[:,"Herbology"]
-column_8 = dataset.iloc[:,8]
-# print(herbology)
-# print(column_8)
-
 numerical_features = dataset.select_dtypes(include=[numpy.float64])
 
 def cleanup(dataframe):
@@ -52,16 +47,13 @@ def cleanup(dataframe):
 cleaned = cleanup(numerical_features)
 # print(cleaned)
 
+
 def ft_count(array):
     counter = 0
     for element in array:
         if element == element:
             counter += 1
     return counter
-
-count = ft_count(herbology)
-print("my count: ", count)
-print("count:", herbology.count())
 
 
 def ft_mean(array):
@@ -72,14 +64,6 @@ def ft_mean(array):
             total += element
     return total / ft_count(array)
 
-
-mean = ft_mean(dataset.iloc[:,8])
-print("my mean:", mean)
-print("mean:", dataset.iloc[:,8].mean())
-# mean = ft_mean(dataset.iloc[:,7])
-# print("my mean: ", mean)
-# mean = ft_mean(dataset.iloc[:,6])
-# print("my mean: ", mean)
 
 
 def standard_deviation(array):
@@ -100,12 +84,6 @@ def standard_deviation(array):
 
     return standard_deviation
 
-std = standard_deviation(dataset.iloc[:,8])
-
-print("my standard_deviation:", std)
-
-print("standard_deviation:", numpy.std(dataset.iloc[:,8]))
-
 
 def minimum(array):
     minimum = 0
@@ -115,12 +93,6 @@ def minimum(array):
                 minimum = element
     return minimum
 
-min = minimum(dataset.iloc[:,8])
-
-print("my minimum:", min)
-
-print("de minimum:", dataset.iloc[:,8].min())
-
 
 def maximum(array):
     maximum = 0
@@ -129,12 +101,6 @@ def maximum(array):
             if element > maximum:
                 maximum = element
     return maximum
-
-max = maximum(dataset.iloc[:,8])
-
-print("my maximum:", max)
-
-print("maximum:", dataset.iloc[:,8].max())
 
 
 def percentile(array, percent : float):
@@ -181,30 +147,28 @@ def percentile(array, percent : float):
     # return value
     return round(value, 6)
 
-# weigth of the index / last rank should be reajust
 
-my25 = percentile(dataset.iloc[:,8], 0.2500)
-print("my 25%:", my25)
-
-my50 = percentile(dataset.iloc[:,8], 0.5)
-print("my 50%:", my50)
-
-my75 = percentile(dataset.iloc[:,8], 0.75)
-print("my 75%:", my75)
-
-# print(dataset.iloc[:,8].describe())
-print(dataset.iloc[:,8].quantile([0.25, 0.5, 0.75]))
-
-
-my25 = percentile(dataset.iloc[:,7], 0.25)
-print("my 25%:", my25)
-
-my50 = percentile(dataset.iloc[:,7], 0.5)
-print("my 50%:", my50)
-
-my75 = percentile(dataset.iloc[:,7], 0.75)
-print("my 75%:", my75)
+def dataset_to_dic(dataset):
+    dictionnaire = {
+        "name" : dataset.name,
+        "count" : ft_count(dataset),
+        "mean" : ft_mean(dataset),
+        "standard_deviation" : standard_deviation(dataset),
+        "min" : minimum(dataset),
+        "first" : percentile(dataset, 0.25),
+        "second" : percentile(dataset, 0.5),
+        "third" : percentile(dataset, 0.75),
+        "max" : maximum(dataset),
+                    }
+    return dictionnaire
 
 
-# print(dataset.iloc[:,7].describe())
-print(dataset.iloc[:,7].quantile([0.25, 0.5, 0.75]))
+dic_list = []
+for _, serie in cleaned.items():
+    dic_list.append(dataset_to_dic(serie))
+# print(dic_list)
+
+new = pandas.DataFrame(dic_list)
+new_transpose = new.transpose()
+# print(new_transpose)
+print(new_transpose.to_string())
