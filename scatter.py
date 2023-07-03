@@ -24,6 +24,8 @@ sorted = course_with_houses.sort_values("Hogwarts House")
 
 for label, serie in sorted.items():
     if label != "Hogwarts House":
+        pyplot.style.use('gruvbox.mplstyle')
+        # pyplot.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
         ravenclaw = sorted.loc[sorted["Hogwarts House"] == "Ravenclaw",label]
         slytherin = sorted.loc[sorted["Hogwarts House"] == "Slytherin",label]
         hufflepuff = sorted.loc[sorted["Hogwarts House"] == "Hufflepuff",label]
@@ -34,5 +36,10 @@ for label, serie in sorted.items():
         pyplot.hist(hufflepuff, alpha=0.5, label=label)
         pyplot.hist(gryffindor, alpha=0.5, label=label)
     pyplot.legend(loc='best')
+
+    # filename = f'ressources/{label}.png'
+    filename = f'static/Image/hist.png'
+    pyplot.savefig(filename, format="png")
+
     pyplot.show()
     break
