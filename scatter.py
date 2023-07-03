@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 
 import sys
-import numpy
-import math
 import pandas
 
 from handle_data import create_dataframe
@@ -17,24 +15,22 @@ if nbr_arg >= 2:
     print(sys.argv[1])
     dataset = create_dataframe(sys.argv[1])
 
-numerical_features = dataset.select_dtypes(include=[numpy.float64])
+numerical_features = dataset.select_dtypes(include=["float64"])
 course_with_houses = pandas.concat([numerical_features, dataset["Hogwarts House"]], axis=1)
 sorted = course_with_houses.sort_values("Hogwarts House")
 # print(sorted)
 
+ravenclaw = sorted.loc[sorted["Hogwarts House"] == "Ravenclaw"]
+slytherin = sorted.loc[sorted["Hogwarts House"] == "Slytherin"]
+hufflepuff = sorted.loc[sorted["Hogwarts House"] == "Hufflepuff"]
+gryffindor = sorted.loc[sorted["Hogwarts House"] == "Gryffindor"]
 for label, serie in sorted.items():
     if label != "Hogwarts House":
         pyplot.style.use('gruvbox.mplstyle')
-        # pyplot.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
-        ravenclaw = sorted.loc[sorted["Hogwarts House"] == "Ravenclaw",label]
-        slytherin = sorted.loc[sorted["Hogwarts House"] == "Slytherin",label]
-        hufflepuff = sorted.loc[sorted["Hogwarts House"] == "Hufflepuff",label]
-        gryffindor = sorted.loc[sorted["Hogwarts House"] == "Gryffindor",label]
-        # sorted.plot.hist(column=label ,by="Hogwarts House", label=label, sharex=True, sharey=True)
-        pyplot.hist(ravenclaw, alpha=0.5, label=label)
-        pyplot.hist(slytherin, alpha=0.5, label=label)
-        pyplot.hist(hufflepuff, alpha=0.5, label=label)
-        pyplot.hist(gryffindor, alpha=0.5, label=label)
+        pyplot.hist(ravenclaw[label], alpha=0.5, label="Ravenclaw")
+        pyplot.hist(slytherin[label], alpha=0.5, label="Slytherin")
+        pyplot.hist(hufflepuff[label], alpha=0.5, label="Hufflepuff")
+        pyplot.hist(gryffindor[label], alpha=0.5, label="Gryffindor")
     pyplot.legend(loc='best')
 
     # filename = f'ressources/{label}.png'

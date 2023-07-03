@@ -1,5 +1,7 @@
-matplotlib
-pandas
-matplotx[all]
-imageio
 flask
+imageio
+matplotlib
+matplotx[all]
+numpy
+pandas
+pandas-stubs

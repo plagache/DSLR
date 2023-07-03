@@ -35,7 +35,7 @@ def print_dataset():
 
 # print_dataset()
 
-numerical_features = dataset.select_dtypes(include=[numpy.float64])
+numerical_features = dataset.select_dtypes(include=["float64"])
 
 def cleanup(dataframe):
     cleaned_series = []
