@@ -5,7 +5,7 @@ env:
 upgrade:
 	./bin/pip3.11 install --upgrade pip
 
-web:
+web: static
 	export FLASK_APP=homepage && export FLASK_ENV=development && ./bin/flask run --host=0.0.0.0
 
 extract:
