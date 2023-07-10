@@ -14,11 +14,19 @@ extract:
 describe: extract
 	./bin/python3.11 describe.py datasets/dataset_train.csv
 
-scatter: extract
+scatter: extract static
 	./bin/python3.11 scatter.py datasets/dataset_train.csv
+
+histogram: extract static
+	./bin/python3.11 histogram.py datasets/dataset_train.csv
+
+static:
+	mkdir -p static/Image/hist
+	mkdir -p static/Image/scatter
+	mkdir -p static/Image/pair
 
 clean:
 	rm -rf datasets
 
-.SILENT: env clean scatter describe extract
-.PHONY: env clean scatter describe extract
+.SILENT: env clean static histogram scatter describe extract
+.PHONY: env clean static histogram scatter describe extract

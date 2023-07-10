@@ -16,7 +16,10 @@ auto;max-width:650px;line-height:1.6;font-size:18px;color:#444;padding:0
 <h1>{{ name }}</h1>
 <h2>le dessin</h2>
  <p>Ceci represente un histograme qui permettrait de repondre a la premiere question du sujet</p>
- <img src= "{{image}}" >
+ {% for name in images %}
+	 <p>This is histogram for {{name}}</p>
+	 <img src="{{name}}" >
+ {% endfor %}
 
 <hr>
  <p>other question of the subject</p>

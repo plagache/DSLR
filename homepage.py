@@ -28,10 +28,11 @@ import os
 
 app = Flask(__name__)
 
-image_path = os.path.join('static', 'Image')
+image_path = os.path.join('static', 'Image', 'hist')
 
 
 @app.route('/')
 def plot_url():
-    file = os.path.join(image_path, 'hist.png')
-    return render_template('hist.html', name= 'Histogram' ,image=file)
+    images = os.listdir(image_path)
+    images = [os.path.join(image_path, i) for i in images]
+    return render_template('hist.html', name= 'Histogram' ,images=images)

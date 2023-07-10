@@ -35,9 +35,8 @@ for label, _ in numerical_features.items():
 
     pyplot.legend(loc='best')
 
-    # filename = f'ressources/{label}.png'
     filename = f'static/Image/hist/{label}.png'
     pyplot.savefig(filename, format="png")
+    print(f'created {filename}.png')
 
     pyplot.show()
-    # break
