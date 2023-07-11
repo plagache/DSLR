@@ -2,18 +2,27 @@
 
 import sys
 import pandas
+import getopt
 
 from handle_data import create_dataframe
 import matplotlib.pyplot as pyplot
 
-print(sys.argv)
+options, args = getopt.getopt(sys.argv[1:], '', ['show'])
+nbr_arg = len(args)
+nbr_opt = len(options)
 
-nbr_arg = len(sys.argv)
+show_plot = False
+if nbr_opt > 0:
+    for option in options:
+        if option[0] == '--show':
+            show_plot = True
 
 dataset = pandas.DataFrame()
-if nbr_arg >= 2:
-    print(sys.argv[1])
-    dataset = create_dataframe(sys.argv[1])
+if nbr_arg >= 1:
+    dataset = create_dataframe(args[0])
+else:
+    print("no dataset provided\nusage...")
+    exit(1)
 
 numerical_features = dataset.select_dtypes(include=["float64"])
 course_with_houses = pandas.concat([numerical_features, dataset["Hogwarts House"]], axis=1)
@@ -37,7 +46,8 @@ for label, _ in numerical_features.items():
 
     filename = f'static/Image/hist/{label}.png'
     pyplot.savefig(filename, format="png")
-    print(f'created {filename}.png')
+    print(f'created {filename}')
 
-    # pyplot.show()
+    if show_plot == True:
+        pyplot.show()
     pyplot.close()

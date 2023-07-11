@@ -18,6 +18,9 @@ scatter: extract static
 	./bin/python3.11 scatter.py datasets/dataset_train.csv
 
 histogram: extract static
+	./bin/python3.11 histogram.py --show datasets/dataset_train.csv
+
+webhistogram: extract static
 	./bin/python3.11 histogram.py datasets/dataset_train.csv
 
 static:
@@ -29,5 +32,5 @@ clean:
 	rm -rf datasets
 	rm -rf static/Image
 
-.SILENT: env clean static histogram scatter describe extract
-.PHONY: env clean static histogram scatter describe extract
+.SILENT: env clean static histogram scatter describe extract web
+.PHONY: env clean static histogram scatter describe extract web
