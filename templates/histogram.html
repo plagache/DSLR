@@ -5,24 +5,33 @@ auto;max-width:650px;line-height:1.6;font-size:18px;color:#444;padding:0
 10px}h1,h2,h3{line-height:1.2}</style></head><body>
 <header>
 
-<h1> Data Science X Logistic Regression </h1>
-<aside>This is <em> a website </em> for our project DSLR.</aside>
-<a href="https://github.com/plagache/DSLR">link to the github of our project</a>
+<h1> Histogram </h1>
 
 </header>
 
 <hr>
 
 <h1>{{ name }}</h1>
-<h2>le dessin</h2>
+<!-- <h2>le dessin</h2> -->
+
+<hr>
+
+ <p>Which Hogwarts course has a homogeneous score distribution between all four houses?</p>
+
+<hr>
+
+<form method="POST" action="{{ url_for('plot_histogram') }}">
+    <button type="submit">Make histogram</button>
+</form>
+
+<hr>
+
  <p>Ceci represente un histograme qui permettrait de repondre a la premiere question du sujet</p>
  {% for name in images %}
 	 <p>This is histogram for {{name}}</p>
 	 <img src="{{name}}" >
  {% endfor %}
 
-<hr>
- <p>other question of the subject</p>
 <hr>
 
 </body></html>

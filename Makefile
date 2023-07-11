@@ -27,6 +27,7 @@ static:
 
 clean:
 	rm -rf datasets
+	rm -rf static/Image
 
 .SILENT: env clean static histogram scatter describe extract
 .PHONY: env clean static histogram scatter describe extract

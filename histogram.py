@@ -39,4 +39,5 @@ for label, _ in numerical_features.items():
     pyplot.savefig(filename, format="png")
     print(f'created {filename}.png')
 
-    pyplot.show()
+    # pyplot.show()
+    pyplot.close()

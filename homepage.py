@@ -23,8 +23,9 @@
 #     data = base64.b64encode(buf.getbuffer()).decode("ascii")
 #     return f"<img src='data:image/png;base64,{data}'/>"
 
-from flask import Flask, render_template
+from flask import Flask, render_template , request
 import os
+import subprocess
 
 app = Flask(__name__)
 
@@ -33,6 +34,16 @@ image_path = os.path.join('static', 'Image', 'hist')
 
 @app.route('/')
 def plot_url():
+    return render_template('homepage.html', name= 'Homepage')
+
+
+@app.route('/histogram', methods=['POST', 'GET'])
+def plot_histogram():
+
+    if request.method == "POST":
+        subprocess.call(['make histogram'], shell=True)
+
     images = os.listdir(image_path)
     images = [os.path.join(image_path, i) for i in images]
-    return render_template('hist.html', name= 'Histogram' ,images=images)
+
+    return render_template('histogram.html', name= 'Histogram' ,images=images)
