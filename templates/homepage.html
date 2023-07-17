@@ -1,26 +1,52 @@
-<!DOCTYPE html><html><head><meta
-charset="utf-8"><meta
-name="viewport" content="width=device-width, initial-scale=1"><title>DSLR</title><style type="text/css">body{margin:40px
-auto;max-width:650px;line-height:1.6;font-size:18px;color:#444;padding:0
-10px}h1,h2,h3{line-height:1.2}</style></head><body>
-<header>
+<!DOCTYPE html>
+<html>
 
-<h1> Data Science X Logistic Regression </h1>
-<aside>This is <em> a website </em> for our project DSLR.</aside>
-<a href="https://github.com/plagache/DSLR">link to the github of our project</a>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>DSLR</title>
+	<style type="text/css">
+		body {
+			margin: 40px auto;
+			max-width: 650px;
+			line-height: 1.6;
+			font-size: 18px;
+			color: #444;
+			padding: 0 10px
+		}
 
-</header>
+		h1,
+		h2,
+		h3 {
+			line-height: 1.2
+		}
+	</style>
+</head>
 
-<hr>
+<body>
+	<header>
 
-<h1>{{ name }}</h1>
+		<h1> Data Science X Logistic Regression </h1>
+		<aside>This is <em> a website </em> for our project DSLR.</aside>
+		<a href="https://github.com/plagache/DSLR">link to the github of our project</a>
 
-<hr>
+	</header>
 
-<h2>Index</h2>
+	<hr>
 
-<a href="{{ url_for('plot_histogram') }}">Histogram</a>
+	<h1>{{ name }}</h1>
 
-<hr>
+	<hr>
 
-</body></html>
+	<h2>Index</h2>
+
+	<ul>
+		<li><a href="{{ url_for('describe') }}">Describe</a></li>
+		<li><a href="{{ url_for('plot_histogram') }}">Histogram</a></li>
+	</ul>
+
+	<hr>
+
+</body>
+
+</html>

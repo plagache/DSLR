@@ -34,8 +34,21 @@ image_path = os.path.join('static', 'Image', 'hist')
 
 @app.route('/')
 def plot_url():
-    return render_template('homepage.html', name= 'Homepage')
+    return render_template('homepage.html', name='Homepage')
 
+
+@app.route('/describe', methods=['POST', 'GET'])
+def describe():
+    table = False
+
+    if request.method == "POST":
+        subprocess.call(['make webdescribe'], shell=True)
+        # get html table
+
+    if os.path.isfile('templates/table.html'):
+        table = True
+
+    return render_template('describe.html', table=table)
 
 @app.route('/histogram', methods=['POST', 'GET'])
 def plot_histogram():
@@ -46,4 +59,4 @@ def plot_histogram():
     images = os.listdir(image_path)
     images = [os.path.join(image_path, i) for i in images]
 
-    return render_template('histogram.html', name= 'Histogram' ,images=images)
+    return render_template('histogram.html', images=images)

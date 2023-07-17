@@ -6,10 +6,17 @@ upgrade:
 	./bin/pip3.11 install --upgrade pip
 
 web: static
-	export FLASK_APP=homepage && export FLASK_ENV=development && ./bin/flask run --host=0.0.0.0
+	# export FLASK_APP=homepage && export FLASK_ENV=development &&
+	./bin/flask --app homepage.py run --host=0.0.0.0
+
+debugweb: static
+	./bin/flask --app homepage.py --debug run --host=0.0.0.0
 
 extract:
 	tar -xvf datasets.tgz
+
+webdescribe: extract
+	./bin/python3.11 describe.py --web datasets/dataset_train.csv
 
 describe: extract
 	./bin/python3.11 describe.py datasets/dataset_train.csv
@@ -31,6 +38,7 @@ static:
 clean:
 	rm -rf datasets
 	rm -rf static/Image
+	rm -rf templates/table.html
 
 .SILENT: env clean static histogram scatter describe extract web
 .PHONY: env clean static histogram scatter describe extract web

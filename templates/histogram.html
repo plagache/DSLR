@@ -1,37 +1,53 @@
-<!DOCTYPE html><html><head><meta
-charset="utf-8"><meta
-name="viewport" content="width=device-width, initial-scale=1"><title>DSLR</title><style type="text/css">body{margin:40px
-auto;max-width:650px;line-height:1.6;font-size:18px;color:#444;padding:0
-10px}h1,h2,h3{line-height:1.2}</style></head><body>
-<header>
+<!DOCTYPE html>
+<html>
 
-<h1> Histogram </h1>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>DSLR</title>
+	<style type="text/css">
+		body {
+			margin: 40px auto;
+			max-width: 650px;
+			line-height: 1.6;
+			font-size: 18px;
+			color: #444;
+			padding: 0 10px
+		}
 
-</header>
+		h1,
+		h2,
+		h3 {
+			line-height: 1.2
+		}
+	</style>
+</head>
 
-<hr>
+<body>
+	<header>
+		<h1> Histogram </h1>
+	</header>
 
-<h1>{{ name }}</h1>
-<!-- <h2>le dessin</h2> -->
+	<hr>
 
-<hr>
+	<p>Which Hogwarts course has a homogeneous score distribution between all four houses?</p>
 
- <p>Which Hogwarts course has a homogeneous score distribution between all four houses?</p>
+	<hr>
 
-<hr>
+	<form method="POST" action="{{ url_for('plot_histogram') }}">
+		<button type="submit">Make histogram</button>
+	</form>
 
-<form method="POST" action="{{ url_for('plot_histogram') }}">
-    <button type="submit">Make histogram</button>
-</form>
+	<hr>
 
-<hr>
+	<p>Ceci represente un histograme qui permettrait de repondre a la premiere question du sujet</p>
+	{% for name in images %}
+	<p>This is histogram for {{name}}</p>
+	<img src="{{name}}">
+	{% endfor %}
 
- <p>Ceci represente un histograme qui permettrait de repondre a la premiere question du sujet</p>
- {% for name in images %}
-	 <p>This is histogram for {{name}}</p>
-	 <img src="{{name}}" >
- {% endfor %}
+	<hr>
 
-<hr>
+</body>
 
-</body></html>
+</html>

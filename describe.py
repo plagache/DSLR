@@ -1,20 +1,29 @@
 #!/usr/bin/python3
 
-
 import sys
 import numpy
 import math
 import pandas
+import getopt
 
 from handle_data import create_dataframe
 
-#print(sys.argv)
+options, args = getopt.getopt(sys.argv[1:], '', ['web'])
+nbr_arg = len(args)
+nbr_opt = len(options)
 
-nbr_arg = len(sys.argv)
+html_ouput = False
+if nbr_opt > 0:
+    for option in options:
+        if option[0] == '--web':
+            html_ouput = True
 
-if nbr_arg >= 2:
-    # print(sys.argv[1])
-    dataset = create_dataframe(sys.argv[1])
+dataset = pandas.DataFrame()
+if nbr_arg >= 1:
+    dataset = create_dataframe(args[0])
+else:
+    print("no dataset provided\nusage...")
+    exit(1)
 
 
 def print_dataset():
@@ -153,7 +162,7 @@ def dataset_to_dic(dataset):
         "name" : dataset.name,
         "count" : ft_count(dataset),
         "mean" : ft_mean(dataset),
-        "standard_deviation" : standard_deviation(dataset),
+        "standard deviation" : standard_deviation(dataset),
         "min" : minimum(dataset),
         "first" : percentile(dataset, 0.25),
         "second" : percentile(dataset, 0.5),
@@ -166,9 +175,19 @@ def dataset_to_dic(dataset):
 dic_list = []
 for _, serie in cleaned.items():
     dic_list.append(dataset_to_dic(serie))
-# print(dic_list)
 
 new = pandas.DataFrame(dic_list)
 new_transpose = new.transpose()
+
+header=new_transpose.iloc[0]
+new_transpose=new_transpose[1:]
+new_transpose.columns=header
 # print(new_transpose)
-print(new_transpose.to_string())
+# exit(0)
+if html_ouput == True:
+    with open("templates/table.html", "w") as table_html:
+        table_html.write("<html>")
+        table_html.write(new_transpose.to_html())
+        table_html.write("</html>")
+else:
+    print(new_transpose.to_string())
