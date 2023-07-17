@@ -185,7 +185,7 @@ new_transpose.columns=header
 # print(new_transpose)
 # exit(0)
 if html_ouput == True:
-    with open("templates/table.html", "w") as table_html:
+    with open("templates/describe_table.html", "w") as table_html:
         table_html.write("<html>")
         table_html.write(new_transpose.to_html())
         table_html.write("</html>")

@@ -38,7 +38,7 @@ static:
 clean:
 	rm -rf datasets
 	rm -rf static/Image
-	rm -rf templates/table.html
+	rm -rf templates/describe_table.html
 
 .SILENT: env clean static histogram scatter describe extract web
 .PHONY: env clean static histogram scatter describe extract web

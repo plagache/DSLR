@@ -6,4 +6,4 @@ lib64
 pyvenv.cfg
 share/
 static/
-templates/table.html
+templates/describe_table.html

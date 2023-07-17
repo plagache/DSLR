@@ -45,7 +45,7 @@ def describe():
         subprocess.call(['make webdescribe'], shell=True)
         # get html table
 
-    if os.path.isfile('templates/table.html'):
+    if os.path.isfile('templates/describe_table.html'):
         table = True
 
     return render_template('describe.html', table=table)
