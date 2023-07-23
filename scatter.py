@@ -33,19 +33,14 @@ hufflepuff = course_with_houses.loc[course_with_houses["Hogwarts House"] == "Huf
 gryffindor = course_with_houses.loc[course_with_houses["Hogwarts House"] == "Gryffindor"]
 
 # Get a list of course pairs (Astro, Herbo)
-print("START\n")
-
 courses_list = list(numerical_features.items())
-courses_nbr = len(courses_list)
-# for t in courses_list:
-#     print(t[0])
 courses_pairs = []
 
-for i in range(0, courses_nbr, 1):
+for course in courses_list:
     # Get list of all course except of index i
-    other_courses = [courses_list[j] for j in range(0, courses_nbr, 1) if i != j]
+    other_courses = list(filter(lambda x: x != course, courses_list))
     # tuple of course[i], all other courses
-    app = (courses_list[i], other_courses)
+    app = (course, other_courses)
     courses_pairs.append(app)
 
 for given_course, given_courses in courses_pairs:
