@@ -1,9 +1,5 @@
 __pycache__/
 datasets/
-bin/
-lib/
-lib64
-pyvenv.cfg
-share/
 static/
 templates/describe_table.html
+.venv/
