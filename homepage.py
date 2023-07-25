@@ -29,7 +29,6 @@ import subprocess
 
 app = Flask(__name__)
 
-image_path = os.path.join('static', 'Image', 'hist')
 
 
 @app.route('/')
@@ -52,6 +51,7 @@ def describe():
 
 @app.route('/histogram', methods=['POST', 'GET'])
 def plot_histogram():
+    image_path = os.path.join('static', 'Image', 'hist')
 
     if request.method == "POST":
         subprocess.call(['make webhistogram'], shell=True)
@@ -60,3 +60,15 @@ def plot_histogram():
     images = [os.path.join(image_path, i) for i in images]
 
     return render_template('histogram.html', images=images)
+
+@app.route('/scatter', methods=['POST', 'GET'])
+def plot_scatter():
+    image_path = os.path.join('static', 'Image', 'scatter')
+
+    if request.method == "POST":
+        subprocess.call(['make webscatter'], shell=True)
+
+    images = os.listdir(image_path)
+    images = [os.path.join(image_path, i) for i in images]
+
+    return render_template('scatter.html', images=images)

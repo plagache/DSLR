@@ -25,6 +25,9 @@ webdescribe: extract
 	${BIN_PATH}/python3.11 describe.py --web datasets/dataset_train.csv
 
 scatter: extract static
+	${BIN_PATH}/python3.11 scatter.py --show datasets/dataset_train.csv
+
+webscatter: extract static
 	${BIN_PATH}/python3.11 scatter.py datasets/dataset_train.csv
 
 histogram: extract static
@@ -46,5 +49,5 @@ clean:
 fclean: clean
 	rm -rf ${VENV_PATH}
 
-.SILENT: env clean fclean static histogram webhistogram scatter webdescribe describe extract web debugweb
-.PHONY: env clean fclean static histogram webhistogram scatter webdescribe describe extract web debugweb
+.SILENT: env clean fclean static histogram webhistogram scatter webscatter webdescribe describe extract web debugweb
+.PHONY: env clean fclean static histogram webhistogram scatter webscatter webdescribe describe extract web debugweb
