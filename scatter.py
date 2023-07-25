@@ -25,47 +25,42 @@ else:
     exit(1)
 
 numerical_features = dataset.select_dtypes(include=["float64"])
-course_with_houses = pandas.concat([numerical_features, dataset["Hogwarts House"]], axis=1)
+subject_with_houses = pandas.concat([numerical_features, dataset["Hogwarts House"]], axis=1)
 
-ravenclaw = course_with_houses.loc[course_with_houses["Hogwarts House"] == "Ravenclaw"]
-slytherin = course_with_houses.loc[course_with_houses["Hogwarts House"] == "Slytherin"]
-hufflepuff = course_with_houses.loc[course_with_houses["Hogwarts House"] == "Hufflepuff"]
-gryffindor = course_with_houses.loc[course_with_houses["Hogwarts House"] == "Gryffindor"]
+ravenclaw = subject_with_houses.loc[subject_with_houses["Hogwarts House"] == "Ravenclaw"]
+slytherin = subject_with_houses.loc[subject_with_houses["Hogwarts House"] == "Slytherin"]
+hufflepuff = subject_with_houses.loc[subject_with_houses["Hogwarts House"] == "Hufflepuff"]
+gryffindor = subject_with_houses.loc[subject_with_houses["Hogwarts House"] == "Gryffindor"]
 
 # Get a list of course pairs (Astro, Herbo)
-courses_list = list(numerical_features.items())
-courses_pairs = []
+subjects_list = [label for label, _ in numerical_features.items()]
+subjects_pairs = []
 
-for course in courses_list:
-    # Get list of all course except of index i
-    other_courses = list(filter(lambda x: x != course, courses_list))
-    # tuple of course[i], all other courses
-    app = (course, other_courses)
-    courses_pairs.append(app)
+for subject in subjects_list:
+    # Get list of all subject except of index i
+    other_subjects = list(filter(lambda x: x != subject, subjects_list))
+    # tuple of subject[i], all other subjects
+    app = (subject, other_subjects)
+    subjects_pairs.append(app)
 
-for given_course, given_courses in courses_pairs:
-    for course in given_courses:
-        print(f"{given_course[0]} - {course[0]}")
-    print("\n")
+for given_subject, other_subjects in subjects_pairs:
+    for other_subject in other_subjects:
+        title = f"{given_subject} - {other_subject}" 
 
-# TODO scatter plot the pairs of classes
-exit(0)
-for label, _ in numerical_features.items():
+        pyplot.style.use('gruvbox.mplstyle')
+        pyplot.title(title)
 
-    pyplot.style.use('gruvbox.mplstyle')
-    pyplot.title(str(label))
+        # set xylabels
+        pyplot.scatter(ravenclaw[given_subject], ravenclaw[other_subject], alpha=0.8, label="Ravenclaw")
+        pyplot.scatter(slytherin[given_subject], slytherin[other_subject], alpha=0.8, label="Slytherin")
+        pyplot.scatter(hufflepuff[given_subject], hufflepuff[other_subject], alpha=0.8, label="Hufflepuff")
+        pyplot.scatter(gryffindor[given_subject], gryffindor[other_subject], alpha=0.8, label="Gryffindor")
+        pyplot.legend(loc='best')
 
-    # pyplot.hist(ravenclaw[label], alpha=0.5, label="Ravenclaw")
-    # pyplot.hist(slytherin[label], alpha=0.5, label="Slytherin")
-    # pyplot.hist(hufflepuff[label], alpha=0.5, label="Hufflepuff")
-    # pyplot.hist(gryffindor[label], alpha=0.5, label="Gryffindor")
+        filename = f'static/Image/scatter/{title}.png'
+        pyplot.savefig(filename, format="png")
+        print(f'created {filename}')
 
-    # pyplot.legend(loc='best')
-
-    filename = f'static/Image/scatter/{label}.png'
-    # pyplot.savefig(filename, format="png")
-    # print(f'created {filename}')
-
-    if show_plot == True:
-        pyplot.show()
-    pyplot.close()
+        if show_plot == True:
+            pyplot.show()
+        pyplot.close()
