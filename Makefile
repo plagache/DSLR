@@ -2,11 +2,11 @@ VENV_PATH = .venv
 BIN_PATH = ${VENV_PATH}/bin
 
 env:
-	python -m venv ${VENV_PATH}
-	${BIN_PATH}/pip3.11 install -r requirement.txt
+	python3.11 -m venv ${VENV_PATH}
+	${BIN_PATH}/pip install -r requirement.txt
 
 upgrade:
-	${BIN_PATH}/pip3.11 install --upgrade pip
+	${BIN_PATH}/pip install --upgrade pip
 
 web: static
 	# export FLASK_APP=homepage && export FLASK_ENV=development &&
@@ -19,22 +19,22 @@ extract:
 	tar -xvf datasets.tgz
 
 describe: extract
-	${BIN_PATH}/python3.11 describe.py datasets/dataset_train.csv
+	${BIN_PATH}/python describe.py datasets/dataset_train.csv
 
 webdescribe: extract
-	${BIN_PATH}/python3.11 describe.py --web datasets/dataset_train.csv
+	${BIN_PATH}/python describe.py --web datasets/dataset_train.csv
 
 scatter: extract static
-	${BIN_PATH}/python3.11 scatter.py --show datasets/dataset_train.csv
+	${BIN_PATH}/python scatter.py --show datasets/dataset_train.csv
 
 webscatter: extract static
-	${BIN_PATH}/python3.11 scatter.py datasets/dataset_train.csv
+	${BIN_PATH}/python scatter.py datasets/dataset_train.csv
 
 histogram: extract static
-	${BIN_PATH}/python3.11 histogram.py --show datasets/dataset_train.csv
+	${BIN_PATH}/python histogram.py --show datasets/dataset_train.csv
 
 webhistogram: extract static
-	${BIN_PATH}/python3.11 histogram.py datasets/dataset_train.csv
+	${BIN_PATH}/python histogram.py datasets/dataset_train.csv
 
 static:
 	mkdir -p static/Image/hist

@@ -34,9 +34,12 @@
 
 	<hr>
 
-	<form method="POST" action="{{ url_for('plot_histogram') }}">
-		<button type="submit">Make histogram</button>
-	</form>
+	<div style="  display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;">
+		<a href="/">back to home</a>
+		<form method="POST" action="{{ url_for('plot_histogram') }}">
+			<button type="submit">Make histogram</button>
+		</form>
+	</div>
 
 	<hr>
 

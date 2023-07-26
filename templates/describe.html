@@ -57,9 +57,12 @@
 
 	<hr>
 
-	<form method="POST" action="{{ url_for('describe') }}">
-		<button type="submit">make describe</button>
-	</form>
+	<div style="  display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;">
+		<a href="/">back to home</a>
+		<form method="POST" action="{{ url_for('describe') }}">
+			<button type="submit">make describe</button>
+		</form>
+	</div>
 
 	<hr>
 	{% if table == True %}
