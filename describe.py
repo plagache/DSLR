@@ -1,30 +1,17 @@
 #!/usr/bin/python3
 
-import sys
 import numpy
 import math
 import pandas
-import getopt
-
+import argparse
 from handle_data import create_dataframe
 
-options, args = getopt.getopt(sys.argv[1:], '', ['web'])
-nbr_arg = len(args)
-nbr_opt = len(options)
+parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
+parser.add_argument('filename', help='the dataset csv file')
+parser.add_argument('--web', action='store_true', help='export data to html output')
+args = parser.parse_args()
 
-html_ouput = False
-if nbr_opt > 0:
-    for option in options:
-        if option[0] == '--web':
-            html_ouput = True
-
-dataset = pandas.DataFrame()
-if nbr_arg >= 1:
-    dataset = create_dataframe(args[0])
-else:
-    print("no dataset provided\nusage...")
-    exit(1)
-
+dataset = create_dataframe(args.filename)
 
 def print_dataset():
     print("\nDataset :\n", dataset)
@@ -184,7 +171,7 @@ new_transpose=new_transpose[1:]
 new_transpose.columns=header
 # print(new_transpose)
 # exit(0)
-if html_ouput == True:
+if args.web == True:
     with open("templates/describe_table.html", "w") as table_html:
         table_html.write("<html>")
         table_html.write(new_transpose.to_html())

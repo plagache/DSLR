@@ -1,39 +1,26 @@
 #!/usr/bin/python3
 
-import sys
 import pandas
-import getopt
-
-from handle_data import create_dataframe
+import argparse
 import matplotlib.pyplot as pyplot
+from handle_data import create_dataframe, split_by_houses
 
-options, args = getopt.getopt(sys.argv[1:], '', ['show'])
-nbr_arg = len(args)
-nbr_opt = len(options)
+parser = argparse.ArgumentParser(description="A simple python program to print the scatter plots of a given csv dataset")
+parser.add_argument('filename', help='the dataset csv file')
+parser.add_argument('--show', action='store_true', help='hangs program to display plots')
+args = parser.parse_args()
 
-show_plot = False
-if nbr_opt > 0:
-    for option in options:
-        if option[0] == '--show':
-            show_plot = True
+dataset = create_dataframe(args.filename)
 
-dataset = pandas.DataFrame()
-if nbr_arg >= 1:
-    dataset = create_dataframe(args[0])
-else:
-    print("no dataset provided\nusage...")
-    exit(1)
 
-numerical_features = dataset.select_dtypes(include=["float64"])
-subject_with_houses = pandas.concat([numerical_features, dataset["Hogwarts House"]], axis=1)
+gryffindor, hufflepuff, ravenclaw, slytherin = split_by_houses(dataset)
+gryffindor = gryffindor.select_dtypes(include=["float64"])
+hufflepuff = hufflepuff.select_dtypes(include=["float64"])
+ravenclaw = ravenclaw.select_dtypes(include=["float64"])
+slytherin = slytherin.select_dtypes(include=["float64"])
 
-ravenclaw = subject_with_houses.loc[subject_with_houses["Hogwarts House"] == "Ravenclaw"]
-slytherin = subject_with_houses.loc[subject_with_houses["Hogwarts House"] == "Slytherin"]
-hufflepuff = subject_with_houses.loc[subject_with_houses["Hogwarts House"] == "Hufflepuff"]
-gryffindor = subject_with_houses.loc[subject_with_houses["Hogwarts House"] == "Gryffindor"]
-
+subjects_list = [label for label, _ in gryffindor.items()]
 # Get a list of course pairs (Astro, Herbo)
-subjects_list = [label for label, _ in numerical_features.items()]
 subjects_pairs = []
 
 for subject in subjects_list:
@@ -61,6 +48,6 @@ for given_subject, other_subjects in subjects_pairs:
         pyplot.savefig(filename, format="png")
         print(f'created {filename}')
 
-        if show_plot == True:
+        if args.show == True:
             pyplot.show()
         pyplot.close()
