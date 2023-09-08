@@ -36,6 +36,12 @@ histogram: extract static
 webhistogram: extract static
 	${BIN_PATH}/python histogram.py datasets/dataset_train.csv
 
+matrix: extract static
+	${BIN_PATH}/python matrix.py --show datasets/dataset_train.csv
+
+webmatrix: extract static
+	${BIN_PATH}/python matrix.py datasets/dataset_train.csv
+
 static:
 	mkdir -p static/Image/hist
 	mkdir -p static/Image/scatter

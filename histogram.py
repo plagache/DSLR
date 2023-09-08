@@ -1,15 +1,20 @@
 #!/usr/bin/python3
 
-import pandas
 import argparse
+import pandas
 import matplotlib.pyplot as pyplot
 from handle_data import create_dataframe, split_by_houses
 
+blue = '#83a598'
+green = '#b8bb26'
+yellow = '#fabd2f'
+red = '#fb4934'
 parser = argparse.ArgumentParser(description="A simple python program to print the histogram plots of a given csv dataset")
 parser.add_argument('filename', help='the dataset csv file')
 parser.add_argument('--show', action='store_true', help='hangs program to display plots')
 args = parser.parse_args()
 
+pyplot.style.use('gruvbox.mplstyle')
 dataset = create_dataframe(args.filename)
 
 
@@ -21,13 +26,12 @@ slytherin = slytherin.select_dtypes(include=["float64"])
 
 for label, _ in gryffindor.items():
 
-    pyplot.style.use('gruvbox.mplstyle')
     pyplot.title(str(label))
 
-    pyplot.hist(ravenclaw[label], alpha=0.5, label="Ravenclaw")
-    pyplot.hist(slytherin[label], alpha=0.5, label="Slytherin")
-    pyplot.hist(hufflepuff[label], alpha=0.5, label="Hufflepuff")
-    pyplot.hist(gryffindor[label], alpha=0.5, label="Gryffindor")
+    pyplot.hist(ravenclaw[label], color=blue, alpha=0.5, label="Ravenclaw")
+    pyplot.hist(slytherin[label], color=green, alpha=0.5, label="Slytherin")
+    pyplot.hist(hufflepuff[label], color=yellow, alpha=0.5, label="Hufflepuff")
+    pyplot.hist(gryffindor[label], color=red, alpha=0.5, label="Gryffindor")
 
     pyplot.legend(loc='best')
 

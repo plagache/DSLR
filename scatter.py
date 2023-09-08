@@ -1,9 +1,15 @@
 #!/usr/bin/python3
 
-import pandas
 import argparse
+import pandas
 import matplotlib.pyplot as pyplot
 from handle_data import create_dataframe, split_by_houses
+
+blue = '#83a598'
+green = '#b8bb26'
+yellow = '#fabd2f'
+red = '#fb4934'
+pyplot.style.use('gruvbox.mplstyle')
 
 parser = argparse.ArgumentParser(description="A simple python program to print the scatter plots of a given csv dataset")
 parser.add_argument('filename', help='the dataset csv file')
@@ -34,14 +40,13 @@ for given_subject, other_subjects in subjects_pairs:
     for other_subject in other_subjects:
         title = f"{given_subject} - {other_subject}" 
 
-        pyplot.style.use('gruvbox.mplstyle')
         pyplot.title(title)
 
         # set xylabels
-        pyplot.scatter(ravenclaw[given_subject], ravenclaw[other_subject], alpha=0.8, label="Ravenclaw")
-        pyplot.scatter(slytherin[given_subject], slytherin[other_subject], alpha=0.8, label="Slytherin")
-        pyplot.scatter(hufflepuff[given_subject], hufflepuff[other_subject], alpha=0.8, label="Hufflepuff")
-        pyplot.scatter(gryffindor[given_subject], gryffindor[other_subject], alpha=0.8, label="Gryffindor")
+        pyplot.scatter(ravenclaw[given_subject], ravenclaw[other_subject], c=blue, alpha=0.6, label="Ravenclaw")
+        pyplot.scatter(slytherin[given_subject], slytherin[other_subject], c=green, alpha=0.6, label="Slytherin")
+        pyplot.scatter(hufflepuff[given_subject], hufflepuff[other_subject], c=yellow, alpha=0.6, label="Hufflepuff")
+        pyplot.scatter(gryffindor[given_subject], gryffindor[other_subject], c=red, alpha=0.6, label="Gryffindor")
         pyplot.legend(loc='best')
 
         filename = f'static/Image/scatter/{title}.png'
