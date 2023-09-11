@@ -41,7 +41,22 @@
 			padding-bottom: 12px;
 			text-align: left;
 			background-color: #04AA6D;
-			color: white;
+		}
+
+		#gryffindor table th {
+			background-color: #fb4934;
+		}
+
+		#hufflepuff table th {
+			background-color: #fabd2f;
+		}
+
+		#ravenclaw table th {
+			background-color: #83a598;
+		}
+
+		#slytherin table th {
+			background-color: #b8bb26;
 		}
 	</style>
 </head>
@@ -66,8 +81,41 @@
 
 	<hr>
 	{% if table == True %}
+		<p>All dataset</p>
 		<div style="width: 900px;overflow:scroll">
 		{% include 'describe_table.html' %}
+		</div>
+	{% endif %}
+
+	{% if gryffindor == True %}
+		<hr>
+		<p>Gryffindor</p>
+		<div id="gryffindor" style="width: 900px;overflow:scroll">
+		{% include 'describe_table_gryffindor.html' %}
+		</div>
+	{% endif %}
+
+	{% if hufflepuff == True %}
+		<hr>
+		<p>Hufflepuff</p>
+		<div id="hufflepuff" style="width: 900px;overflow:scroll">
+		{% include 'describe_table_hufflepuff.html' %}
+		</div>
+	{% endif %}
+
+	{% if ravenclaw == True %}
+		<hr>
+		<p>Ravenclaw</p>
+		<div id="ravenclaw" style="width: 900px;overflow:scroll">
+		{% include 'describe_table_ravenclaw.html' %}
+		</div>
+	{% endif %}
+
+	{% if slytherin == True %}
+		<hr>
+		<p>Slytherin</p>
+		<div id="slytherin" style="width: 900px;overflow:scroll">
+		{% include 'describe_table_slytherin.html' %}
 		</div>
 	{% endif %}
 

@@ -50,7 +50,7 @@ static:
 clean:
 	rm -rf datasets
 	rm -rf static/Image
-	rm -rf templates/describe_table.html
+	rm -rf templates/describe_table*.html
 
 fclean: clean
 	rm -rf ${VENV_PATH}

@@ -3,12 +3,8 @@
 import argparse
 import pandas
 import matplotlib.pyplot as pyplot
-from handle_data import create_dataframe, split_by_houses
+from handle_data import create_dataframe, split_by_houses, blue, green, yellow, red
 
-blue = '#83a598'
-green = '#b8bb26'
-yellow = '#fabd2f'
-red = '#fb4934'
 pyplot.style.use('gruvbox.mplstyle')
 
 parser = argparse.ArgumentParser(description="A simple python program to print the scatter plots of a given csv dataset")

@@ -39,6 +39,10 @@ def homepage():
 @app.route('/describe', methods=['POST', 'GET'])
 def describe():
     table = False
+    gryffindor = False
+    hufflepuff = False
+    ravenclaw = False
+    slytherin = False
 
     if request.method == "POST":
         subprocess.call(['make webdescribe'], shell=True)
@@ -46,8 +50,16 @@ def describe():
 
     if os.path.isfile('templates/describe_table.html'):
         table = True
+    if os.path.isfile('templates/describe_table_gryffindor.html'):
+        gryffindor = True
+    if os.path.isfile('templates/describe_table_hufflepuff.html'):
+        hufflepuff = True
+    if os.path.isfile('templates/describe_table_ravenclaw.html'):
+        ravenclaw = True
+    if os.path.isfile('templates/describe_table_slytherin.html'):
+        slytherin = True
 
-    return render_template('describe.html', table=table)
+    return render_template('describe.html', table=table, gryffindor=gryffindor, hufflepuff=hufflepuff, ravenclaw=ravenclaw, slytherin=slytherin)
 
 @app.route('/histogram', methods=['POST', 'GET'])
 def histogram():

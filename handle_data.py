@@ -2,6 +2,11 @@
 
 import pandas
 
+blue = '#83a598'
+green = '#b8bb26'
+yellow = '#fabd2f'
+red = '#fb4934'
+
 def create_dataframe(csv_string):
     print(csv_string)
     csv_dataset = pandas.read_csv(csv_string)

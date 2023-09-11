@@ -3,12 +3,8 @@
 import argparse
 import pandas
 import matplotlib.pyplot as pyplot
-from handle_data import create_dataframe, split_by_houses
+from handle_data import create_dataframe, split_by_houses, blue, green, yellow, red
 
-blue = '#83a598'
-green = '#b8bb26'
-yellow = '#fabd2f'
-red = '#fb4934'
 parser = argparse.ArgumentParser(description="A simple python program to print the histogram plots of a given csv dataset")
 parser.add_argument('filename', help='the dataset csv file')
 parser.add_argument('--show', action='store_true', help='hangs program to display plots')
