@@ -25,10 +25,10 @@ webdescribe: extract
 	${BIN_PATH}/python describe.py --web datasets/dataset_train.csv
 
 scatter: extract static
-	${BIN_PATH}/python scatter.py --show datasets/dataset_train.csv
+	${BIN_PATH}/python scatter_plot.py --show datasets/dataset_train.csv
 
 webscatter: extract static
-	${BIN_PATH}/python scatter.py datasets/dataset_train.csv
+	${BIN_PATH}/python scatter_plot.py datasets/dataset_train.csv
 
 histogram: extract static
 	${BIN_PATH}/python histogram.py --show datasets/dataset_train.csv
@@ -36,11 +36,11 @@ histogram: extract static
 webhistogram: extract static
 	${BIN_PATH}/python histogram.py datasets/dataset_train.csv
 
-matrix: extract static
-	${BIN_PATH}/python matrix.py --show datasets/dataset_train.csv
+pair: extract static
+	${BIN_PATH}/python pair_plot.py --show datasets/dataset_train.csv
 
-webmatrix: extract static
-	${BIN_PATH}/python matrix.py datasets/dataset_train.csv
+webpair: extract static
+	${BIN_PATH}/python pair_plot.py datasets/dataset_train.csv
 
 static:
 	mkdir -p static/Image/hist

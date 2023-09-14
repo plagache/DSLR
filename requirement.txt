@@ -5,3 +5,4 @@ matplotx[all]
 numpy
 pandas
 pandas-stubs
+seaborn

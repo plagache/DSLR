@@ -86,3 +86,16 @@ def scatter():
     images = [os.path.join(image_path, i) for i in image_names]
 
     return render_template('scatter.html', images=images)
+
+@app.route('/pair', methods=['POST', 'GET'])
+def pair():
+    image_path = os.path.join('static', 'Image', 'pair')
+
+    if request.method == "POST":
+        subprocess.call(['make webpair'], shell=True)
+
+    image_names = os.listdir(image_path)
+    image_names.sort()
+    images = [os.path.join(image_path, i) for i in image_names]
+
+    return render_template('pair.html', images=images)
