@@ -36,7 +36,8 @@ subjects = [
         'Charms',
         'Flying'
         ]
-splot = seaborn.pairplot(dataset, vars=subjects, hue="Hogwarts House", palette=color_palette, diag_kind="hist")
+subjects.sort()
+splot = seaborn.pairplot(dataset, vars=subjects, hue="Hogwarts House", palette=color_palette, diag_kind="hist", plot_kws=dict(alpha=0.7))
 
 filename = 'static/Image/pair/pairplot.png'
 splot.savefig(filename)

@@ -43,10 +43,12 @@
 
 	<hr>
 
-	<p>Ceci represente un paire qui permettrait de repondre a la premiere question du sujet</p>
+	<p>Voici le pair plot du dataset</p>
 	{% for name in images %}
 	<p>This is pair for {{name}}</p>
-	<img src="{{name}}">
+	<div style="width: 900px;height: 900px;overflow:scroll">
+		<img src="{{name}}">
+	</div>
 	{% endfor %}
 
 	<hr>
