@@ -30,7 +30,7 @@
 
 	<hr>
 
-	<p>Some question in  the subject?</p>
+	<p>What are the two features that are similar ?</p>
 
 	<hr>
 
@@ -43,13 +43,17 @@
 
 	<hr>
 
-	<p>Ceci represente un scattere qui permettrait de repondre a la premiere question du sujet</p>
 	{% for name in images %}
 	<p>This is scatter for {{name}}</p>
 	<img src="{{name}}">
 	{% endfor %}
 
+	{% if images|length > 0 : %}
 	<hr>
+	<p>Here the scatter plot that answers the following question :</p>
+	<p>What are the two features that are similar ?</p>
+    <img src="static/Image/scatter/Arithmancy - Care of Magical Creatures.png">
+	{% endif %}
 
 </body>
 

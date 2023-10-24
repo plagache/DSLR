@@ -30,7 +30,7 @@
 
 	<hr>
 
-	<p>Some question in  the subject?</p>
+	<p>From this visualization, what features are you going to use for your logistic regression?</p>
 
 	<hr>
 
@@ -43,7 +43,6 @@
 
 	<hr>
 
-	<p>Voici le pair plot du dataset</p>
 	{% for name in images %}
 	<p>This is pair for {{name}}</p>
 	<div style="width: 900px;height: 900px;overflow:scroll">
@@ -51,7 +50,25 @@
 	</div>
 	{% endfor %}
 
+	{% if images|length > 0 : %}
 	<hr>
+	<p>This is the list of features which answers the following question :</p>
+	<p>From this visualization, what features are you going to use for your logistic regression?</p>
+	<ul>
+        <li>Arithmancy</li>
+        <li>Astronomy</li>
+        <li>Herbology</li>
+        <li>Defense Against the Dark Arts</li>
+        <li>Divination</li>
+        <li>Muggle Studies</li>
+        <li>Ancient Runes</li>
+        <li>History of Magic</li>
+        <li>Transfiguration</li>
+        <li>Potions</li>
+        <li>Charms</li>
+        <li>Flying</li>
+    </ul>
+	{% endif %}
 
 </body>
 
