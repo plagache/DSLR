@@ -12,6 +12,7 @@ color_palette = {
         "Ravenclaw": blue
         }
 
+pyplot.style.use('gruvbox.mplstyle')
 seaborn.set_theme(style="ticks")
 
 parser = argparse.ArgumentParser(description="A simple python program to print the pait plot of a given csv dataset")
@@ -37,7 +38,7 @@ subjects = [
         'Flying'
         ]
 subjects.sort()
-splot = seaborn.pairplot(dataset, vars=subjects, hue="Hogwarts House", palette=color_palette, diag_kind="hist", plot_kws=dict(alpha=0.7))
+splot = seaborn.pairplot(dataset, vars=subjects, hue="Hogwarts House", palette=color_palette, diag_kind="hist", plot_kws=dict(marker='.', alpha=0.8, sizes=5))
 
 filename = 'static/Image/pair/pairplot.png'
 splot.savefig(filename)
