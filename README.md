@@ -18,7 +18,10 @@ Data Science X Logistic Regression
     - [ ] predict
     - [ ] test accuracy
 
+- [ ] NaN Values to deal with
+- [ ] Data handling // preprossessing >> move cleaned and things like that in data
 
 ### Questions
 
 what about the absence of data ?
+during training and during prediction

@@ -10,9 +10,9 @@ in our case with have 4 class / houses / classifier
 
 our dataset is compose of a 2 layer matrix
 
-    j = column
-    x = line
-    i = index
+    j = column / lectures
+    i = index / line
+    x = Values associate with > i and j
     m = i max
 y represent if our the validity ?
 `y = 1` >> the element is of the class
@@ -68,7 +68,7 @@ this is a logistique function, its a sigmoide with L = 1
 i eme element of the j eme feature
 xij
 
-this the difference between our model prediction and the actual target
+this is the difference between our model prediction and the actual target
 i being an index
 it is the difference between the hypothesis hθ(xi) and the actual target yi
 ` diff = (hθ(xi) − yi) `
