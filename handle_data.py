@@ -21,3 +21,14 @@ def split_by_houses(dataframe):
     hufflepuff = dataframe.loc[dataframe["Hogwarts House"] == "Hufflepuff"]
     gryffindor = dataframe.loc[dataframe["Hogwarts House"] == "Gryffindor"]
     return gryffindor, hufflepuff, ravenclaw, slytherin
+
+def classer(dataset, house):
+    dataset = dataset.dropna()
+    print("-------------", dataset, "-----------------")
+    numerical_features = dataset.select_dtypes(include=["float64"])
+    houses = ["Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"]
+    houses.remove(house)
+    houses.insert(0, house)
+    dataset = dataset.replace(houses, [1., 0., 0., 0.])
+    classer = dataset["Hogwarts House"]
+    return classer, numerical_features

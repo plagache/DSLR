@@ -21,6 +21,9 @@ extract:
 describe: extract
 	${BIN_PATH}/python describe.py datasets/dataset_train.csv
 
+train: extract
+	${BIN_PATH}/python logreg_train.py datasets/dataset_train.csv
+
 webdescribe: extract
 	${BIN_PATH}/python describe.py --web datasets/dataset_train.csv
 
