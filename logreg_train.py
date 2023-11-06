@@ -1,7 +1,7 @@
 import numpy as np
 from numpy import random
 from handle_data import create_dataframe, classer
-# from math import exp
+from math import isnan
 import argparse
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
@@ -26,7 +26,8 @@ class Neuron():
         # what we want is >> weight * inputs
         z = 0
         for weight, x in zip(self.weight, inputs):
-            z += weight * x
+            if not isnan(x):
+                z += weight * x
 
         activation_function = 1 / (1 + np.exp(-z))
         return activation_function
@@ -35,9 +36,19 @@ class Neuron():
 tensor = tensor.to_numpy()
 # print("numpy array :", tensor)
 
-neuron = Neuron(len(tensor[0]))
-total = 10000
+row_size = len(tensor[0])
+neuron = Neuron(row_size)
+total = 1000
 learning_rate = 0.3
+
+def count_nan_per_column(tensor):
+    counts = [0] * 13
+    for row in tensor:
+        for index, col in enumerate(row):
+            if isnan(col):
+                counts[index] += 1
+    return counts
+number_of_missing_per_column = count_nan_per_column(tensor)
 
 for step in range(total):
 
@@ -50,21 +61,22 @@ for step in range(total):
     # print(diffs)
 
     # Update weight
-    i = 0
-    mul = 0
-    m = 0
-    for weight in neuron.weight:
+    size = 1600
+    for index, weight in enumerate(neuron.weight):
+        column_size = size - number_of_missing_per_column[index]
+        sum = 0
         # print("weight :", weight)
-        for diff, element in zip(diffs, tensor[i]):
-            m += 1
-            mul += diff * element
+        for diff, element in zip(diffs, (tensor.T)[index]):
+            if not isnan(element):
+                sum += diff * element
         # print("mul :", mul)
-        div = mul * (1 / m)
+        column_derivative = (1 / column_size) * sum
         # print("div :", div)
-        neuron.weight[i] -= learning_rate * div
-        i += 1
+        neuron.weight[index] -= learning_rate * column_derivative
 
     # print(step)
 
     if step % 100 == 0 :
         print("step :", step, "| weight :", neuron.weight)
+
+

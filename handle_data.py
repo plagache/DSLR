@@ -23,7 +23,7 @@ def split_by_houses(dataframe):
     return gryffindor, hufflepuff, ravenclaw, slytherin
 
 def classer(dataset, house):
-    dataset = dataset.dropna()
+    # dataset = dataset.dropna()
     print("-------------", dataset, "-----------------")
     numerical_features = dataset.select_dtypes(include=["float64"])
     houses = ["Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"]
