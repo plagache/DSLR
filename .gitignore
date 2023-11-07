@@ -4,3 +4,4 @@ static/
 templates/describe_table.html
 templates/describe_table*.html
 .venv/
+activate

@@ -4,6 +4,7 @@ BIN_PATH = ${VENV_PATH}/bin
 env:
 	python3.11 -m venv ${VENV_PATH}
 	${BIN_PATH}/pip install -r requirement.txt
+	ln -sf ${BIN_PATH}/activate activate
 
 upgrade:
 	${BIN_PATH}/pip install --upgrade pip
@@ -57,6 +58,7 @@ clean:
 
 fclean: clean
 	rm -rf ${VENV_PATH}
+	rm -f activate
 
 .SILENT: env clean fclean static histogram webhistogram scatter webscatter webdescribe describe extract web debugweb
 .PHONY: env clean fclean static histogram webhistogram scatter webscatter webdescribe describe extract web debugweb

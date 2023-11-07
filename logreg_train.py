@@ -18,7 +18,7 @@ print(ys, tensor)
 def sigmoid(z):
   if z > 0:   
     exp = np.exp(-z)
-    return 1 / (1 + exp)
+    return 1.0 / (1 + exp)
   else:
     exp = np.exp(z)
     return exp / (1 + exp)
@@ -28,7 +28,8 @@ class Neuron():
 
     def __init__(self, number_of_input):
         # maybe we can create some sort of a verification here
-        self.weight = [random.uniform(-1 ,1) for _ in range(number_of_input)]
+        # self.weight = np.random.rand(1, number_of_input)
+        self.weight = np.zeros(number_of_input, dtype=np.float64)
 
     def __call__(self, inputs):
         # what we want is >> weight * inputs
