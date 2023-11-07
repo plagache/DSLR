@@ -13,8 +13,16 @@ dataset = create_dataframe(args.filename)
 
 ys, tensor = classer(dataset, "Gryffindor")
 
-
 print(ys, tensor)
+
+def sigmoid(z):
+  if z > 0:   
+    exp = np.exp(-z)
+    return 1 / (1 + exp)
+  else:
+    exp = np.exp(z)
+    return exp / (1 + exp)
+
 
 class Neuron():
 
@@ -29,13 +37,13 @@ class Neuron():
             if not isnan(x):
                 z += weight * x
 
-        activation_function = 1 / (1 + np.exp(-z))
-        return activation_function
+        return sigmoid(z)
 
 
 tensor = tensor.to_numpy()
 # print("numpy array :", tensor)
 
+row_count = len(tensor)
 row_size = len(tensor[0])
 neuron = Neuron(row_size)
 total = 1000
@@ -48,22 +56,30 @@ def count_nan_per_column(tensor):
             if isnan(col):
                 counts[index] += 1
     return counts
-number_of_missing_per_column = count_nan_per_column(tensor)
+nan_counts_by_column = count_nan_per_column(tensor)
 
 for step in range(total):
+    loss = 0
 
-    outputs = [neuron(input) for input in tensor]
-    # print(outputs)
-
+    #compute output of neuron and build diffs
     diffs = []
-    for x, y in zip(outputs, ys):
-        diffs.append(x - y)
-    # print(diffs)
+    for input, y in zip(tensor, ys):
+        output = neuron(input)
+        diffs.append(output - y)
+        #diff = 0 (good prediction) => loss is 0
+        #diff != 0 (bad prediction) => loss is -inf
+
+        #update loss for row
+        if y == 1.0:
+            loss += np.log(output)
+        else:
+            loss += np.log(1 - output)
+
+    loss = - loss / row_count
 
     # Update weight
-    size = 1600
     for index, weight in enumerate(neuron.weight):
-        column_size = size - number_of_missing_per_column[index]
+        column_size = row_count - nan_counts_by_column[index]
         sum = 0
         # print("weight :", weight)
         for diff, element in zip(diffs, (tensor.T)[index]):
@@ -77,6 +93,5 @@ for step in range(total):
     # print(step)
 
     if step % 100 == 0 :
-        print("step :", step, "| weight :", neuron.weight)
-
-
+        # print(f"step : {step}| weight : {neuron.weight}| loss : {loss}| log0count {count}")
+        print(f"loss : {loss}| log0count {count}")
