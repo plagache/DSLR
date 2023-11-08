@@ -11,10 +11,13 @@ Data Science X Logistic Regression
     - [x] Histogram
     - [x] Scatter Plot (each pair of feature/course transfiguration/flying...)
     - [x] Pair Plot (matrice of scatter plots with histograms on matrice diagonal)
+    - [ ] Plot the loss evolution
 
 - [ ] Logistic Regression [Formule markdown](/formula.md)
     - [ ] train
         - [ ] SGD
+    - [ ] Save weight, loss
+    - [ ] load weight
     - [ ] predict
     - [ ] test accuracy
 
@@ -22,6 +25,7 @@ Data Science X Logistic Regression
     - [ ] Training or prediction of class1 >> use class1 mean/median value of feature
 - [ ] Normalize data with robust scaler scaled = (original - median) / (q3 - q1)
 - [ ] Data handling // preprossessing >> move cleaned and things like that in data
+- [ ] Numerization (best hand / date of birth)
 
 ### Questions
 
