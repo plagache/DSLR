@@ -60,6 +60,7 @@ def count_nan_per_column(tensor):
 nan_counts_by_column = count_nan_per_column(tensor)
 
 for step in range(total):
+    count = 0
     loss = 0
 
     #compute output of neuron and build diffs
