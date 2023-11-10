@@ -1,7 +1,6 @@
 import numpy as np
 from numpy import random
 from handle_data import create_dataframe, classer
-from math import isnan
 import argparse
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
@@ -13,15 +12,10 @@ dataset = create_dataframe(args.filename)
 
 ys, tensor = classer(dataset, "Gryffindor")
 
-print(ys, tensor)
+# print(ys, tensor)
 
 def sigmoid(z):
-  if z > 0:   
-    exp = np.exp(-z)
-    return 1.0 / (1 + exp)
-  else:
-    exp = np.exp(z)
-    return exp / (1 + exp)
+    return 1.0 / (1 + np.exp(-z))
 
 
 class Neuron():
@@ -35,30 +29,22 @@ class Neuron():
         # what we want is >> weight * inputs
         z = 0
         for weight, x in zip(self.weight, inputs):
-            if not isnan(x):
-                z += weight * x
+            z += weight * x
 
         return sigmoid(z)
 
 
 tensor = tensor.to_numpy()
+ys = ys.to_numpy()
 # print("numpy array :", tensor)
 
 row_count = len(tensor)
 row_size = len(tensor[0])
 neuron = Neuron(row_size)
-total = 1000
-learning_rate = 0.3
+total = 500
+learning_rate = 0.6
 
-def count_nan_per_column(tensor):
-    counts = [0] * 13
-    for row in tensor:
-        for index, col in enumerate(row):
-            if isnan(col):
-                counts[index] += 1
-    return counts
-nan_counts_by_column = count_nan_per_column(tensor)
-
+losses = []
 for step in range(total):
     count = 0
     loss = 0
@@ -68,8 +54,6 @@ for step in range(total):
     for input, y in zip(tensor, ys):
         output = neuron(input)
         diffs.append(output - y)
-        #diff = 0 (good prediction) => loss is 0
-        #diff != 0 (bad prediction) => loss is -inf
 
         #update loss for row
         if y == 1.0:
@@ -78,21 +62,18 @@ for step in range(total):
             loss += np.log(1 - output)
 
     loss = - loss / row_count
+    losses.append(loss)
 
     # Update weight
     for index, weight in enumerate(neuron.weight):
-        column_size = row_count - nan_counts_by_column[index]
         sum = 0
         # print("weight :", weight)
         for diff, element in zip(diffs, (tensor.T)[index]):
-            if not isnan(element):
-                sum += diff * element
+            sum += diff * element
         # print("mul :", mul)
-        column_derivative = (1 / column_size) * sum
+        column_derivative = (1 / row_count) * sum
         # print("div :", div)
         neuron.weight[index] -= learning_rate * column_derivative
-
-    # print(step)
 
     if step % 100 == 0 :
         # print(f"step : {step}| weight : {neuron.weight}| loss : {loss}| log0count {count}")

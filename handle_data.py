@@ -16,6 +16,13 @@ def create_dataframe(csv_string):
 
     return dataset
 
+def cleanup_nan(dataframe):
+    cleaned_series = []
+    for _, serie in dataframe.items():
+        serie.dropna(inplace=True, ignore_index=True)
+        cleaned_series.append(serie)
+    return pandas.concat(cleaned_series, axis=1)
+
 def split_by_houses(dataframe):
     ravenclaw = dataframe.loc[dataframe["Hogwarts House"] == "Ravenclaw"]
     slytherin = dataframe.loc[dataframe["Hogwarts House"] == "Slytherin"]
@@ -24,15 +31,16 @@ def split_by_houses(dataframe):
     return gryffindor, hufflepuff, ravenclaw, slytherin
 
 def classer(dataset, house):
-    # dataset = dataset.dropna()
-    print("-------------", dataset, "-----------------")
     numerical_features = dataset.select_dtypes(include=["float64"])
+    # dataset = dataset.dropna(ignore_index = True)
+    scaled = robust_scale(numerical_features)
+
     houses = ["Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"]
     houses.remove(house)
     houses.insert(0, house)
-    dataset = dataset.replace(houses, [1., 0., 0., 0.])
-    classer = dataset["Hogwarts House"]
-    return classer, numerical_features
+
+    classer = dataset["Hogwarts House"].replace(houses, [1., 0., 0., 0.])
+    return classer, scaled
 
 def ft_count(array):
     counter = 0
@@ -132,3 +140,14 @@ def percentile(array, percent : float):
     # percent = 0
     # return value
     return round(value, 6)
+
+def robust_scale(dataframe: pandas.DataFrame):
+    ret = pandas.DataFrame()
+    for name, data in dataframe.items():
+        first = percentile(data, .25)
+        second = percentile(data, .5)
+        third = percentile(data, .75)
+        # First replace nan with median value
+        # Then scale the values
+        ret[name] = data.fillna(second).map(lambda x: (x - second) / (third - first))
+    return ret

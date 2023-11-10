@@ -2,7 +2,7 @@
 
 import pandas
 import argparse
-from handle_data import create_dataframe, split_by_houses, ft_count, ft_mean, standard_deviation, minimum, maximum, percentile
+from handle_data import create_dataframe, cleanup_nan, split_by_houses, ft_count, ft_mean, standard_deviation, minimum, maximum, percentile
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
 parser.add_argument('filename', help='the dataset csv file')
@@ -31,14 +31,7 @@ def print_dataset():
 
 numerical_features = dataset.select_dtypes(include=["float64"])
 
-def cleanup(dataframe):
-    cleaned_series = []
-    for _, serie in dataframe.items():
-        serie.dropna(inplace=True, ignore_index=True)
-        cleaned_series.append(serie)
-    return pandas.concat(cleaned_series, axis=1)
-
-cleaned = cleanup(numerical_features)
+cleaned = cleanup_nan(numerical_features)
 # print(cleaned)
 
 
@@ -89,19 +82,19 @@ if args.web == True:
 
     gryffindor, hufflepuff, ravenclaw, slytherin = split_by_houses(dataset)
 
-    gryffindor = cleanup(gryffindor.select_dtypes(include=["float64"]))
+    gryffindor = cleanup_nan(gryffindor.select_dtypes(include=["float64"]))
     described_gryffindor = getDescribeDataframe(gryffindor)
     writeToHtmlTable(described_gryffindor, "gryffindor")
 
-    hufflepuff = cleanup(hufflepuff.select_dtypes(include=["float64"]))
+    hufflepuff = cleanup_nan(hufflepuff.select_dtypes(include=["float64"]))
     described_hufflepuff = getDescribeDataframe(hufflepuff)
     writeToHtmlTable(described_hufflepuff, "hufflepuff")
 
-    ravenclaw = cleanup(ravenclaw.select_dtypes(include=["float64"]))
+    ravenclaw = cleanup_nan(ravenclaw.select_dtypes(include=["float64"]))
     described_ravenclaw = getDescribeDataframe(ravenclaw)
     writeToHtmlTable(described_ravenclaw, "ravenclaw")
 
-    slytherin = cleanup(slytherin.select_dtypes(include=["float64"]))
+    slytherin = cleanup_nan(slytherin.select_dtypes(include=["float64"]))
     described_slytherin = getDescribeDataframe(slytherin)
     writeToHtmlTable(described_slytherin, "slytherin")
 else:
