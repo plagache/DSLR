@@ -21,9 +21,9 @@ Data Science X Logistic Regression
     - [ ] predict
     - [ ] test accuracy
 
-- [ ] NaN Values to deal with
+- [x] NaN Values to deal with
     - [ ] Training or prediction of class1 >> use class1 mean/median value of feature
-- [ ] Normalize data with robust scaler scaled = (original - median) / (q3 - q1)
+- [x] Normalize data with robust scaler scaled = (original - median) / (q3 - q1)
 - [ ] Data handling // preprossessing >> move cleaned and things like that in data
 - [ ] Numerization (best hand / date of birth)
 

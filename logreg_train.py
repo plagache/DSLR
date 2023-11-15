@@ -21,7 +21,6 @@ def sigmoid(z):
 class Neuron():
 
     def __init__(self, number_of_input):
-        # maybe we can create some sort of a verification here
         # self.weight = np.random.rand(1, number_of_input)
         self.weight = np.zeros(number_of_input, dtype=np.float64)
 
@@ -45,36 +44,32 @@ total = 500
 learning_rate = 0.6
 
 losses = []
-for step in range(total):
-    count = 0
+
+def optimizer():
+    # input: tensor, ys, neuron.weight
+    # output: outputs, diffs, losses
+    z = neuron.weight @ tensor.T
+    outputs = sigmoid(z)
+    diffs = outputs - ys
     loss = 0
-
-    #compute output of neuron and build diffs
-    diffs = []
-    for input, y in zip(tensor, ys):
-        output = neuron(input)
-        diffs.append(output - y)
-
-        #update loss for row
+    for element, y in zip(outputs, ys):
         if y == 1.0:
-            loss += np.log(output)
+            loss += np.log(element)
         else:
-            loss += np.log(1 - output)
-
+            loss += np.log(1 - element)
     loss = - loss / row_count
     losses.append(loss)
 
     # Update weight
-    for index, weight in enumerate(neuron.weight):
-        sum = 0
-        # print("weight :", weight)
-        for diff, element in zip(diffs, (tensor.T)[index]):
-            sum += diff * element
-        # print("mul :", mul)
-        column_derivative = (1 / row_count) * sum
-        # print("div :", div)
-        neuron.weight[index] -= learning_rate * column_derivative
+    # inputs: neuron.weight, diffs, tensor
+    # outputs: neuron.weight.updater
+    # diffs @ tensor = [13, 1]
+    derivative = diffs @ tensor
+    derivative /= row_count
+    neuron.weight -= learning_rate * derivative
 
+
+for step in range(total):
+    optimizer()
     if step % 100 == 0 :
-        # print(f"step : {step}| weight : {neuron.weight}| loss : {loss}| log0count {count}")
-        print(f"loss : {loss}| log0count {count}")
+        print(f"step : {step}| weight : {neuron.weight}| loss : {losses[-1]}")
