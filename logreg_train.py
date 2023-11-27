@@ -1,4 +1,5 @@
 import numpy as np
+from nn import Neuron
 from numpy import random
 from handle_data import create_dataframe, classer
 import argparse
@@ -14,28 +15,12 @@ ys, tensor = classer(dataset, "Gryffindor")
 
 # print(ys, tensor)
 
-def sigmoid(z):
-    return 1.0 / (1 + np.exp(-z))
-
-
-class Neuron():
-
-    def __init__(self, number_of_input):
-        # self.weight = np.random.rand(1, number_of_input)
-        self.weight = np.zeros(number_of_input, dtype=np.float64)
-
-    def __call__(self, inputs):
-        # what we want is >> weight * inputs
-        z = 0
-        for weight, x in zip(self.weight, inputs):
-            z += weight * x
-
-        return sigmoid(z)
 
 
 tensor = tensor.to_numpy()
 ys = ys.to_numpy()
 # print("numpy array :", tensor)
+# print("numpy ys :", ys)
 
 row_count = len(tensor)
 row_size = len(tensor[0])
@@ -48,15 +33,14 @@ losses = []
 def optimizer():
     # input: tensor, ys, neuron.weight
     # output: outputs, diffs, losses
-    z = neuron.weight @ tensor.T
-    outputs = sigmoid(z)
+    # z = neuron.weight @ tensor.T
+    # outputs = sigmoid(z)
+    # outputs = neuron(tensor.T)
+    outputs = neuron.outputs(tensor.T)
     diffs = outputs - ys
     loss = 0
     for element, y in zip(outputs, ys):
-        if y == 1.0:
-            loss += np.log(element)
-        else:
-            loss += np.log(1 - element)
+        loss += y * np.log(element) + (1 - y) * np.log(1 - element)
     loss = - loss / row_count
     losses.append(loss)
 
@@ -69,7 +53,21 @@ def optimizer():
     neuron.weight -= learning_rate * derivative
 
 
+def save_weight(neuron):
+    file = open("neuron_weight.csv", "w")
+    file.write("w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13\n")
+    line = ""
+    for index, weight in enumerate(neuron.weight):
+        if index > 0:
+            line += ","
+        line += f"{weight}"
+    line += "\n"
+    file.write(line)
+    file.close()
+
+
 for step in range(total):
     optimizer()
     if step % 100 == 0 :
-        print(f"step : {step}| weight : {neuron.weight}| loss : {losses[-1]}")
+        print(f"step : {step}\nloss : {losses[-1]}\nweight : {neuron.weight}\n")
+save_weight(neuron)

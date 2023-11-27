@@ -33,13 +33,20 @@ def split_by_houses(dataframe):
 def classer(dataset, house):
     numerical_features = dataset.select_dtypes(include=["float64"])
     # dataset = dataset.dropna(ignore_index = True)
-    scaled = robust_scale(numerical_features)
+    scaled, quartiles = robust_scale(numerical_features)
 
     houses = ["Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"]
     houses.remove(house)
     houses.insert(0, house)
 
     classer = dataset["Hogwarts House"].replace(houses, [1., 0., 0., 0.])
+
+    file = open("quartiles.csv", "w")
+    file.write("Q1,Q2,Q3\n")
+    for element in quartiles:
+        file.write(f"{element[0]},{element[1]},{element[2]}\n")
+    file.close()
+
     return classer, scaled
 
 def ft_count(array):
@@ -143,6 +150,7 @@ def percentile(array, percent : float):
 
 def robust_scale(dataframe: pandas.DataFrame):
     ret = pandas.DataFrame()
+    quartiles = []
     for name, data in dataframe.items():
         first = percentile(data, .25)
         second = percentile(data, .5)
@@ -150,4 +158,5 @@ def robust_scale(dataframe: pandas.DataFrame):
         # First replace nan with median value
         # Then scale the values
         ret[name] = data.fillna(second).map(lambda x: (x - second) / (third - first))
-    return ret
+        quartiles.append((first, second, third))
+    return ret, quartiles
