@@ -39,14 +39,26 @@ neuron = Neuron(row_size, weights)
 
 
 outputs = neuron.outputs(dataset.T)
-print(outputs)
+# print(outputs)
+# print(len(outputs))
+
+def decoder(outputs):
+    houses=[]
+    for line in outputs:
+        if line > 0.5:
+            houses.append("Gryffindor")
+        else:
+            houses.append("not")
+    return houses
 
 
 def save_houses(results):
     file = open("houses.csv", "w")
-    file.write("Index,Hogwarts House\n")
-    line = ""
-    # for index, house in enumerate(results):
-    line += "\n"
+    line = "Index,Hogwarts House\n"
+    for index, house in enumerate(results):
+        line += f"{index},{house}\n"
     file.write(line)
     file.close()
+
+results = decoder(outputs)
+save_houses(results)
