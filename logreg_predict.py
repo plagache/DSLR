@@ -1,7 +1,7 @@
 import argparse
 from nn import Neuron
 
-from handle_data import create_dataframe
+from handle_data import classer, create_dataframe
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
 parser.add_argument('dataset', help='the dataset csv file')
@@ -10,26 +10,36 @@ parser.add_argument('quartiles', help='the quartiles csv file')
 args = parser.parse_args()
 
 dataset = create_dataframe(args.dataset)
+dataset = dataset.drop(columns="Hogwarts House")
+
 weights = create_dataframe(args.weights)
 quartiles = create_dataframe(args.quartiles)
 
+list_quartiles = []
+for row in quartiles.itertuples(index=False, name=None):
+    list_quartiles.append(row)
+# print(list_quartiles)
 
-print (weights, "\n", quartiles, "\n")
+# print (weights, "\n", quartiles, "\n")
 
 
+# exit()
+dataset = classer(dataset, None, list_quartiles)
+# print(dataset)
 dataset = dataset.to_numpy()
-
+# print(dataset)
 
 # print(weights[0])
 weights = weights.iloc[0].to_numpy()
-print(weights)
+# print(weights)
 row_size = weights.size
-print(row_size)
+# print(row_size)
 neuron = Neuron(row_size, weights)
-print(neuron.weight)
+# print(neuron.weight)
 
 
-outputs = neuron.outputs()
+outputs = neuron.outputs(dataset.T)
+print(outputs)
 
 
 def save_houses(results):

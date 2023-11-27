@@ -13,7 +13,7 @@ dataset = create_dataframe(args.filename)
 
 ys, tensor = classer(dataset, "Gryffindor")
 
-# print(ys, tensor)
+print(ys, tensor)
 
 
 
