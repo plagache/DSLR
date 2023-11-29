@@ -24,7 +24,7 @@ for row in quartiles.itertuples(index=False, name=None):
 
 
 # exit()
-dataset = classer(dataset, None, list_quartiles)
+_, dataset = classer(dataset, None, list_quartiles)
 # print(dataset)
 dataset = dataset.to_numpy()
 # print(dataset)

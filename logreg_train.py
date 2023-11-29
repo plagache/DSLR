@@ -55,14 +55,17 @@ def optimizer():
 
 def save_weight(neuron):
     file = open("neuron_weight.csv", "w")
-    file.write("w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13\n")
+    first_line = ""
     line = ""
     for index, weight in enumerate(neuron.weight):
         if index > 0:
+            first_line += ","
             line += ","
+        first_line += f"w{index}"
         line += f"{weight}"
+    first_line += "\n"
     line += "\n"
-    file.write(line)
+    file.write(first_line + line)
     file.close()
 
 

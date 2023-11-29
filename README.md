@@ -16,13 +16,13 @@ Data Science X Logistic Regression
 - [ ] Logistic Regression [Formule markdown](/formula.md)
     - [ ] train
         - [ ] SGD
-    - [ ] Save weight, loss
-    - [ ] load weight
+    - [x] Save weight, loss
+    - [x] load weight
     - [ ] predict
     - [ ] test accuracy
 
 - [x] NaN Values to deal with
-    - [ ] Training or prediction of class1 >> use class1 mean/median value of feature
+    - [x] Training or prediction of class1 >> use class1 mean/median value of feature
 - [x] Normalize data with robust scaler scaled = (original - median) / (q3 - q1)
 - [ ] Data handling // preprossessing >> move cleaned and things like that in data
 - [ ] Numerization (best hand / date of birth)
@@ -31,5 +31,7 @@ Data Science X Logistic Regression
 
 what about the absence of data ?
 during training and during prediction
+fill with mean
 
 During prediciton if multiple classes found for a given student how to decide which one?
+Choose class with highest probability
