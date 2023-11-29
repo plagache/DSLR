@@ -1,7 +1,8 @@
 import argparse
 from nn import Neuron
+import pandas
 
-from handle_data import classer, create_dataframe
+from handle_data import classer, create_dataframe, split_by_houses
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
 parser.add_argument('dataset', help='the dataset csv file')
@@ -12,7 +13,7 @@ args = parser.parse_args()
 dataset = create_dataframe(args.dataset)
 dataset = dataset.drop(columns="Hogwarts House")
 
-weights = create_dataframe(args.weights)
+parameters = create_dataframe(args.weights)
 quartiles = create_dataframe(args.quartiles)
 
 list_quartiles = []
@@ -21,26 +22,10 @@ for row in quartiles.itertuples(index=False, name=None):
 # print(list_quartiles)
 
 # print (weights, "\n", quartiles, "\n")
+# print (parameters, "\n")
 
-
-# exit()
 _, dataset = classer(dataset, None, list_quartiles)
-# print(dataset)
 dataset = dataset.to_numpy()
-# print(dataset)
-
-# print(weights[0])
-weights = weights.iloc[0].to_numpy()
-# print(weights)
-row_size = weights.size
-# print(row_size)
-neuron = Neuron(row_size, weights)
-# print(neuron.weight)
-
-
-outputs = neuron.outputs(dataset.T)
-# print(outputs)
-# print(len(outputs))
 
 def decoder(outputs):
     houses=[]
@@ -60,5 +45,20 @@ def save_houses(results):
     file.write(line)
     file.close()
 
-results = decoder(outputs)
-save_houses(results)
+
+models = pandas.DataFrame()
+
+for house in split_by_houses(parameters):
+    # print(house)
+
+    house_name = house["Hogwarts House"].iloc[0]
+    # print(house_name)
+
+    weights = house.select_dtypes(include=["float64"]).to_numpy().reshape(-1)
+    # print(weights)
+
+    neuron = Neuron(weights.size, weights)
+
+    models[house_name] = neuron.outputs(dataset.T)
+
+print(models)

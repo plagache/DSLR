@@ -35,16 +35,13 @@ def optimizer(tensor, neuron, ys):
     return loss
 
 
-def save_weight(neuron, header):
+def save_weight(neuron, house, header):
     file = open("weights.csv", "a")
-    first_line = ""
-    line = ""
+    first_line = "Hogwarts House"
+    line = house
     for index, weight in enumerate(neuron.weight):
-        if index > 0:
-            first_line += ","
-            line += ","
-        first_line += f"w{index}"
-        line += f"{weight}"
+        first_line += f",w{index}"
+        line += f",{weight}"
     first_line += "\n"
     line += "\n"
     if header == True:
@@ -80,4 +77,4 @@ for index, house in enumerate(houses):
         losses.append(loss)
         if step % 100 == 0 :
             print(f"step : {step}\nloss : {losses[-1]}\nweight : {neuron.weight}\n")
-    save_weight(neuron, header)
+    save_weight(neuron, house, header)

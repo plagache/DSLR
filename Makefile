@@ -26,7 +26,7 @@ train: extract
 	${BIN_PATH}/python logreg_train.py datasets/dataset_train.csv
 
 predict: extract
-	${BIN_PATH}/python logreg_predict.py datasets/dataset_test.csv neuron_weight.csv quartiles.csv
+	${BIN_PATH}/python logreg_predict.py datasets/dataset_test.csv weights.csv quartiles.csv
 
 webdescribe: extract
 	${BIN_PATH}/python describe.py --web datasets/dataset_train.csv
