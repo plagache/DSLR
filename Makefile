@@ -58,6 +58,9 @@ clean:
 	rm -rf datasets
 	rm -rf static/Image
 	rm -rf templates/describe_table*.html
+	rm -rf houses.csv
+	rm -rf weights.csv
+	rm -rf quartiles.csv
 
 fclean: clean
 	rm -rf ${VENV_PATH}

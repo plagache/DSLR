@@ -42,7 +42,7 @@ def classer(dataset, house, quartiles=None):
     scaled = robust_scale(numerical_features, quartiles)
 
     if train is False:
-        return None, scaled
+        return pandas.DataFrame(), scaled
 
     houses = ["Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"]
     houses.remove(house)

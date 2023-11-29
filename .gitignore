@@ -5,6 +5,6 @@ templates/describe_table.html
 templates/describe_table*.html
 .venv/
 activate
-neuron_weight.csv
+weights.csv
 quartiles.csv
 houses.csv

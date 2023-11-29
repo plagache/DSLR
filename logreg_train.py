@@ -11,38 +11,19 @@ args = parser.parse_args()
 
 dataset = create_dataframe(args.filename)
 
-ys, tensor = classer(dataset, "Gryffindor")
 
-print(ys, tensor)
-
-
-
-tensor = tensor.to_numpy()
-ys = ys.to_numpy()
-# print("numpy array :", tensor)
-# print("numpy ys :", ys)
-
-row_count = len(tensor)
-row_size = len(tensor[0])
-neuron = Neuron(row_size)
-total = 500
-learning_rate = 0.6
-
-losses = []
-
-def optimizer():
+def optimizer(tensor, neuron, ys):
     # input: tensor, ys, neuron.weight
     # output: outputs, diffs, losses
-    # z = neuron.weight @ tensor.T
-    # outputs = sigmoid(z)
-    # outputs = neuron(tensor.T)
+    row_count = len(tensor)
+    loss = 0
+
     outputs = neuron.outputs(tensor.T)
     diffs = outputs - ys
-    loss = 0
+
     for element, y in zip(outputs, ys):
         loss += y * np.log(element) + (1 - y) * np.log(1 - element)
     loss = - loss / row_count
-    losses.append(loss)
 
     # Update weight
     # inputs: neuron.weight, diffs, tensor
@@ -51,10 +32,11 @@ def optimizer():
     derivative = diffs @ tensor
     derivative /= row_count
     neuron.weight -= learning_rate * derivative
+    return loss
 
 
-def save_weight(neuron):
-    file = open("neuron_weight.csv", "w")
+def save_weight(neuron, header):
+    file = open("weights.csv", "a")
     first_line = ""
     line = ""
     for index, weight in enumerate(neuron.weight):
@@ -65,12 +47,37 @@ def save_weight(neuron):
         line += f"{weight}"
     first_line += "\n"
     line += "\n"
-    file.write(first_line + line)
+    if header == True:
+        file.write(first_line + line)
+    else:
+        file.write(line)
     file.close()
 
 
-for step in range(total):
-    optimizer()
-    if step % 100 == 0 :
-        print(f"step : {step}\nloss : {losses[-1]}\nweight : {neuron.weight}\n")
-save_weight(neuron)
+open('weights.csv', 'w').close()
+
+houses = ["Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"]
+for index, house in enumerate(houses):
+    ys, tensor = classer(dataset, house)
+    print(ys, tensor)
+
+    header = True if index == 0 else False
+
+    tensor = tensor.to_numpy()
+    ys = ys.to_numpy()
+    # print("numpy array :", tensor)
+    # print("numpy ys :", ys)
+
+    row_size = len(tensor[0])
+    neuron = Neuron(row_size)
+    total = 500
+    learning_rate = 0.6
+
+    losses = []
+
+    for step in range(total):
+        loss = optimizer(tensor, neuron, ys)
+        losses.append(loss)
+        if step % 100 == 0 :
+            print(f"step : {step}\nloss : {losses[-1]}\nweight : {neuron.weight}\n")
+    save_weight(neuron, header)
