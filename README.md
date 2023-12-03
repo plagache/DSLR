@@ -17,7 +17,7 @@ Data Science X Logistic Regression
     - [x] train
         - [ ] SGD
     - [x] Save weight, loss
-    - [ ] Refactor save weight with pandas csv
+    - [ ] Refactor save weight, loss with pandas csv
     - [x] load weight
     - [x] predict
 
