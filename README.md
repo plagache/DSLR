@@ -11,12 +11,13 @@ Data Science X Logistic Regression
     - [x] Histogram
     - [x] Scatter Plot (each pair of feature/course transfiguration/flying...)
     - [x] Pair Plot (matrice of scatter plots with histograms on matrice diagonal)
-    - [ ] Plot the loss evolution
+    - [x] Plot the loss evolution
 
 - [x] Logistic Regression [Formule markdown](/formula.md)
     - [x] train
         - [ ] SGD
     - [x] Save weight, loss
+    - [ ] Refactor save weight with pandas csv
     - [x] load weight
     - [x] predict
 

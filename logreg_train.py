@@ -1,4 +1,5 @@
 import numpy as np
+from graph import draw_losses
 from nn import Neuron
 from numpy import random
 from handle_data import create_dataframe, classer
@@ -13,6 +14,7 @@ dataset = create_dataframe(args.filename)
 
 
 def optimizer(tensor, neuron, ys):
+    # Separate tensor and ys here
     # input: tensor, ys, neuron.weight
     # output: outputs, diffs, losses
     row_count = len(tensor)
@@ -55,8 +57,9 @@ open('weights.csv', 'w').close()
 
 houses = ["Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"]
 for index, house in enumerate(houses):
+    # Merge ys at the end of tensor
     ys, tensor = classer(dataset, house)
-    print(ys, tensor)
+    # print(ys, tensor)
 
     header = True if index == 0 else False
 
@@ -67,14 +70,17 @@ for index, house in enumerate(houses):
 
     row_size = len(tensor[0])
     neuron = Neuron(row_size)
-    total = 500
+    total = 1000
     learning_rate = 0.6
 
     losses = []
 
     for step in range(total):
+        # here we can shuffle a random part of our tensor to make SGD
         loss = optimizer(tensor, neuron, ys)
         losses.append(loss)
         if step % 100 == 0 :
             print(f"step : {step}\nloss : {losses[-1]}\nweight : {neuron.weight}\n")
     save_weight(neuron, house, header)
+    # print(f"Losses : {losses}")
+    draw_losses(losses, house)
