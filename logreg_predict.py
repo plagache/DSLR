@@ -27,24 +27,6 @@ for row in quartiles.itertuples(index=False, name=None):
 _, dataset = classer(dataset, None, list_quartiles)
 dataset = dataset.to_numpy()
 
-def decoder(outputs):
-    houses=[]
-    for line in outputs:
-        if line > 0.5:
-            houses.append("Gryffindor")
-        else:
-            houses.append("not")
-    return houses
-
-
-def save_houses(results):
-    file = open("houses.csv", "w")
-    line = "Index,Hogwarts House\n"
-    for index, house in enumerate(results):
-        line += f"{index},{house}\n"
-    file.write(line)
-    file.close()
-
 
 models = pandas.DataFrame()
 
@@ -62,3 +44,8 @@ for house in split_by_houses(parameters):
     models[house_name] = neuron.outputs(dataset.T)
 
 print(models)
+# print(models.idxmax(axis="columns"))
+
+
+prediction = models.idxmax(axis="columns")
+prediction.to_csv("houses.csv", index_label="Index", header=["Hogwarts House"])
