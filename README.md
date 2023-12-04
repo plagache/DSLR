@@ -3,23 +3,23 @@ Data Science X Logistic Regression
 
 ### ToDo
 
-- [x] Describe
+- [x] [Describe](describe.py)
     - [x] get list of cleaned numerical dataset
     - [x] func(dataset: Series[float]) -> dic(min: float, max: float, ...)
 
 - [x] Data Visualization
-    - [x] Histogram
-    - [x] Scatter Plot (each pair of feature/course transfiguration/flying...)
-    - [x] Pair Plot (matrice of scatter plots with histograms on matrice diagonal)
-    - [x] Plot the loss evolution
+    - [x] [Histogram](histogram.py)
+    - [x] [Scatter Plot](scatter_plot.py) (each pair of feature/course transfiguration/flying...)]
+    - [x] [Pair Plot](pair_plot.py) (matrice of scatter plots with histograms on matrice diagonal)
+    - [x] [Loss Plot](graph.py)
 
 - [x] Logistic Regression [Formule markdown](/formula.md)
-    - [x] train
+    - [x] [Logreg Train](logreg_train.py)
         - [ ] SGD
     - [x] Save weight, loss
     - [ ] Refactor save weight, loss with pandas csv
     - [x] load weight
-    - [x] predict
+    - [x] [Logreg Predict](logreg_predict.py)
 
 - [x] NaN Values to deal with
     - [x] Training or prediction of class1 >> use class1 mean/median value of feature
