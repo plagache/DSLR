@@ -1,4 +1,5 @@
 import numpy as np
+import pandas
 from graph import draw_losses
 from nn import Neuron
 from numpy import random
@@ -37,31 +38,14 @@ def optimizer(tensor, neuron, ys):
     return loss
 
 
-def save_weight(neuron, house, header):
-    file = open("weights.csv", "a")
-    first_line = "Hogwarts House"
-    line = house
-    for index, weight in enumerate(neuron.weight):
-        first_line += f",w{index}"
-        line += f",{weight}"
-    first_line += "\n"
-    line += "\n"
-    if header == True:
-        file.write(first_line + line)
-    else:
-        file.write(line)
-    file.close()
-
-
-open('weights.csv', 'w').close()
-
 houses = ["Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"]
+columns_name = [f"w{index}" for index in range(1, 14)]
+weights_matrix = []
+losses_matrix = []
 for index, house in enumerate(houses):
     # Merge ys at the end of tensor
     ys, tensor = classer(dataset, house)
     # print(ys, tensor)
-
-    header = True if index == 0 else False
 
     tensor = tensor.to_numpy()
     ys = ys.to_numpy()
@@ -81,6 +65,14 @@ for index, house in enumerate(houses):
         losses.append(loss)
         if step % 100 == 0 :
             print(f"step : {step}\nloss : {losses[-1]}\nweight : {neuron.weight}\n")
-    save_weight(neuron, house, header)
-    # print(f"Losses : {losses}")
-    draw_losses(losses, house)
+
+    weights_matrix.append(neuron.weight)
+    losses_matrix.append(losses)
+
+
+losses_matrix = np.array(losses_matrix)
+losses_df = pandas.DataFrame(losses_matrix.T, columns=houses)
+losses_df.to_csv("tmp/losses.csv", index=False)
+
+weights_df = pandas.DataFrame(weights_matrix, index=houses, columns=columns_name)
+weights_df.to_csv("tmp/weights.csv", index_label="Hogwarts House")

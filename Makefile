@@ -22,11 +22,11 @@ extract:
 describe: extract
 	${BIN_PATH}/python describe.py datasets/dataset_train.csv
 
-train: extract
+train: extract static
 	${BIN_PATH}/python logreg_train.py datasets/dataset_train.csv
 
 predict: extract
-	${BIN_PATH}/python logreg_predict.py datasets/dataset_test.csv weights.csv quartiles.csv
+	${BIN_PATH}/python logreg_predict.py datasets/dataset_test.csv tmp/weights.csv tmp/quartiles.csv
 
 webdescribe: extract
 	${BIN_PATH}/python describe.py --web datasets/dataset_train.csv
@@ -53,18 +53,18 @@ static:
 	mkdir -p static/Image/hist
 	mkdir -p static/Image/scatter
 	mkdir -p static/Image/pair
+	mkdir -p static/Image/loss
 
 clean:
 	rm -rf datasets
 	rm -rf static/Image
 	rm -rf templates/describe_table*.html
+	rm -rf tmp/*
 	rm -rf houses.csv
-	rm -rf weights.csv
-	rm -rf quartiles.csv
 
 fclean: clean
 	rm -rf ${VENV_PATH}
 	rm -f activate
 
-.SILENT: env clean fclean static histogram webhistogram scatter webscatter webdescribe describe extract web debugweb
+.SILENT:
 .PHONY: env clean fclean static histogram webhistogram scatter webscatter webdescribe describe extract web debugweb

@@ -162,11 +162,8 @@ def set_quartiles(dataframe):
         # Then scale the values
         quartiles.append((first, second, third))
 
-    file = open("quartiles.csv", "w")
-    file.write("Q1,Q2,Q3\n")
-    for element in quartiles:
-        file.write(f"{element[0]},{element[1]},{element[2]}\n")
-    file.close()
+    df = pandas.DataFrame(quartiles, columns=["Q1", "Q2", "Q3"])
+    df.to_csv("tmp/quartiles.csv", index=False)
 
     return quartiles
 

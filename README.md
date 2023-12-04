@@ -17,7 +17,7 @@ Data Science X Logistic Regression
     - [x] [Logreg Train](logreg_train.py)
         - [ ] SGD
     - [x] Save weight, loss
-    - [ ] Refactor save weight, loss with pandas csv
+    - [x] Refactor save weight, loss with pandas csv
     - [x] load weight
     - [x] [Logreg Predict](logreg_predict.py)
 
@@ -26,7 +26,7 @@ Data Science X Logistic Regression
 - [x] Normalize data with robust scaler scaled = (original - median) / (q3 - q1)
 - [x] Data handling // preprossessing >> move cleaned and things like that in data
 - [ ] Numerization (best hand / date of birth)
-- [ ] Unify output to csv for quartiles and weights: build a dataframe with desired shape, then write to csv
+- [x] Unify output to csv for quartiles and weights: build a dataframe with desired shape, then write to csv
 
 ### Questions
 

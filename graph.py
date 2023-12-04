@@ -11,4 +11,5 @@ def draw_losses(losses, house):
     plt.ylabel('Losses')
     plt.legend()
     # plt.show()
-    plt.savefig(f'{house}.png')
+    plt.savefig(f'static/Image/loss/{house}.png')
+    plt.close()
