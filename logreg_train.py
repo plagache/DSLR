@@ -24,16 +24,21 @@ def optimizer(tensor, neuron, ys):
     outputs = neuron.outputs(tensor.T)
     diffs = outputs - ys
 
-    for element, y in zip(outputs, ys):
-        loss += y * np.log(element) + (1 - y) * np.log(1 - element)
+    # for element, y in zip(outputs, ys):
+    #     loss += y * np.log(element) + (1 - y) * np.log(1 - element)
+    # loss = - loss / row_count
+    loss = ys * np.log(outputs) + (1 - ys) * np.log(1 - outputs)
     loss = - loss / row_count
 
     # Update weight
     # inputs: neuron.weight, diffs, tensor
     # outputs: neuron.weight.updater
     # diffs @ tensor = [13, 1]
-    derivative = diffs @ tensor
+    diffnp = np.array([diffs]).reshape((1,1))
+    tensornp = np.reshape(tensor, (1,13))
+    derivative = diffnp @ tensornp
     derivative /= row_count
+    derivative = np.reshape(derivative, (13,))
     neuron.weight -= learning_rate * derivative
     return loss
 
@@ -54,14 +59,14 @@ for index, house in enumerate(houses):
 
     row_size = len(tensor[0])
     neuron = Neuron(row_size)
-    total = 1000
+    total = 400
     learning_rate = 0.6
 
     losses = []
 
     for step in range(total):
         # here we can shuffle a random part of our tensor to make SGD
-        loss = optimizer(tensor, neuron, ys)
+        loss = optimizer(tensor[step], neuron, ys[step])
         losses.append(loss)
         if step % 100 == 0 :
             print(f"step : {step}\nloss : {losses[-1]}\nweight : {neuron.weight}\n")
