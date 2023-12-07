@@ -1,6 +1,5 @@
 import numpy as np
 import pandas
-from graph import draw_losses
 from nn import Neuron
 from numpy import random
 from handle_data import create_dataframe, classer
@@ -59,8 +58,11 @@ for index, house in enumerate(houses):
 
     row_size = len(tensor[0])
     neuron = Neuron(row_size)
-    total = 400
-    learning_rate = 0.6
+    total = 1600
+    # total = 600
+    # learning_rate = 0.6
+    # learning_rate = 0.001
+    learning_rate = 0.004
 
     losses = []
 

@@ -25,6 +25,10 @@ describe: extract
 train: extract static
 	${BIN_PATH}/python logreg_train.py datasets/dataset_train.csv
 
+graph: extract static
+	${BIN_PATH}/python graph.py tmp/losses.csv
+
+
 predict: extract
 	${BIN_PATH}/python logreg_predict.py datasets/dataset_test.csv tmp/weights.csv tmp/quartiles.csv
 
