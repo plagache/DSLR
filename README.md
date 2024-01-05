@@ -27,6 +27,7 @@ Data Science X Logistic Regression
 - [x] Data handling // preprossessing >> move cleaned and things like that in data
 - [ ] Numerization (best hand / date of birth)
 - [x] Unify output to csv for quartiles and weights: build a dataframe with desired shape, then write to csv
+- [ ] Select 10% of each house examples and set as precision testing dataset
 
 ### Questions
 
