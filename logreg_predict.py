@@ -2,7 +2,7 @@ import argparse
 from nn import Neuron
 import pandas
 
-from handle_data import classer, create_dataframe, split_by_houses
+from handle_data import create_dataframe, robust_scale, split_by_houses
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
 parser.add_argument('dataset', help='the dataset csv file')
@@ -16,15 +16,12 @@ dataset = dataset.drop(columns="Hogwarts House")
 parameters = create_dataframe(args.weights)
 quartiles = create_dataframe(args.quartiles)
 
-list_quartiles = []
-for row in quartiles.itertuples(index=False, name=None):
-    list_quartiles.append(row)
-# print(list_quartiles)
+list_quartiles = [ row for row in quartiles.itertuples(index=False, name=None) ]
 
 # print (weights, "\n", quartiles, "\n")
 # print (parameters, "\n")
 
-_, dataset = classer(dataset, None, list_quartiles)
+dataset = robust_scale(dataset, list_quartiles)
 dataset = dataset.to_numpy()
 
 

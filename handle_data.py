@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 import pandas
 import math
 
@@ -30,25 +28,17 @@ def split_by_houses(dataframe):
     gryffindor = dataframe.loc[dataframe["Hogwarts House"] == "Gryffindor"]
     return gryffindor, hufflepuff, ravenclaw, slytherin
 
-def classer(dataset, house, quartiles=None):
-    train = False
-    numerical_features = dataset.select_dtypes(include=["float64"])
-    # dataset = dataset.dropna(ignore_index = True)
-
-    if quartiles is None:
-        quartiles = set_quartiles(numerical_features)
-        train = True
-
-    scaled = robust_scale(numerical_features, quartiles)
-
-    if train is False:
-        return pandas.DataFrame(), scaled
+def classer(dataset, house):
 
     houses = ["Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"]
     houses.remove(house)
     houses.insert(0, house)
-
     classer = dataset["Hogwarts House"].replace(houses, [1., 0., 0., 0.])
+
+    numerical_features = dataset.select_dtypes(include=["float64"])
+    quartiles = set_quartiles(numerical_features)
+    scaled = robust_scale(numerical_features, quartiles)
+
     return classer, scaled
 
 def ft_count(array):
