@@ -12,18 +12,18 @@ args = parser.parse_args()
 
 dataset = create_dataframe(args.dataset)
 dataset = dataset.drop(columns="Hogwarts House")
+dataset = dataset.select_dtypes(include=["float64"])
 
 parameters = create_dataframe(args.weights)
 quartiles = create_dataframe(args.quartiles)
 
 list_quartiles = [ row for row in quartiles.itertuples(index=False, name=None) ]
 
-# print (weights, "\n", quartiles, "\n")
+# print ("\n", quartiles, "\n")
+# print ("\n", list_quartiles, "\n")
 # print (parameters, "\n")
 
-dataset = robust_scale(dataset, list_quartiles)
-dataset = dataset.to_numpy()
-
+scaleddataset = robust_scale(dataset, list_quartiles).to_numpy()
 
 models = pandas.DataFrame()
 
@@ -38,7 +38,7 @@ for house in split_by_houses(parameters):
 
     neuron = Neuron(weights.size, weights)
 
-    models[house_name] = neuron.outputs(dataset.T)
+    models[house_name] = neuron.outputs(scaleddataset.T)
 
 print(models)
 # print(models.idxmax(axis="columns"))
