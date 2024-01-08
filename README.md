@@ -15,7 +15,10 @@ Data Science X Logistic Regression
 
 - [x] Logistic Regression [Formule markdown](/formula.md)
     - [x] [Logreg Train](logreg_train.py)
-        - [ ] SGD
+    - [ ] Optimizer
+        - [ ] exctract GD and SGD
+        - [ ] run in parallele GD and SGD and plot
+        - [ ] momentum
     - [x] Save weight, loss
     - [x] Refactor save weight, loss with pandas csv
     - [x] load weight
@@ -27,6 +30,7 @@ Data Science X Logistic Regression
 - [x] Data handling // preprossessing >> move cleaned and things like that in data
 - [ ] Numerization (best hand / date of birth)
 - [x] Unify output to csv for quartiles and weights: build a dataframe with desired shape, then write to csv
+- [ ] Calculate accuracy // need 98%
 
 ### Questions
 
