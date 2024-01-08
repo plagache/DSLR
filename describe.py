@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 import pandas
 import argparse
 from handle_data import create_dataframe, cleanup_nan, split_by_houses, ft_count, ft_mean, standard_deviation, minimum, maximum, percentile
