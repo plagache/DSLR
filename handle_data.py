@@ -1,18 +1,25 @@
 import pandas
 import math
 
-blue = '#83a598'
-green = '#b8bb26'
-yellow = '#fabd2f'
-red = '#fb4934'
+blue = "#83a598"
+green = "#b8bb26"
+yellow = "#fabd2f"
+red = "#fb4934"
+
 
 def create_dataframe(csv_string):
     print(csv_string)
     csv_dataset = pandas.read_csv(csv_string)
     dataset = pandas.DataFrame(csv_dataset)
     dataset.sort_index(axis=1, inplace=True)
-
     return dataset
+
+
+def split_dataframe(dataframe, test_percent: float):
+    test_sample = dataframe.groupby("Hogwarts House").sample(frac=test_percent)
+    train_sample = dataframe.drop(test_sample.index)
+    return test_sample, train_sample
+
 
 def cleanup_nan(dataframe):
     cleaned_series = []
@@ -21,6 +28,7 @@ def cleanup_nan(dataframe):
         cleaned_series.append(serie)
     return pandas.concat(cleaned_series, axis=1)
 
+
 def split_by_houses(dataframe):
     ravenclaw = dataframe.loc[dataframe["Hogwarts House"] == "Ravenclaw"]
     slytherin = dataframe.loc[dataframe["Hogwarts House"] == "Slytherin"]
@@ -28,18 +36,19 @@ def split_by_houses(dataframe):
     gryffindor = dataframe.loc[dataframe["Hogwarts House"] == "Gryffindor"]
     return gryffindor, hufflepuff, ravenclaw, slytherin
 
-def classer(dataset, house):
 
+def classer(dataset, house):
     houses = ["Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"]
     houses.remove(house)
     houses.insert(0, house)
-    classer = dataset["Hogwarts House"].replace(houses, [1., 0., 0., 0.])
+    classer = dataset["Hogwarts House"].replace(houses, [1.0, 0.0, 0.0, 0.0])
 
     numerical_features = dataset.select_dtypes(include=["float64"])
     quartiles = set_quartiles(numerical_features)
     scaled = robust_scale(numerical_features, quartiles)
 
     return classer, scaled
+
 
 def ft_count(array):
     counter = 0
@@ -50,7 +59,7 @@ def ft_count(array):
 
 
 def ft_mean(array):
-    total : float = 0
+    total: float = 0
     for element in array:
         # if isinstance(element, (int, float)) == True:
         if element == element:
@@ -58,9 +67,7 @@ def ft_mean(array):
     return total / ft_count(array)
 
 
-
 def standard_deviation(array):
-
     count = ft_count(array)
     mean = ft_mean(array)
     variance = 0
@@ -69,7 +76,7 @@ def standard_deviation(array):
 
     for element in array:
         if element == element:
-            deviation += (element - mean)**2
+            deviation += (element - mean) ** 2
 
     variance = deviation / count
 
@@ -96,7 +103,7 @@ def maximum(array):
     return maximum
 
 
-def percentile(array, percent : float):
+def percentile(array, percent: float):
     sorted_array = array.sort_values(ignore_index=True)
     # print("\nsorted array:", sorted_array)
     value = 0
@@ -134,7 +141,7 @@ def percentile(array, percent : float):
         # print(index_value)
     # for element in array:
     #     if element == element:
-    
+
     # -4.308182
     # percent = 0
     # return value
@@ -145,9 +152,9 @@ def set_quartiles(dataframe):
     quartiles = []
 
     for _, data in dataframe.items():
-        first = percentile(data, .25)
-        second = percentile(data, .5)
-        third = percentile(data, .75)
+        first = percentile(data, 0.25)
+        second = percentile(data, 0.5)
+        third = percentile(data, 0.75)
         # First replace nan with median value
         # Then scale the values
         quartiles.append((first, second, third))
@@ -156,6 +163,7 @@ def set_quartiles(dataframe):
     df.to_csv("tmp/quartiles.csv", index=False)
 
     return quartiles
+
 
 def robust_scale(dataframe: pandas.DataFrame, quartiles):
     ret = pandas.DataFrame()
