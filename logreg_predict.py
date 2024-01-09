@@ -1,8 +1,8 @@
 import argparse
-from nn import Neuron
 import pandas
-
+from nn import Neuron
 from handle_data import create_dataframe, robust_scale, split_by_houses
+from sklearn.metrics import accuracy_score
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
 parser.add_argument('dataset', help='the dataset csv file')
@@ -11,6 +11,7 @@ parser.add_argument('quartiles', help='the quartiles csv file')
 args = parser.parse_args()
 
 dataset = create_dataframe(args.dataset)
+test_samples = dataset.filter(["Hogwarts House"])
 dataset = dataset.drop(columns="Hogwarts House")
 dataset = dataset.select_dtypes(include=["float64"])
 
@@ -40,9 +41,17 @@ for house in split_by_houses(parameters):
 
     models[house_name] = neuron.outputs(scaleddataset.T)
 
-print(models)
+# print(models)
 # print(models.idxmax(axis="columns"))
+print("test samples:\n", test_samples)
 
 
 prediction = models.idxmax(axis="columns")
+print("prediction:\n", prediction)
 prediction.to_csv("houses.csv", index_label="Index", header=["Hogwarts House"])
+
+
+y_prediction = prediction.tolist()
+y_true = test_samples["Hogwarts House"].tolist()
+accuracy = accuracy_score(y_true, y_prediction)
+print(accuracy)

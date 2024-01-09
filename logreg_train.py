@@ -35,17 +35,19 @@ for index, house in enumerate(houses):
     # sgd can go on each example not furter
     max = len(dataset)
     total = max - 1
+    # total = 3000
     # total = 600
+    learning_rate = 1
     # learning_rate = 0.6
-    learning_rate = 0.001
+    # learning_rate = 0.001
     # learning_rate = 0.004
 
     losses = []
 
     for step in range(1, (total + 1)):
         # here we can shuffle a random part of our tensor to make SGD
-        loss = sgd(tensor[step], neuron, ys[step], learning_rate)
-        # loss = gd(tensor, neuron, ys, learning_rate)
+        # loss = sgd(tensor[step], neuron, ys[step], learning_rate)
+        loss = gd(tensor, neuron, ys, learning_rate)
         losses.append(loss)
         if step % 100 == 0:
             print(f"step {step} loss {losses[-1]:.4f}")

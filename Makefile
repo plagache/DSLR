@@ -32,6 +32,9 @@ graph: extract static
 predict: extract
 	${BIN_PATH}/python logreg_predict.py datasets/dataset_test.csv tmp/weights.csv tmp/quartiles.csv
 
+accuracy: extract
+	${BIN_PATH}/python logreg_predict.py tmp/test_sample.csv tmp/weights.csv tmp/quartiles.csv
+
 webdescribe: extract
 	${BIN_PATH}/python describe.py --web datasets/dataset_train.csv
 

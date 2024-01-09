@@ -5,4 +5,5 @@ matplotx[all]
 numpy
 pandas
 pandas-stubs
+scikit-learn
 seaborn
