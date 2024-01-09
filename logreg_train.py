@@ -13,8 +13,6 @@ args = parser.parse_args()
 dataset = create_dataframe(args.filename)
 
 
-
-
 houses = ["Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"]
 columns_name = [f"w{index}" for index in range(1, 14)]
 weights_matrix = []
@@ -41,8 +39,8 @@ for index, house in enumerate(houses):
 
     for step in range(total):
         # here we can shuffle a random part of our tensor to make SGD
-        loss = sgd(tensor[step], neuron, ys[step], learning_rate)
-        # loss = gd(tensor[step], neuron, ys[step], learning_rate)
+        # loss = sgd(tensor[step], neuron, ys[step], learning_rate)
+        loss = gd(tensor, neuron, ys, learning_rate)
         losses.append(loss)
         if step % 100 == 0:
             print(f"step : {step}\nloss : {losses[-1]}\nweight : {neuron.weight}\n")

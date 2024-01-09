@@ -10,13 +10,14 @@ class Neuron():
     def outputs(self, tensor):
         # what we want is >> weight * inputs
         z = self.weight @ tensor
-        self.outputs = self.sigmoid(z)
-        return self
-        # return self.sigmoid(z)
+        # self._outputs = self.sigmoid(z)
+        # return self
+        return self.sigmoid(z)
+        # return self._outputs
 
-    def derivative(self, ys):
-        self.ys = ys
-        return ys
+    # def derivative(self, ys):
+    #     self.ys = ys
+    #     return ys
 
     # This is an activation function (it normalize our result)
     def sigmoid(self, z):

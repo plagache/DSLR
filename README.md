@@ -16,9 +16,8 @@ Data Science X Logistic Regression
 - [x] Logistic Regression [Formule markdown](/formula.md)
     - [x] [Logreg Train](logreg_train.py)
     - [ ] Optimizer
-        - [ ] exctract GD and SGD
-        - [ ] run in parallele GD and SGD and plot
-        - [ ] momentum
+        - [x] exctract GD and SGD
+        - [ ] run GD and SGD and compare plot
     - [x] Save weight, loss
     - [x] Refactor save weight, loss with pandas csv
     - [x] load weight
