@@ -61,3 +61,5 @@ losses_df.to_csv("tmp/losses.csv", index=False)
 
 weights_df = pandas.DataFrame(weights_matrix, index=houses, columns=columns_name)
 weights_df.to_csv("tmp/weights.csv", index_label="Hogwarts House")
+
+test_sample.to_csv("tmp/test_sample.csv")
