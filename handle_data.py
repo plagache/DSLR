@@ -43,11 +43,18 @@ def classer(dataset, house):
     houses.insert(0, house)
     classer = dataset["Hogwarts House"].replace(houses, [1.0, 0.0, 0.0, 0.0])
 
+    dataset = numerization(dataset)
     numerical_features = dataset.select_dtypes(include=["float64"])
     quartiles = set_quartiles(numerical_features)
     scaled = robust_scale(numerical_features, quartiles)
 
     return classer, scaled
+
+
+def numerization(dataset):
+    dataset["Birthday"] = pandas.to_datetime(dataset["Birthday"]).astype(int)
+    numerized_dataset = dataset.replace(regex={'Right': 1, 'Left': -1})
+    return numerized_dataset
 
 
 def ft_count(array):
