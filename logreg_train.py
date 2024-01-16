@@ -58,6 +58,9 @@ for index, house in enumerate(houses):
         losses.append(loss)
         if step % 100 == 0:
             print(f"step {step} loss {losses[-1]:.4f}")
+            # print((np.min(neuron._z), np.max(neuron._z)), sep='\n')
+            # print((np.min(neuron._outputs), np.max(neuron._outputs)), sep='\n')
+            # print('\n')
             # print(f"weight : {neuron.weight}\n")
         step += 1
 

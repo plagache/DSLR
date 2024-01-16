@@ -1,3 +1,4 @@
+import numpy as np
 import argparse
 import pandas
 from nn import Neuron
@@ -11,6 +12,7 @@ parser.add_argument('quartiles', help='the quartiles csv file')
 args = parser.parse_args()
 
 dataset = create_dataframe(args.dataset)
+# dataset = dataset.groupby("Hogwarts House").apply(lambda x: x)
 # dataset = dataset.drop(columns=["Care of Magical Creatures"])
 # dataset = dataset.drop(columns=["Arithmancy", "Care of Magical Creatures"])
 y_true = dataset["Hogwarts House"].tolist()
@@ -46,7 +48,9 @@ for house in split_by_houses(parameters):
 
     # print(scaleddataset)
     models[house_name] = neuron.outputs(scaleddataset.T)
-    print(models[house_name])
+    # print((np.min(neuron._z), np.max(neuron._z)), sep='\n')
+    # print((np.min(neuron._outputs), np.max(neuron._outputs)), sep='\n')
+    # print('\n')
 
 print("models:\n", models)
 # print(models.idxmax(axis="columns"))

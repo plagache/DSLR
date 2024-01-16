@@ -10,7 +10,10 @@ class Neuron():
     def outputs(self, tensor):
         # what we want is >> weight * inputs
         z = self.weight @ tensor
-        # self._outputs = self.sigmoid(z)
+        # print(z)
+        # print(self.sigmoid(z))
+        self._z = z
+        self._outputs = self.sigmoid(z)
         # return self
         return self.sigmoid(z)
         # return self._outputs
