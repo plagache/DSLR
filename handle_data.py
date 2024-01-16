@@ -43,7 +43,7 @@ def classer(dataset, house):
     houses.insert(0, house)
     classer = dataset["Hogwarts House"].replace(houses, [1.0, 0.0, 0.0, 0.0])
 
-    dataset = numerization(dataset)
+    # dataset = numerization(dataset)
     numerical_features = dataset.select_dtypes(include=["float64"])
     quartiles = set_quartiles(numerical_features)
     scaled = robust_scale(numerical_features, quartiles)

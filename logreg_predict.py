@@ -11,7 +11,10 @@ parser.add_argument('quartiles', help='the quartiles csv file')
 args = parser.parse_args()
 
 dataset = create_dataframe(args.dataset)
-test_samples = dataset.filter(["Hogwarts House"])
+# dataset = dataset.drop(columns=["Care of Magical Creatures"])
+# dataset = dataset.drop(columns=["Arithmancy", "Care of Magical Creatures"])
+y_true = dataset["Hogwarts House"].tolist()
+# test_samples = dataset.filter(["Hogwarts House"])
 dataset = dataset.drop(columns="Hogwarts House")
 dataset = dataset.select_dtypes(include=["float64"])
 
@@ -38,12 +41,16 @@ for house in split_by_houses(parameters):
     # print(weights)
 
     neuron = Neuron(weights.size, weights)
+    # print(neuron.weight)
+    # print(len(neuron.weight))
 
+    # print(scaleddataset)
     models[house_name] = neuron.outputs(scaleddataset.T)
+    print(models[house_name])
 
-# print(models)
+print("models:\n", models)
 # print(models.idxmax(axis="columns"))
-print("test samples:\n", test_samples)
+# print("test samples:\n", test_samples)
 
 
 prediction = models.idxmax(axis="columns")
@@ -52,6 +59,6 @@ prediction.to_csv("houses.csv", index_label="Index", header=["Hogwarts House"])
 
 
 y_prediction = prediction.tolist()
-y_true = test_samples["Hogwarts House"].tolist()
+# y_true = test_samples["Hogwarts House"].tolist()
 accuracy = accuracy_score(y_true, y_prediction)
 print(accuracy)
