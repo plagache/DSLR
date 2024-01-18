@@ -1,6 +1,7 @@
 import pandas
 import argparse
-from f_statistics import create_dataframe, cleanup_nan, split_by_houses, ft_count, ft_mean, standard_deviation, minimum, maximum, percentile
+from f_statistics import ft_count, ft_mean, standard_deviation, minimum, maximum, percentile
+from data_preprocessing import create_dataframe, cleanup_nan, split_by_houses
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
 parser.add_argument('filename', help='the dataset csv file')
@@ -8,26 +9,6 @@ parser.add_argument('--web', action='store_true', help='export data to html outp
 args = parser.parse_args()
 
 dataset = create_dataframe(args.filename)
-
-
-def print_dataset():
-    print("\nDataset :\n", dataset)
-    # print("\nDataset from index 2 to 9:\n", dataset.loc[2:9])
-    # print("\nDataset column 0:\n", dataset.iloc[:,0])
-    # print("\nDataset column 2 with name:\n", dataset.loc[:,"Hogwarts House"])
-    # print("\nDataset column 2 with index:\n", dataset.iloc[:,1])
-    # print("\nDataset column 2 with name:\n", dataset.loc[:,"Arithmancy"])
-    # print("\nDataset column 2 with index:\n", dataset.iloc[:,7])
-    # print("\nDataset column 2 with name:\n", dataset.loc[:,"Herbology"])
-    # print("\nDataset column 2 with index:\n", dataset.iloc[:,8])
-    # print("\nColumn label of index 1:\n", dataset.columns[1])
-    # print("\nDataset columns label:\n", dataset.columns)
-    # print("\nDataset info:\n", dataset.info)
-    # print("\nDataset len:\n", len(dataset.columns))
-    print("\nDataset :\n", dataset.dtypes)
-
-# print_dataset()
-
 
 numerical_features = dataset.select_dtypes(include=["float64"])
 

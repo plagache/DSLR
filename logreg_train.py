@@ -2,7 +2,7 @@ import numpy as np
 import pandas
 from nn import Neuron
 from optim import sgd, gd
-from f_statistics import create_dataframe, classer, split_dataframe
+from data_preprocessing import create_dataframe, classer, split_dataframe
 import argparse
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")

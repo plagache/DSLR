@@ -1,6 +1,7 @@
 import argparse
 import matplotlib.pyplot as pyplot
-from f_statistics import create_dataframe, split_by_houses, blue, green, yellow, red
+from f_statistics import blue, green, yellow, red
+from data_preprocessing import create_dataframe, split_by_houses
 
 parser = argparse.ArgumentParser(description="A simple python program to print the histogram plots of a given csv dataset")
 parser.add_argument('filename', help='the dataset csv file')
