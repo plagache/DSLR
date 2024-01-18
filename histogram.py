@@ -1,7 +1,6 @@
 import argparse
-import pandas
 import matplotlib.pyplot as pyplot
-from handle_data import create_dataframe, split_by_houses, blue, green, yellow, red
+from f_statistics import create_dataframe, split_by_houses, blue, green, yellow, red
 
 parser = argparse.ArgumentParser(description="A simple python program to print the histogram plots of a given csv dataset")
 parser.add_argument('filename', help='the dataset csv file')
@@ -33,6 +32,6 @@ for label, _ in gryffindor.items():
     pyplot.savefig(filename, format="png")
     print(f'created {filename}')
 
-    if args.show == True:
+    if args.show is True:
         pyplot.show()
     pyplot.close()

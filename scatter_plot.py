@@ -1,7 +1,6 @@
 import argparse
-import pandas
 import matplotlib.pyplot as pyplot
-from handle_data import create_dataframe, split_by_houses, blue, green, yellow, red
+from f_statistics import create_dataframe, split_by_houses, blue, green, yellow, red
 
 pyplot.style.use('gruvbox.mplstyle')
 
@@ -32,7 +31,7 @@ for subject in subjects_list:
 
 for given_subject, other_subjects in subjects_pairs:
     for other_subject in other_subjects:
-        title = f"{given_subject} - {other_subject}" 
+        title = f"{given_subject} - {other_subject}"
 
         pyplot.title(title)
 
@@ -47,6 +46,6 @@ for given_subject, other_subjects in subjects_pairs:
         pyplot.savefig(filename, format="png")
         print(f'created {filename}')
 
-        if args.show == True:
+        if args.show is True:
             pyplot.show()
         pyplot.close()

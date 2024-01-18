@@ -1,4 +1,4 @@
-from handle_data import create_dataframe
+from f_statistics import create_dataframe
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse
@@ -8,6 +8,7 @@ parser.add_argument('filename', help='the loss csv file')
 args = parser.parse_args()
 
 dataset = create_dataframe(args.filename)
+
 
 def draw_losses(losses, house):
 

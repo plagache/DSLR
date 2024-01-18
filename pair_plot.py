@@ -1,7 +1,7 @@
 import seaborn
 import argparse
 import matplotlib.pyplot as pyplot
-from handle_data import create_dataframe, blue, green, yellow, red
+from f_statistics import create_dataframe, blue, green, yellow, red
 
 color_palette = {
         "Gryffindor": red,
@@ -42,6 +42,6 @@ filename = 'static/Image/pair/pairplot.png'
 splot.savefig(filename)
 print(f'created {filename}')
 
-if args.show == True:
+if args.show is True:
     pyplot.show()
 pyplot.close()

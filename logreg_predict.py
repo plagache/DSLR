@@ -1,8 +1,7 @@
-import numpy as np
 import argparse
 import pandas
 from nn import Neuron
-from handle_data import create_dataframe, robust_scale, split_by_houses
+from f_statistics import create_dataframe, robust_scale, split_by_houses
 from sklearn.metrics import accuracy_score
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
@@ -23,7 +22,7 @@ dataset = dataset.select_dtypes(include=["float64"])
 parameters = create_dataframe(args.weights)
 quartiles = create_dataframe(args.quartiles)
 
-list_quartiles = [ row for row in quartiles.itertuples(index=False, name=None) ]
+list_quartiles = [row for row in quartiles.itertuples(index=False, name=None)]
 
 # print ("\n", quartiles, "\n")
 # print ("\n", list_quartiles, "\n")
