@@ -22,18 +22,20 @@ extract:
 describe: extract
 	${BIN_PATH}/python describe.py datasets/dataset_train.csv
 
-train: extract static
+sample: static extract
+	${BIN_PATH}/python sampler.py datasets/dataset_train.csv
+
+train: static
 	${BIN_PATH}/python logreg_train.py datasets/dataset_train.csv
 
 graph: extract static
 	${BIN_PATH}/python graph.py tmp/losses.csv
 
-
-predict: extract
+predict: train
 	${BIN_PATH}/python logreg_predict.py datasets/dataset_test.csv tmp/weights.csv tmp/quartiles.csv
 
-accuracy: extract
-	${BIN_PATH}/python logreg_predict.py tmp/test_sample.csv tmp/weights.csv tmp/quartiles.csv
+accuracy: sample predict
+	${BIN_PATH}/python accuracy_test.py tmp/test_sample.csv houses.csv
 
 webdescribe: extract
 	${BIN_PATH}/python describe.py --web datasets/dataset_train.csv

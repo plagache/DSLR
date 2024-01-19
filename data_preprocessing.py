@@ -10,12 +10,6 @@ def create_dataframe(csv_string):
     return dataset
 
 
-def split_dataframe(dataframe, test_percent: float):
-    test_sample = dataframe.groupby("Hogwarts House").sample(frac=test_percent)
-    train_sample = dataframe.drop(test_sample.index)
-    return test_sample, train_sample
-
-
 def cleanup_nan(dataframe):
     cleaned_series = []
     for _, serie in dataframe.items():

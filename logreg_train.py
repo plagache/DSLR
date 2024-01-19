@@ -2,7 +2,7 @@ import numpy as np
 import pandas
 from nn import Neuron
 from optim import sgd, gd
-from data_preprocessing import create_dataframe, classer, split_dataframe
+from data_preprocessing import create_dataframe, classer
 import argparse
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
@@ -11,7 +11,6 @@ parser.add_argument('--web', action='store_true', help='export data to html outp
 args = parser.parse_args()
 
 dataset = create_dataframe(args.filename)
-test_sample, dataset = split_dataframe(dataset, 0.1)
 # dataset = dataset.drop(columns=["Care of Magical Creatures"])
 # dataset = dataset.drop(columns=["Arithmancy", "Care of Magical Creatures"])
 # print("test sample", len(test_sample.index), "train sample", len(dataset.index))
@@ -49,7 +48,8 @@ for index, house in enumerate(houses):
 
     # for step in range(1, (total + 1)):
     step = 1
-    while len(losses) == 0 or losses[-1] > 0.01 and step <= 1500:
+    step_max = 300
+    while len(losses) == 0 or losses[-1] > 0.01 and step <= step_max:
         # here we can shuffle a random part of our tensor to make SGD
         # loss = sgd(tensor[step % total], neuron, ys[step % total], learning_rate)
         # print(step % total)
@@ -75,5 +75,3 @@ losses_df.to_csv("tmp/losses.csv", index=False)
 columns_name = [f"w{index}" for index in range(1, len(weights_matrix[0]) + 1)]
 weights_df = pandas.DataFrame(weights_matrix, index=houses, columns=columns_name)
 weights_df.to_csv("tmp/weights.csv", index_label="Hogwarts House")
-
-test_sample.to_csv("tmp/test_sample.csv")
