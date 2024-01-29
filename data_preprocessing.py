@@ -55,9 +55,9 @@ def set_quartiles(dataframe):
         third = percentile(data, 0.75)
         # First replace nan with median value
         # Then scale the values
-        quartiles.append((first, second, third))
+        quartiles.append((data.name, first, second, third))
 
-    df = pandas.DataFrame(quartiles, columns=["Q1", "Q2", "Q3"])
+    df = pandas.DataFrame(quartiles, columns=["Courses", "Q1", "Q2", "Q3"])
     df.to_csv("tmp/quartiles.csv", index=False)
 
     return quartiles
@@ -65,8 +65,9 @@ def set_quartiles(dataframe):
 
 def robust_scale(dataframe: pandas.DataFrame, quartiles):
     ret = pandas.DataFrame()
-    for (name, data), (first, second, third) in zip(dataframe.items(), quartiles):
+    for (name, data), (courses, first, second, third) in zip(dataframe.items(), quartiles):
         # First replace nan with median value
         # Then scale the values
+        # print(name, courses)
         ret[name] = data.fillna(second).map(lambda x: (x - second) / (third - first))
     return ret

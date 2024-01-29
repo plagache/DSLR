@@ -26,6 +26,7 @@ list_quartiles = [row for row in quartiles.itertuples(index=False, name=None)]
 # print ("\n", list_quartiles, "\n")
 # print (parameters, "\n")
 
+print("\n\n------------ Predict -----------\n")
 scaleddataset = robust_scale(dataset, list_quartiles).to_numpy()
 
 models = pandas.DataFrame()
@@ -40,6 +41,7 @@ for house in split_by_houses(parameters):
     # print(weights)
 
     neuron = Neuron(weights.size, weights)
+    # print(f"weight : {neuron.weight}\n")
     # print(neuron.weight)
     # print(len(neuron.weight))
 
@@ -49,11 +51,11 @@ for house in split_by_houses(parameters):
     # print((np.min(neuron._outputs), np.max(neuron._outputs)), sep='\n')
     # print('\n')
 
-print("models:\n", models)
+# print("models:\n", models)
 # print(models.idxmax(axis="columns"))
 # print("test samples:\n", test_samples)
 
 
 prediction = models.idxmax(axis="columns")
-print("prediction:\n", prediction)
+# print("prediction:\n", prediction)
 prediction.to_csv("houses.csv", index_label="Index", header=["Hogwarts House"])

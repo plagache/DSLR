@@ -17,14 +17,18 @@ dataset = create_dataframe(args.filename)
 # print("test sample\n", test_sample, "train sample\n", dataset)
 
 
+print("\n\n------------ Training -----------\n")
 houses = ["Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"]
 weights_matrix = []
 losses_matrix = []
+courses = []
 for index, house in enumerate(houses):
     print(f"\n{house}:")
     # Merge ys at the end of tensor
     ys, tensor = classer(dataset, house)
     # print(ys, tensor)
+    courses = tensor.columns.tolist()
+    # print(courses)
 
     tensor = tensor.to_numpy()
     ys = ys.to_numpy()
@@ -48,7 +52,7 @@ for index, house in enumerate(houses):
 
     # for step in range(1, (total + 1)):
     step = 1
-    step_max = 300
+    step_max = 1500
     while len(losses) == 0 or losses[-1] > 0.01 and step <= step_max:
         # here we can shuffle a random part of our tensor to make SGD
         # loss = sgd(tensor[step % total], neuron, ys[step % total], learning_rate)
@@ -72,6 +76,7 @@ losses_matrix = np.array(losses_matrix)
 losses_df = pandas.DataFrame(losses_matrix.T, columns=houses)
 losses_df.to_csv("tmp/losses.csv", index=False)
 
-columns_name = [f"w{index}" for index in range(1, len(weights_matrix[0]) + 1)]
+# columns_name = [f"w{index}" for index in range(1, len(weights_matrix[0]) + 1)]
+columns_name = courses
 weights_df = pandas.DataFrame(weights_matrix, index=houses, columns=columns_name)
 weights_df.to_csv("tmp/weights.csv", index_label="Hogwarts House")

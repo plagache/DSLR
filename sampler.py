@@ -1,5 +1,5 @@
-from data_preprocessing import create_dataframe
 import argparse
+from data_preprocessing import create_dataframe
 
 parser = argparse.ArgumentParser(description="A simple python program to sample dataset")
 parser.add_argument('dataset', help='the dataset csv file')
@@ -16,7 +16,7 @@ def split_dataframe(dataframe, test_percent: float):
 
 
 test_sample, train_sample = split_dataframe(dataset, args.size)
-print(test_sample, train_sample)
+# print(test_sample, train_sample)
 
 test_sample.to_csv("datasets/dataset_test.csv")
 train_sample.to_csv("datasets/dataset_train.csv")

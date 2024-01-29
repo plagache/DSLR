@@ -40,6 +40,9 @@ Data Science X Logistic Regression
     - [ ] robust scale with column name(q1,q2,q3,name)
     - [ ] weight should match their column (w1 could be arithmancy or transfiguration but should be fixed)
 
+- [ ] during predict the weight in the dataframe are alphabeticaly sorted and the resulting np array is in the same order
+- [ ] exctract scaling from classer && courses list creation from Training
+
 ### Questions
 
 what about the absence of data ?
