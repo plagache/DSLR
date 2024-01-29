@@ -1,5 +1,7 @@
 VENV_PATH = .venv
 BIN_PATH = ${VENV_PATH}/bin
+TRAIN_SET = datasets/dataset_train.csv
+TEST_SET = datasets/dataset_test.csv
 
 env:
 	python3.11 -m venv ${VENV_PATH}
@@ -20,43 +22,46 @@ extract:
 	tar -xvf datasets.tgz
 
 describe: extract
-	${BIN_PATH}/python describe.py datasets/dataset_train.csv
+	${BIN_PATH}/python describe.py ${TRAIN_SET}
 
 sample: static extract
-	${BIN_PATH}/python sampler.py datasets/dataset_train.csv
+	${BIN_PATH}/python sampler.py ${TRAIN_SET}
 
 train: static
-	${BIN_PATH}/python logreg_train.py datasets/dataset_train.csv
+	${BIN_PATH}/python logreg_train.py ${TRAIN_SET}
 
 graph: extract static
 	${BIN_PATH}/python graph.py tmp/losses.csv
 
-predict: train
-	${BIN_PATH}/python logreg_predict.py datasets/dataset_test.csv tmp/weights.csv tmp/quartiles.csv
+predict:
+	${BIN_PATH}/python logreg_predict.py ${TEST_SET} tmp/weights.csv tmp/quartiles.csv
 
-accuracy: sample predict
-	${BIN_PATH}/python accuracy_test.py tmp/test_sample.csv houses.csv
+accuracy:
+	${BIN_PATH}/python accuracy_test.py ${TEST_SET} houses.csv
+
+fullaccuracy: sample train predict accuracy
+	
 
 webdescribe: extract
-	${BIN_PATH}/python describe.py --web datasets/dataset_train.csv
+	${BIN_PATH}/python describe.py --web ${TRAIN_SET}
 
 scatter: extract static
-	${BIN_PATH}/python scatter_plot.py --show datasets/dataset_train.csv
+	${BIN_PATH}/python scatter_plot.py --show ${TRAIN_SET}
 
 webscatter: extract static
-	${BIN_PATH}/python scatter_plot.py datasets/dataset_train.csv
+	${BIN_PATH}/python scatter_plot.py ${TRAIN_SET}
 
 histogram: extract static
-	${BIN_PATH}/python histogram.py --show datasets/dataset_train.csv
+	${BIN_PATH}/python histogram.py --show ${TRAIN_SET}
 
 webhistogram: extract static
-	${BIN_PATH}/python histogram.py datasets/dataset_train.csv
+	${BIN_PATH}/python histogram.py ${TRAIN_SET}
 
 pair: extract static
-	${BIN_PATH}/python pair_plot.py --show datasets/dataset_train.csv
+	${BIN_PATH}/python pair_plot.py --show ${TRAIN_SET}
 
 webpair: extract static
-	${BIN_PATH}/python pair_plot.py datasets/dataset_train.csv
+	${BIN_PATH}/python pair_plot.py ${TRAIN_SET}
 
 static:
 	mkdir -p static/Image/hist

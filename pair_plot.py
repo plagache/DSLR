@@ -17,7 +17,7 @@ color_palette = {
         }
 
 pyplot.style.use('gruvbox.mplstyle')
-seaborn.set_theme(style="ticks")
+seaborn.set_theme(style="dark")
 
 dataset = create_dataframe(args.filename)
 
