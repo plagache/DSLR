@@ -2,7 +2,7 @@ import numpy as np
 import pandas
 from nn import Neuron
 from optim import sgd, gd
-from data_preprocessing import create_dataframe, classer
+from data_preprocessing import create_dataframe, create_training_data, create_classer
 import argparse
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
@@ -19,21 +19,20 @@ dataset = create_dataframe(args.filename)
 
 print("\n\n------------ Training -----------\n")
 houses = ["Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"]
+
 weights_matrix = []
 losses_matrix = []
-courses = []
-for index, house in enumerate(houses):
-    print(f"\n{house}:")
-    # Merge ys at the end of tensor
-    ys, tensor = classer(dataset, house)
-    # print(ys, tensor)
-    courses = tensor.columns.tolist()
-    # print(courses)
 
-    tensor = tensor.to_numpy()
-    ys = ys.to_numpy()
-    # print("numpy array :", tensor)
-    # print("numpy ys :", ys)
+x_train = create_training_data(dataset)
+courses = x_train.columns.tolist()
+tensor = x_train.to_numpy()
+classer = create_classer(dataset, houses)
+
+
+for house, y_train in classer.items():
+    print(f"\n{house}:")
+
+    ys = y_train.to_numpy()
 
     row_size = len(tensor[0])
     neuron = Neuron(row_size)

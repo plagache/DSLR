@@ -26,18 +26,20 @@ def split_by_houses(dataframe):
     return gryffindor, hufflepuff, ravenclaw, slytherin
 
 
-def classer(dataset, house):
-    houses = ["Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"]
-    houses.remove(house)
-    houses.insert(0, house)
-    classer = dataset["Hogwarts House"].replace(houses, [1.0, 0.0, 0.0, 0.0])
-
+def create_training_data(dataset):
     # dataset = numerization(dataset)
     numerical_features = dataset.select_dtypes(include=["float64"])
     quartiles = set_quartiles(numerical_features)
-    scaled = robust_scale(numerical_features, quartiles)
+    rescaled = robust_scale(numerical_features, quartiles)
+    return rescaled
 
-    return classer, scaled
+
+def create_classer(dataset, houses):
+
+    classer = pandas.DataFrame()
+    for house in houses:
+        classer[house] = dataset["Hogwarts House"].map(lambda x: 1.0 if x == house else 0.0 )
+    return classer
 
 
 def numerization(dataset):

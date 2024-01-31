@@ -3,13 +3,20 @@ BIN_PATH = ${VENV_PATH}/bin
 TRAIN_SET = datasets/dataset_train.csv
 TEST_SET = datasets/dataset_test.csv
 
+setup: env pip_upgrade install
+
 env:
 	python3.11 -m venv ${VENV_PATH}
-	${BIN_PATH}/pip install -r requirement.txt
 	ln -sf ${BIN_PATH}/activate activate
 
-upgrade:
+pip_upgrade:
 	${BIN_PATH}/pip install --upgrade pip
+
+install:
+	${BIN_PATH}/pip install -r requirement.txt
+
+upgrade:
+	${BIN_PATH}/pip install -r requirement.txt --upgrade
 
 web: static
 	# export FLASK_APP=homepage && export FLASK_ENV=development &&

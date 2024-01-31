@@ -2,7 +2,6 @@ flask
 imageio
 matplotlib
 matplotx[all]
-numpy
 pandas
 pandas-stubs
 scikit-learn
