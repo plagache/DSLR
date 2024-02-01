@@ -34,9 +34,11 @@ def create_training_data(dataset):
     return rescaled
 
 
-def create_classer(dataset, houses):
+def create_classer(dataset):
 
     classer = pandas.DataFrame()
+    houses = dataset["Hogwarts House"].unique()
+    houses.sort()
     for house in houses:
         classer[house] = dataset["Hogwarts House"].map(lambda x: 1.0 if x == house else 0.0 )
     return classer
@@ -70,6 +72,5 @@ def robust_scale(dataframe: pandas.DataFrame, quartiles):
     for (name, data), (courses, first, second, third) in zip(dataframe.items(), quartiles):
         # First replace nan with median value
         # Then scale the values
-        # print(name, courses)
         ret[name] = data.fillna(second).map(lambda x: (x - second) / (third - first))
     return ret
