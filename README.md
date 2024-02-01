@@ -42,6 +42,7 @@ Data Science X Logistic Regression
     - [ ] weight files and quartiles with same format
     - [x] weight in the dataframe are alphabeticaly sorted and the resulting np array is in the same order
     - [x] exctract scaling from classer && courses list creation from Training
+- [ ] split loss formula to prevent log(0), only compute the y truth side.
 
 ### Questions
 
