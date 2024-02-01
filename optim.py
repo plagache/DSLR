@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 # differente class of hyperparamater optimization
 
@@ -48,14 +49,12 @@ def gd(tensor, neuron, ys, learning_rate):
     # input: tensor, ys, neuron.weight
     # output: outputs, diffs, losses
     row_count = len(tensor)
-    loss = 0
 
     outputs = neuron.outputs(tensor.T)
     diffs = outputs - ys
 
-    for element, y in zip(outputs, ys):
-        loss += y * np.log(element) + (1 - y) * np.log(1 - element)
-    loss = - loss / row_count
+    log_loss_sum = np.log(np.where(ys == 1.0, outputs, 1 - outputs)).sum()
+    loss = - log_loss_sum / row_count
 
     # Update weight
     # inputs: neuron.weight, diffs, tensor
