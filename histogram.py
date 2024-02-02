@@ -1,7 +1,7 @@
 import argparse
 import matplotlib.pyplot as pyplot
 from variables import blue, green, yellow, red
-from data_preprocessing import create_dataframe, split_by_houses
+from data_preprocessing import create_dataframe, split_by_labels
 
 parser = argparse.ArgumentParser(description="A simple python program to print the histogram plots of a given csv dataset")
 parser.add_argument('filename', help='the dataset csv file')
@@ -12,7 +12,7 @@ pyplot.style.use('gruvbox.mplstyle')
 dataset = create_dataframe(args.filename)
 
 
-gryffindor, hufflepuff, ravenclaw, slytherin = split_by_houses(dataset)
+gryffindor, hufflepuff, ravenclaw, slytherin = split_by_labels(dataset)
 gryffindor = gryffindor.select_dtypes(include=["float64"])
 hufflepuff = hufflepuff.select_dtypes(include=["float64"])
 ravenclaw = ravenclaw.select_dtypes(include=["float64"])

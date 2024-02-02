@@ -1,7 +1,7 @@
 import seaborn
 import argparse
 import matplotlib.pyplot as pyplot
-from variables import blue, green, yellow, red, classes_column
+from variables import blue, green, yellow, red, labels_column
 from data_preprocessing import create_dataframe
 
 parser = argparse.ArgumentParser(description="A simple python program to print the pait plot of a given csv dataset")
@@ -37,7 +37,7 @@ subjects = [
         'Flying'
         ]
 subjects.sort()
-splot = seaborn.pairplot(dataset, vars=subjects, hue=classes_column, palette=color_palette, diag_kind="hist", plot_kws=dict(marker='.', alpha=0.8, sizes=5))
+splot = seaborn.pairplot(dataset, vars=subjects, hue=labels_column, palette=color_palette, diag_kind="hist", plot_kws=dict(marker='.', alpha=0.8, sizes=5))
 
 filename = 'static/Image/pair/pairplot.png'
 splot.savefig(filename)

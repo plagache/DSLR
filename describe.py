@@ -1,7 +1,7 @@
 import pandas
 import argparse
 from f_statistics import ft_count, ft_mean, standard_deviation, minimum, maximum, percentile
-from data_preprocessing import create_dataframe, cleanup_nan, split_by_houses
+from data_preprocessing import create_dataframe, cleanup_nan, split_by_labels
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
 parser.add_argument('filename', help='the dataset csv file')
@@ -65,7 +65,7 @@ def writeToHtmlTable(dataframe, table_name=""):
 if args.web is True:
     writeToHtmlTable(described_df)
 
-    gryffindor, hufflepuff, ravenclaw, slytherin = split_by_houses(dataset)
+    gryffindor, hufflepuff, ravenclaw, slytherin = split_by_labels(dataset)
 
     gryffindor = cleanup_nan(gryffindor.select_dtypes(include=["float64"]))
     described_gryffindor = getDescribeDataframe(gryffindor)
