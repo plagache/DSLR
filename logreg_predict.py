@@ -10,13 +10,12 @@ parser.add_argument('quartiles', help='the quartiles csv file')
 args = parser.parse_args()
 
 dataset = create_dataframe(args.dataset)
-dataset = dataset.drop(columns="Hogwarts House")
 dataset = dataset.select_dtypes(include=["float64"])
 
 parameters = create_dataframe(args.weights)
 quartiles = create_dataframe(args.quartiles)
 
-list_quartiles = [row for row in quartiles.itertuples(index=False, name=None)]
+list_quartiles = list(quartiles.itertuples(index=False, name=None))
 
 print("\n\n------------ Predict -----------\n")
 scaleddataset = robust_scale(dataset, list_quartiles).to_numpy()

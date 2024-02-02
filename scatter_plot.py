@@ -1,6 +1,6 @@
 import argparse
 import matplotlib.pyplot as pyplot
-from f_statistics import blue, green, yellow, red
+from variables import blue, green, yellow, red
 from data_preprocessing import create_dataframe, split_by_houses
 
 pyplot.style.use('gruvbox.mplstyle')

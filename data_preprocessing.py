@@ -1,5 +1,6 @@
 import pandas
 from f_statistics import percentile
+from variables import classes_column
 
 
 def create_dataframe(csv_string):
@@ -19,10 +20,10 @@ def cleanup_nan(dataframe):
 
 
 def split_by_houses(dataframe):
-    ravenclaw = dataframe.loc[dataframe["Hogwarts House"] == "Ravenclaw"]
-    slytherin = dataframe.loc[dataframe["Hogwarts House"] == "Slytherin"]
-    hufflepuff = dataframe.loc[dataframe["Hogwarts House"] == "Hufflepuff"]
-    gryffindor = dataframe.loc[dataframe["Hogwarts House"] == "Gryffindor"]
+    ravenclaw = dataframe.loc[dataframe[classes_column] == "Ravenclaw"]
+    slytherin = dataframe.loc[dataframe[classes_column] == "Slytherin"]
+    hufflepuff = dataframe.loc[dataframe[classes_column] == "Hufflepuff"]
+    gryffindor = dataframe.loc[dataframe[classes_column] == "Gryffindor"]
     return gryffindor, hufflepuff, ravenclaw, slytherin
 
 
@@ -37,10 +38,10 @@ def create_training_data(dataset):
 def create_classer(dataset):
 
     classer = pandas.DataFrame()
-    houses = dataset["Hogwarts House"].unique()
+    houses = dataset[classes_column].unique()
     houses.sort()
     for house in houses:
-        classer[house] = dataset["Hogwarts House"].map(lambda x: 1.0 if x == house else 0.0 )
+        classer[house] = dataset[classes_column].map(lambda x: 1.0 if x == house else 0.0 )
     return classer
 
 

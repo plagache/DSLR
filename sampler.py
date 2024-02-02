@@ -1,5 +1,6 @@
 import argparse
 from data_preprocessing import create_dataframe
+from variables import classes_column
 
 parser = argparse.ArgumentParser(description="A simple python program to sample dataset")
 parser.add_argument('dataset', help='the dataset csv file')
@@ -10,7 +11,7 @@ dataset = create_dataframe(args.dataset)
 
 
 def split_dataframe(dataframe, test_percent: float):
-    test_sample = dataframe.groupby("Hogwarts House").sample(frac=test_percent)
+    test_sample = dataframe.groupby(classes_column).sample(frac=test_percent)
     train_sample = dataframe.drop(test_sample.index)
     return test_sample, train_sample
 

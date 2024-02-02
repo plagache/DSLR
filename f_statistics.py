@@ -1,11 +1,5 @@
 import math
 
-blue = "#83a598"
-green = "#b8bb26"
-yellow = "#fabd2f"
-red = "#fb4934"
-
-
 def ft_count(array):
     counter = 0
     for element in array:
