@@ -1,7 +1,7 @@
 import argparse
 import matplotlib.pyplot as pyplot
-from variables import blue, green, yellow, red
-from data_preprocessing import create_dataframe, split_by_labels
+from variables import colors
+from data_preprocessing import create_dataframe, split_by_classes, create_classes
 
 pyplot.style.use('gruvbox.mplstyle')
 
@@ -12,35 +12,23 @@ args = parser.parse_args()
 
 dataset = create_dataframe(args.filename)
 
+datasets = split_by_classes(dataset)
+classes = create_classes(dataset)
+features = dataset.select_dtypes(include=["float64"]).columns.tolist()
+dataset_by_class = list(zip(datasets, classes))
 
-gryffindor, hufflepuff, ravenclaw, slytherin = split_by_labels(dataset)
-gryffindor = gryffindor.select_dtypes(include=["float64"])
-hufflepuff = hufflepuff.select_dtypes(include=["float64"])
-ravenclaw = ravenclaw.select_dtypes(include=["float64"])
-slytherin = slytherin.select_dtypes(include=["float64"])
-
-subjects_list = [label for label, _ in gryffindor.items()]
 # Get a list of course pairs (Astro, Herbo)
-subjects_pairs = []
+features_pairs = [ (feature, list(filter(lambda x: x != feature, features))) for feature in features]
 
-for subject in subjects_list:
-    # Get list of all subject except of index i
-    other_subjects = list(filter(lambda x: x != subject, subjects_list))
-    # tuple of subject[i], all other subjects
-    app = (subject, other_subjects)
-    subjects_pairs.append(app)
-
-for given_subject, other_subjects in subjects_pairs:
-    for other_subject in other_subjects:
-        title = f"{given_subject} - {other_subject}"
+for given_feature, other_features in features_pairs:
+    for other_feature in other_features:
+        title = f"{given_feature} - {other_feature}"
 
         pyplot.title(title)
 
         # set xylabels
-        pyplot.scatter(ravenclaw[given_subject], ravenclaw[other_subject], c=blue, alpha=0.6, label="Ravenclaw")
-        pyplot.scatter(slytherin[given_subject], slytherin[other_subject], c=green, alpha=0.6, label="Slytherin")
-        pyplot.scatter(hufflepuff[given_subject], hufflepuff[other_subject], c=yellow, alpha=0.6, label="Hufflepuff")
-        pyplot.scatter(gryffindor[given_subject], gryffindor[other_subject], c=red, alpha=0.6, label="Gryffindor")
+        for dataset, class_name in dataset_by_class:
+            pyplot.scatter(dataset[given_feature], dataset[other_feature], c=colors[class_name], alpha=0.6, label=class_name)
         pyplot.legend(loc='best')
 
         filename = f'static/Image/scatter/{title}.png'

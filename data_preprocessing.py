@@ -19,12 +19,12 @@ def cleanup_nan(dataframe):
     return pandas.concat(cleaned_series, axis=1)
 
 
-def split_by_houses(dataframe):
-    ravenclaw = dataframe.loc[dataframe[labels_column] == "Ravenclaw"]
-    slytherin = dataframe.loc[dataframe[labels_column] == "Slytherin"]
-    hufflepuff = dataframe.loc[dataframe[labels_column] == "Hufflepuff"]
-    gryffindor = dataframe.loc[dataframe[labels_column] == "Gryffindor"]
-    return gryffindor, hufflepuff, ravenclaw, slytherin
+def split_by_classes(dataframe):
+    classes = create_classes(dataframe)
+    data_classes = []
+    for class_name in classes:
+        data_classes.append(dataframe.loc[dataframe[labels_column] == class_name])
+    return data_classes
 
 
 def create_training_data(dataset):
@@ -36,7 +36,6 @@ def create_training_data(dataset):
 
 
 def create_labels(dataset, classes):
-
     labels = pandas.DataFrame()
     for class_name in classes:
         labels[class_name] = dataset[labels_column].map(lambda x: 1.0 if x == class_name else 0.0 )

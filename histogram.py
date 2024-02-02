@@ -1,7 +1,7 @@
 import argparse
 import matplotlib.pyplot as pyplot
-from variables import blue, green, yellow, red
-from data_preprocessing import create_dataframe, split_by_labels
+from variables import colors
+from data_preprocessing import create_classes, create_dataframe, split_by_classes
 
 parser = argparse.ArgumentParser(description="A simple python program to print the histogram plots of a given csv dataset")
 parser.add_argument('filename', help='the dataset csv file')
@@ -12,24 +12,21 @@ pyplot.style.use('gruvbox.mplstyle')
 dataset = create_dataframe(args.filename)
 
 
-gryffindor, hufflepuff, ravenclaw, slytherin = split_by_labels(dataset)
-gryffindor = gryffindor.select_dtypes(include=["float64"])
-hufflepuff = hufflepuff.select_dtypes(include=["float64"])
-ravenclaw = ravenclaw.select_dtypes(include=["float64"])
-slytherin = slytherin.select_dtypes(include=["float64"])
+datasets = split_by_classes(dataset)
+classes = create_classes(dataset)
+features = dataset.select_dtypes(include=["float64"]).columns.tolist()
+dataset_by_class = list(zip(datasets, classes))
 
-for label, _ in gryffindor.items():
+for feature in features:
 
-    pyplot.title(str(label))
+    pyplot.title(feature)
 
-    pyplot.hist(ravenclaw[label], color=blue, alpha=0.5, label="Ravenclaw")
-    pyplot.hist(slytherin[label], color=green, alpha=0.5, label="Slytherin")
-    pyplot.hist(hufflepuff[label], color=yellow, alpha=0.5, label="Hufflepuff")
-    pyplot.hist(gryffindor[label], color=red, alpha=0.5, label="Gryffindor")
+    for dataset, class_name in dataset_by_class:
+        pyplot.hist(dataset[feature], color=colors[class_name], alpha=0.5, label=class_name)
 
     pyplot.legend(loc='best')
 
-    filename = f'static/Image/hist/{label}.png'
+    filename = f'static/Image/hist/{feature}.png'
     pyplot.savefig(filename, format="png")
     print(f'created {filename}')
 

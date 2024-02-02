@@ -1,7 +1,7 @@
 import argparse
 import pandas
 from nn import Neuron
-from data_preprocessing import create_dataframe, robust_scale, split_by_houses
+from data_preprocessing import create_dataframe, robust_scale, split_by_classes
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
 parser.add_argument('dataset', help='the dataset csv file')
@@ -22,7 +22,7 @@ scaleddataset = robust_scale(dataset, list_quartiles).to_numpy()
 
 models = pandas.DataFrame()
 
-for house in split_by_houses(parameters):
+for house in split_by_classes(parameters):
     house_name = house["Hogwarts House"].iloc[0]
     weights = house.select_dtypes(include=["float64"]).to_numpy().reshape(-1)
     neuron = Neuron(weights.size, weights)

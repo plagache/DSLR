@@ -50,13 +50,13 @@ def describe():
 
     if os.path.isfile('templates/describe_table.html'):
         table = True
-    if os.path.isfile('templates/describe_table_gryffindor.html'):
+    if os.path.isfile('templates/describe_table_Gryffindor.html'):
         gryffindor = True
-    if os.path.isfile('templates/describe_table_hufflepuff.html'):
+    if os.path.isfile('templates/describe_table_Hufflepuff.html'):
         hufflepuff = True
-    if os.path.isfile('templates/describe_table_ravenclaw.html'):
+    if os.path.isfile('templates/describe_table_Ravenclaw.html'):
         ravenclaw = True
-    if os.path.isfile('templates/describe_table_slytherin.html'):
+    if os.path.isfile('templates/describe_table_Slytherin.html'):
         slytherin = True
 
     return render_template('describe.html', table=table, gryffindor=gryffindor, hufflepuff=hufflepuff, ravenclaw=ravenclaw, slytherin=slytherin)
