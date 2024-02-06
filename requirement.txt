@@ -6,3 +6,5 @@ pandas
 pandas-stubs
 scikit-learn
 seaborn
+pyarrow
+tqdm

@@ -4,24 +4,15 @@ import numpy as np
 class Neuron():
 
     def __init__(self, number_of_input, weight=None):
-        # self.weight = np.random.rand(1, number_of_input)
         self.weight = weight if weight is not None else np.zeros(number_of_input, dtype=np.float64)
 
     def outputs(self, tensor):
-        # what we want is >> weight * inputs
-        z = self.weight @ tensor
-        # print(z)
-        # print(self.sigmoid(z))
-        self._z = z
-        self._outputs = self.sigmoid(z)
-        # return self
-        return self.sigmoid(z)
-        # return self._outputs
+        self._z = self.weight @ tensor
+        self._outputs = self.logistic(self._z)
+        return self._outputs
 
-    # def derivative(self, ys):
-    #     self.ys = ys
-    #     return ys
-
-    # This is an activation function (it normalize our result)
-    def sigmoid(self, z):
+    # This is an activation function of the sigmoid type
+    # in our case a logistic one (it normalize our result between 0 and 1)
+    # https://en.wikipedia.org/wiki/Logistic_function
+    def logistic(self, z):
         return 1.0 / (1 + np.exp(-z))

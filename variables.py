@@ -11,3 +11,4 @@ colors = {
 }
 
 labels_column = "Hogwarts House"
+prediction_file = "houses.csv"

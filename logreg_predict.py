@@ -2,7 +2,7 @@ import argparse
 import pandas
 from nn import Neuron
 from data_preprocessing import create_dataframe, robust_scale
-from variables import labels_column
+from variables import labels_column, prediction_file
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
 parser.add_argument('dataset', help='the dataset csv file')
@@ -31,4 +31,4 @@ for class_name, weights in parameters.iterrows():
 
 
 prediction = models.idxmax(axis="columns")
-prediction.to_csv("houses.csv", index_label="Index", header=[labels_column])
+prediction.to_csv(prediction_file, index_label="Index", header=[labels_column])

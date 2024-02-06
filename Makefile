@@ -26,7 +26,7 @@ debugweb: static
 	${BIN_PATH}/flask --app homepage.py --debug run --host=0.0.0.0
 
 extract:
-	tar -xvf datasets.tgz
+	tar -xf datasets.tgz
 
 describe: extract
 	${BIN_PATH}/python describe.py ${TRAIN_SET}

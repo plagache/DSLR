@@ -16,4 +16,4 @@ y_prediction = prediction[labels_column].tolist()
 
 accuracy = accuracy_score(y_true, y_prediction)
 
-print(f"accuracy: {accuracy * 100}%")
+print(f"\naccuracy: {accuracy * 100}%")

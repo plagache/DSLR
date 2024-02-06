@@ -13,7 +13,6 @@ dataset = create_dataframe(args.filename)
 numerical_features = dataset.select_dtypes(include=["float64"])
 
 cleaned = cleanup_nan(numerical_features)
-# print(cleaned)
 
 
 def dataset_to_dic(dataset):
@@ -39,11 +38,8 @@ def getDescribeDataframe(cleaned_df):
     described_df = pandas.DataFrame(column_list)
     described_transposed = described_df.transpose()
 
-    # save column name
     header = described_transposed.iloc[0]
-    # cut column name from df
     described_transposed = described_transposed[1:]
-    # reinscribed column name
     described_transposed.columns = header
     return described_transposed
 
