@@ -30,10 +30,10 @@ Data Science X Logistic Regression
 - [ ] Numerization (best hand / date of birth)
 - [x] Unify output to csv for quartiles and weights: build a dataframe with desired shape, then write to csv
 - [x] Calculate accuracy
-- [ ] need 98% accuracy
+- [x] need 98% accuracy
 - [x] Select % of each house examples and set as precision testing dataset
 
-- [ ] split data process and calculation in predict
+- [x] split data process and calculation in predict
 - [x] exctract accuracy
 - [x] exctract sampling
 - [ ] unify data process of train and predict:
@@ -43,6 +43,7 @@ Data Science X Logistic Regression
     - [x] weight in the dataframe are alphabeticaly sorted and the resulting np array is in the same order
     - [x] exctract scaling from classer && courses list creation from Training
 - [x] split loss formula to prevent log(0), only compute the y truth side.
+- [ ] split loss formula to prevent log(0), only compute the y truth side in SGD
 
 ### Questions
 
