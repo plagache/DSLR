@@ -13,10 +13,10 @@ pip_upgrade:
 	${BIN_PATH}/pip install --upgrade pip
 
 install:
-	${BIN_PATH}/pip install -r requirement.txt
+	${BIN_PATH}/pip install -r requirements.txt
 
 upgrade:
-	${BIN_PATH}/pip install -r requirement.txt --upgrade
+	${BIN_PATH}/pip install -r requirements.txt --upgrade
 
 web: static
 	# export FLASK_APP=homepage && export FLASK_ENV=development &&
