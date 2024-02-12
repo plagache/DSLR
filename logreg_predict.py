@@ -1,8 +1,8 @@
 import argparse
 import pandas
 from nn import Neuron
-from data_preprocessing import create_dataframe, robust_scale
-from variables import labels_column, prediction_file
+from data_preprocessing import create_dataframe, remove_unselected_features, robust_scale
+from variables import labels_column, prediction_file, unselected_features
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
 parser.add_argument('dataset', help='the dataset csv file')
@@ -12,6 +12,7 @@ args = parser.parse_args()
 
 dataset = create_dataframe(args.dataset)
 dataset = dataset.select_dtypes(include=["float64"])
+dataset = remove_unselected_features(dataset, unselected_features)
 
 parameters = create_dataframe(args.weights)
 quartiles = create_dataframe(args.quartiles)

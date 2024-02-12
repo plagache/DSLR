@@ -1,6 +1,6 @@
 import pandas
 from f_statistics import percentile
-from variables import labels_column
+from variables import labels_column, unselected_features
 
 
 def create_dataframe(csv_string):
@@ -26,9 +26,14 @@ def split_by_classes(dataframe):
     return data_classes
 
 
+def remove_unselected_features(dataset, features_to_remove):
+    return dataset.drop(columns=features_to_remove)
+
+
 def create_training_data(dataset):
     # dataset = numerization(dataset)
     numerical_features = dataset.select_dtypes(include=["float64"])
+    numerical_features = remove_unselected_features(numerical_features, unselected_features)
     quartiles = set_quartiles(numerical_features)
     rescaled = robust_scale(numerical_features, quartiles)
     return rescaled

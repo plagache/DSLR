@@ -11,4 +11,21 @@ colors = {
 }
 
 labels_column = "Hogwarts House"
+selected_features = [
+"Ancient Runes",
+"Astronomy",
+"Charms",
+"Divination",
+"Flying",
+"Defense Against the Dark Arts",
+"Muggle Studies",
+"Transfiguration",
+"History of Magic",
+"Herbology",
+]
+unselected_features = [
+"Arithmancy",
+"Care of Magical Creatures",
+"Potions",
+]
 prediction_file = "houses.csv"
