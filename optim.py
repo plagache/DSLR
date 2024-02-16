@@ -4,6 +4,7 @@ import numpy as np
 # https://en.wikipedia.org/wiki/Hyperparameter_optimization
 
 
+# should get the all Tensor same as GD, and select an item randomly
 def sgd(tensor, neuron, ys, learning_rate):
     # input: tensor, ys, neuron.weight
     # output: outputs, diffs, losses
@@ -23,23 +24,29 @@ def sgd(tensor, neuron, ys, learning_rate):
     neuron.weight -= learning_rate * derivative
     return loss
 
+# def gd(tensor, neuron, ys, learning_rate):
+#     # input: tensor, ys, neuron.weight
+#     # output: outputs, diffs, losses
+#     row_count = len(tensor)
+#
+#     outputs = neuron.outputs(tensor.T)
+#     diffs = outputs - ys
+#
+#     log_loss_sum = np.log(np.where(ys == 1.0, outputs, 1 - outputs)).sum()
+#     loss = - log_loss_sum / row_count
+#
+#     # Update weight
+#     # inputs: neuron.weight, diffs, tensor
+#     # outputs: neuron.weight.updater
+#     # diffs @ tensor = [13, 1]
+#     derivative = diffs @ tensor
+#     derivative /= row_count
+#     neuron.weight -= learning_rate * derivative
+#     return loss
 
-def gd(tensor, neuron, ys, learning_rate):
-    # input: tensor, ys, neuron.weight
-    # output: outputs, diffs, losses
-    row_count = len(tensor)
-
-    outputs = neuron.outputs(tensor.T)
-    diffs = outputs - ys
-
-    log_loss_sum = np.log(np.where(ys == 1.0, outputs, 1 - outputs)).sum()
-    loss = - log_loss_sum / row_count
-
-    # Update weight
-    # inputs: neuron.weight, diffs, tensor
-    # outputs: neuron.weight.updater
-    # diffs @ tensor = [13, 1]
-    derivative = diffs @ tensor
-    derivative /= row_count
-    neuron.weight -= learning_rate * derivative
-    return loss
+def gd(brain, learning_rate):
+    brain.predictions()
+    brain.diffs()
+    brain.loss()
+    brain.update_weights(learning_rate)
+    return brain._loss
