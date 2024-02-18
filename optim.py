@@ -44,9 +44,9 @@ def sgd(tensor, neuron, ys, learning_rate):
 #     neuron.weight -= learning_rate * derivative
 #     return loss
 
-def gd(brain, learning_rate):
-    brain.predictions()
-    brain.diffs()
-    brain.loss()
-    brain.update_weights(learning_rate)
+def gd(brain, learning_rate, tensor, labels_tensor):
+    brain.predictions(tensor)
+    brain.diffs(labels_tensor)
+    brain.loss(tensor, labels_tensor)
+    brain.update_weights(tensor, learning_rate)
     return brain._loss
