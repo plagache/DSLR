@@ -12,7 +12,7 @@ def split_dataframe(dataframe, test_percent: float):
 
 if __name__ == "__main__":
     print("\n------------ Sampling -----------")
-    parser = argparse.ArgumentParser( description="A simple python program to sample dataset")
+    parser = argparse.ArgumentParser(description="A simple python program to sample dataset")
     parser.add_argument("dataset", help="the dataset csv file")
     args = parser.parse_args()
 

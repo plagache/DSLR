@@ -43,9 +43,7 @@ def create_training_data(dataset):
 def create_labels(dataset, classes):
     labels = pandas.DataFrame()
     for class_name in classes:
-        labels[class_name] = dataset[labels_column].map(
-            lambda x: 1.0 if x == class_name else 0.0
-        )
+        labels[class_name] = dataset[labels_column].map(lambda x: 1.0 if x == class_name else 0.0)
     return labels
 
 

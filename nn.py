@@ -2,9 +2,10 @@ import numpy as np
 
 # here we should have only numpy array/object
 
+
 # Brain input: the class to detect, the features to train
 # create parameters matrix with shape
-class Brain():
+class Brain:
     def __init__(self, classes, features, weights=None):
         self.classes = classes
         self.class_number = len(self.classes)
@@ -41,8 +42,15 @@ class Brain():
     def neurons(self):
         print(self.classes)
         print("Number of Neurons: ", self.class_number)
-        if (self.class_number,self.feature_number) == self.weights.shape:
-            print("Shape is Good| classes:", self.class_number, "| features:", self.feature_number, "| weights:", self.weights.shape)
+        if (self.class_number, self.feature_number) == self.weights.shape:
+            print(
+                "Shape is Good| classes:",
+                self.class_number,
+                "| features:",
+                self.feature_number,
+                "| weights:",
+                self.weights.shape,
+            )
         for index, class_name in enumerate(self.classes):
             print(class_name, ":")
             print(self.weights[index])

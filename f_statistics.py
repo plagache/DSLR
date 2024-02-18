@@ -31,7 +31,7 @@ def standard_deviation(array):
     variance = deviation / count
 
     # standard_deviation = math.sqrt(variance)
-    standard_deviation = variance ** 0.5
+    standard_deviation = variance**0.5
 
     return standard_deviation
 

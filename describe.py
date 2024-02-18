@@ -2,14 +2,10 @@ import argparse
 
 import pandas
 
-from data_preprocessing import (cleanup_nan, create_classes, create_dataframe,
-                                split_by_classes)
-from f_statistics import (ft_count, ft_mean, maximum, minimum, percentile,
-                          standard_deviation)
+from data_preprocessing import cleanup_nan, create_classes, create_dataframe, split_by_classes
+from f_statistics import ft_count, ft_mean, maximum, minimum, percentile, standard_deviation
 
-parser = argparse.ArgumentParser(
-    description="A simple python program to print a summary of a given csv dataset"
-)
+parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
 parser.add_argument("filename", help="the dataset csv file")
 parser.add_argument("--web", action="store_true", help="export data to html output")
 args = parser.parse_args()

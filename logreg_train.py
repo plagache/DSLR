@@ -5,14 +5,13 @@ import pandas
 from tqdm import tqdm
 
 from accuracy_test import test_accuracy
-from data_preprocessing import (create_classes, create_dataframe,
-                                create_labels, create_training_data)
+from data_preprocessing import create_classes, create_dataframe, create_labels, create_training_data
 from logreg_predict import predict
 from nn import Brain
 from optim import gd, sgd
 from variables import labels_column, learning_rate, steps
 
-parser = argparse.ArgumentParser( description="A simple python program to print a summary of a given csv dataset")
+parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
 parser.add_argument("train_set", help="the dataset csv file")
 parser.add_argument("test_set", help="the dataset csv file")
 args = parser.parse_args()

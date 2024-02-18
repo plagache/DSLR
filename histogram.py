@@ -2,13 +2,12 @@ import argparse
 
 import matplotlib.pyplot as pyplot
 
-from data_preprocessing import (create_classes, create_dataframe,
-                                split_by_classes)
+from data_preprocessing import create_classes, create_dataframe, split_by_classes
 from variables import colors
 
-parser = argparse.ArgumentParser( description="A simple python program to print the histogram plots of a given csv dataset")
+parser = argparse.ArgumentParser(description="A simple python program to print the histogram plots of a given csv dataset")
 parser.add_argument("filename", help="the dataset csv file")
-parser.add_argument( "--show", action="store_true", help="hangs program to display plots")
+parser.add_argument("--show", action="store_true", help="hangs program to display plots")
 args = parser.parse_args()
 
 pyplot.style.use("gruvbox.mplstyle")
@@ -24,7 +23,7 @@ for feature in features:
     pyplot.title(feature)
 
     for dataset, class_name in dataset_by_class:
-        pyplot.hist( dataset[feature], color=colors[class_name], alpha=0.5, label=class_name)
+        pyplot.hist(dataset[feature], color=colors[class_name], alpha=0.5, label=class_name)
 
     pyplot.legend(loc="best")
 

@@ -6,7 +6,7 @@ import numpy as np
 from data_preprocessing import create_dataframe
 from variables import colors
 
-parser = argparse.ArgumentParser( description="A simple python program to print a summary of a given csv dataset")
+parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
 parser.add_argument("filename", help="the loss csv file")
 args = parser.parse_args()
 

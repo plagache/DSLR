@@ -3,8 +3,7 @@ import argparse
 import numpy as np
 import pandas
 
-from data_preprocessing import (create_dataframe, remove_unselected_features,
-                                robust_scale)
+from data_preprocessing import create_dataframe, remove_unselected_features, robust_scale
 from nn import Brain
 from variables import labels_column, prediction_file, unselected_features
 
@@ -19,7 +18,7 @@ def predict(brain: Brain, inputs):
 
 if __name__ == "__main__":
     print("\n------------ Predict -----------")
-    parser = argparse.ArgumentParser( description="A simple python program to print a summary of a given csv dataset")
+    parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
     parser.add_argument("dataset", help="the dataset csv file")
     parser.add_argument("weights", help="the weights csv file")
     parser.add_argument("quartiles", help="the quartiles csv file")

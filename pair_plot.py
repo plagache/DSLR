@@ -6,9 +6,9 @@ import seaborn
 from data_preprocessing import create_dataframe
 from variables import colors, labels_column
 
-parser = argparse.ArgumentParser( description="A simple python program to print the pait plot of a given csv dataset")
+parser = argparse.ArgumentParser(description="A simple python program to print the pait plot of a given csv dataset")
 parser.add_argument("filename", help="the dataset csv file")
-parser.add_argument( "--show", action="store_true", help="hangs program to display plots")
+parser.add_argument("--show", action="store_true", help="hangs program to display plots")
 args = parser.parse_args()
 
 
