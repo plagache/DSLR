@@ -1,5 +1,6 @@
 import math
 
+
 def ft_count(array):
     counter = 0
     for element in array:
@@ -29,7 +30,8 @@ def standard_deviation(array):
 
     variance = deviation / count
 
-    standard_deviation = math.sqrt(variance)
+    # standard_deviation = math.sqrt(variance)
+    standard_deviation = variance ** 0.5
 
     return standard_deviation
 
@@ -74,4 +76,3 @@ def percentile(array, percent: float):
         value = sorted_array.loc[index]
 
     return value
-    # return round(value, 6)

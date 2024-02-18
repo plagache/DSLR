@@ -1,11 +1,17 @@
-import pandas
 import argparse
-from f_statistics import ft_count, ft_mean, standard_deviation, minimum, maximum, percentile
-from data_preprocessing import create_classes, create_dataframe, cleanup_nan, split_by_classes
 
-parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
-parser.add_argument('filename', help='the dataset csv file')
-parser.add_argument('--web', action='store_true', help='export data to html output')
+import pandas
+
+from data_preprocessing import (cleanup_nan, create_classes, create_dataframe,
+                                split_by_classes)
+from f_statistics import (ft_count, ft_mean, maximum, minimum, percentile,
+                          standard_deviation)
+
+parser = argparse.ArgumentParser(
+    description="A simple python program to print a summary of a given csv dataset"
+)
+parser.add_argument("filename", help="the dataset csv file")
+parser.add_argument("--web", action="store_true", help="export data to html output")
 args = parser.parse_args()
 
 dataset = create_dataframe(args.filename)
@@ -17,16 +23,16 @@ cleaned = cleanup_nan(numerical_features)
 
 def dataset_to_dic(dataset):
     dictionnaire = {
-            "name" : dataset.name,
-            "count" : ft_count(dataset),
-            "mean" : ft_mean(dataset),
-            "standard deviation" : standard_deviation(dataset),
-            "min" : minimum(dataset),
-            "first" : percentile(dataset, 0.25),
-            "second" : percentile(dataset, 0.5),
-            "third" : percentile(dataset, 0.75),
-            "max" : maximum(dataset),
-            }
+        "name": dataset.name,
+        "count": ft_count(dataset),
+        "mean": ft_mean(dataset),
+        "standard deviation": standard_deviation(dataset),
+        "min": minimum(dataset),
+        "first": percentile(dataset, 0.25),
+        "second": percentile(dataset, 0.5),
+        "third": percentile(dataset, 0.75),
+        "max": maximum(dataset),
+    }
     return dictionnaire
 
 

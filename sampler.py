@@ -1,4 +1,5 @@
 import argparse
+
 from data_preprocessing import create_dataframe
 from variables import labels_column, sampling
 
@@ -10,10 +11,9 @@ def split_dataframe(dataframe, test_percent: float):
 
 
 if __name__ == "__main__":
-
     print("\n------------ Sampling -----------")
-    parser = argparse.ArgumentParser(description="A simple python program to sample dataset")
-    parser.add_argument('dataset', help='the dataset csv file')
+    parser = argparse.ArgumentParser( description="A simple python program to sample dataset")
+    parser.add_argument("dataset", help="the dataset csv file")
     args = parser.parse_args()
 
     dataset = create_dataframe(args.dataset)

@@ -1,4 +1,5 @@
 import pandas
+
 from f_statistics import percentile
 from variables import labels_column, unselected_features
 
@@ -42,17 +43,21 @@ def create_training_data(dataset):
 def create_labels(dataset, classes):
     labels = pandas.DataFrame()
     for class_name in classes:
-        labels[class_name] = dataset[labels_column].map(lambda x: 1.0 if x == class_name else 0.0 )
+        labels[class_name] = dataset[labels_column].map(
+            lambda x: 1.0 if x == class_name else 0.0
+        )
     return labels
+
 
 def create_classes(dataset):
     classes = dataset[labels_column].unique()
     classes.sort()
     return classes
 
+
 def numerization(dataset):
     dataset["Birthday"] = pandas.to_datetime(dataset["Birthday"]).astype(int)
-    numerized_dataset = dataset.replace(regex={'Right': 1, 'Left': -1})
+    numerized_dataset = dataset.replace(regex={"Right": 1, "Left": -1})
     return numerized_dataset
 
 

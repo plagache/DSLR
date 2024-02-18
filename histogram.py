@@ -1,14 +1,17 @@
 import argparse
-import matplotlib.pyplot as pyplot
-from variables import colors
-from data_preprocessing import create_classes, create_dataframe, split_by_classes
 
-parser = argparse.ArgumentParser(description="A simple python program to print the histogram plots of a given csv dataset")
-parser.add_argument('filename', help='the dataset csv file')
-parser.add_argument('--show', action='store_true', help='hangs program to display plots')
+import matplotlib.pyplot as pyplot
+
+from data_preprocessing import (create_classes, create_dataframe,
+                                split_by_classes)
+from variables import colors
+
+parser = argparse.ArgumentParser( description="A simple python program to print the histogram plots of a given csv dataset")
+parser.add_argument("filename", help="the dataset csv file")
+parser.add_argument( "--show", action="store_true", help="hangs program to display plots")
 args = parser.parse_args()
 
-pyplot.style.use('gruvbox.mplstyle')
+pyplot.style.use("gruvbox.mplstyle")
 dataset = create_dataframe(args.filename)
 
 
@@ -18,17 +21,16 @@ features = dataset.select_dtypes(include=["float64"]).columns.tolist()
 dataset_by_class = list(zip(datasets, classes))
 
 for feature in features:
-
     pyplot.title(feature)
 
     for dataset, class_name in dataset_by_class:
-        pyplot.hist(dataset[feature], color=colors[class_name], alpha=0.5, label=class_name)
+        pyplot.hist( dataset[feature], color=colors[class_name], alpha=0.5, label=class_name)
 
-    pyplot.legend(loc='best')
+    pyplot.legend(loc="best")
 
-    filename = f'static/Image/hist/{feature}.png'
+    filename = f"static/Image/hist/{feature}.png"
     pyplot.savefig(filename, format="png")
-    print(f'created {filename}')
+    print(f"created {filename}")
 
     if args.show is True:
         pyplot.show()
