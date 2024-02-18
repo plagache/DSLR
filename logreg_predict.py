@@ -16,6 +16,7 @@ def predict(brain:Brain, inputs):
 
 
 if __name__ == "__main__":
+    print("\n------------ Predict -----------")
     parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
     parser.add_argument('dataset', help='the dataset csv file')
     parser.add_argument('weights', help='the weights csv file')

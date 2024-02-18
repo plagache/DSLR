@@ -2,7 +2,7 @@
 
 # HYPERPARAMETERS
 learning_rate = 2e-1
-steps = 1100
+steps = 50
 sampling = 0.3
 
 

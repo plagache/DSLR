@@ -35,7 +35,7 @@ sample: static extract
 	${BIN_PATH}/python sampler.py ${TRAIN_SET}
 
 train: static
-	${BIN_PATH}/python logreg_train.py ${TRAIN_SET}
+	${BIN_PATH}/python logreg_train.py ${TRAIN_SET} ${TEST_SET}
 
 graph: extract static
 	${BIN_PATH}/python graph.py tmp/losses.csv

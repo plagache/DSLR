@@ -11,6 +11,7 @@ def test_accuracy(samples, prediction, labels_column):
     return accuracy
 
 if __name__ == "__main__":
+    print("\n------------ Accuracy -----------")
     parser = argparse.ArgumentParser(description="A simple python program to test the accuracy of a given csv dataset")
     parser.add_argument('samples', help='the test samples csv file')
     parser.add_argument('prediction', help='the houses.csv file')
