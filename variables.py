@@ -4,7 +4,9 @@
 # learning_rate = 1e-2
 learning_rate = 2
 steps = 600
-sampling = 0.1
+# steps = 100
+sampling = 1
+stochastic = False
 
 
 # FEATURES

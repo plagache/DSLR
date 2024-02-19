@@ -9,7 +9,7 @@ from data_preprocessing import create_classes, create_dataframe, create_labels, 
 from logreg_predict import predict
 from nn import Brain
 from optim import gd, sgd
-from variables import labels_column, learning_rate, steps
+from variables import labels_column, learning_rate, steps, stochastic
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
 parser.add_argument("train_set", help="the dataset csv file")
@@ -37,8 +37,10 @@ losses = []
 learning_rate = learning_rate
 steps = steps
 for step in (t := tqdm(range(steps))):
-    # loss = sgd(brain, learning_rate, features_tensor, labels_tensor)
-    loss = gd(brain, learning_rate, features_tensor, labels_tensor)
+    if stochastic is True:
+        loss = sgd(brain, learning_rate, features_tensor, labels_tensor)
+    else:
+        loss = gd(brain, learning_rate, features_tensor, labels_tensor)
 
     losses.append(loss)
 
