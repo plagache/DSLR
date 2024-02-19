@@ -38,7 +38,7 @@ train: static
 	${BIN_PATH}/python logreg_train.py ${TRAIN_SET} ${TEST_SET}
 
 graph: extract static
-	${BIN_PATH}/python graph.py tmp/losses.csv
+	${BIN_PATH}/python graph.py tmp/losses.csv tmp/accuracies.csv
 
 predict:
 	${BIN_PATH}/python logreg_predict.py ${TEST_SET} tmp/weights.csv tmp/quartiles.csv

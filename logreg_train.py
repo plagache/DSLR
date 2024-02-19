@@ -34,6 +34,8 @@ labels_tensor = labels.to_numpy().T
 brain = Brain(classes, features)
 
 losses = []
+accuracies = []
+
 learning_rate = learning_rate
 steps = steps
 for step in (t := tqdm(range(steps))):
@@ -46,8 +48,13 @@ for step in (t := tqdm(range(steps))):
 
     prediction_test = predict(brain, samples)
     accuracy = test_accuracy(test_sample, prediction_test, labels_column)
+    accuracies.append(accuracy)
 
     t.set_description(f"accuracy: {accuracy * 100:.2f}%")
+
+
+accuracy_df = pandas.DataFrame(accuracies)
+accuracy_df.to_csv("tmp/accuracies.csv", index=False)
 
 losses = np.stack(losses)
 losses_df = pandas.DataFrame(losses, columns=classes)

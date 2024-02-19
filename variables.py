@@ -3,10 +3,12 @@
 # HYPERPARAMETERS
 # learning_rate = 1e-2
 learning_rate = 2
-steps = 600
 # steps = 100
-sampling = 1
+# steps = 600
+steps = 1600
 stochastic = False
+# stochastic = True
+sampling = 0
 
 
 # FEATURES
