@@ -1,4 +1,5 @@
 import numpy as np
+from numpy.typing import NDArray
 
 from nn import Brain
 
@@ -8,27 +9,21 @@ from nn import Brain
 
 
 # should get the all Tensor same as GD, and select an item randomly
-def sgd(tensor, neuron, ys, learning_rate):
-    # input: tensor, ys, neuron.weight
-    # output: outputs, diffs, losses
-    outputs = neuron.outputs(tensor.T)
-    diffs = outputs - ys
+def sgd(brain: Brain, learning_rate: float, tensor: NDArray[np.float64], labels_tensor: NDArray[np.float64]):
+    # we want to select an element of the tensor randomly and do the prediction
+    random_index = np.random.randint(tensor.shape[0])  # Randomly select an index along the first axis
+    selected_item = tensor[random_index]
+    selected_label = labels_tensor.T[random_index]
 
-    loss = -np.log(np.where(ys == 1.0, outputs, 1 - outputs))
+    brain.predictions(selected_item)
+    brain.diffs(selected_label)
+    brain.loss(selected_item, selected_label)
+    brain.update_weights(selected_item, learning_rate)
 
-    # Update weight
-    # inputs: neuron.weight, diffs, tensor
-    # outputs: neuron.weight.updater
-    # diffs @ tensor = [13, 1]
-    diffnp = np.array([diffs]).reshape((1, 1))
-    tensornp = np.reshape(tensor, (1, 13))
-    derivative = diffnp @ tensornp
-    derivative = np.reshape(derivative, (13,))
-    neuron.weight -= learning_rate * derivative
-    return loss
+    return brain._loss
 
 
-def gd(brain: Brain, learning_rate, tensor, labels_tensor):
+def gd(brain: Brain, learning_rate: float, tensor: NDArray[np.float64], labels_tensor: NDArray[np.float64]):
     brain.predictions(tensor)
     brain.diffs(labels_tensor)
     brain.loss(tensor, labels_tensor)

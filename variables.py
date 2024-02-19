@@ -1,9 +1,10 @@
 # https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)
 
 # HYPERPARAMETERS
-learning_rate = 2e-1
-steps = 500
-sampling = 0.5
+# learning_rate = 1e-2
+learning_rate = 2
+steps = 600
+sampling = 0.1
 
 
 # FEATURES

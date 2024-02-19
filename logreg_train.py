@@ -37,7 +37,7 @@ losses = []
 learning_rate = learning_rate
 steps = steps
 for step in (t := tqdm(range(steps))):
-    # loss = sgd(features_tensor, neuron, class_labels, learning_rate)
+    # loss = sgd(brain, learning_rate, features_tensor, labels_tensor)
     loss = gd(brain, learning_rate, features_tensor, labels_tensor)
 
     losses.append(loss)

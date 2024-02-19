@@ -8,9 +8,9 @@ import numpy as np
 class Brain:
     def __init__(self, classes, features, weights=None):
         self.classes = classes
-        self.class_number = len(self.classes)
+        self.class_number: int = len(self.classes)
         self.features = features
-        self.feature_number = len(self.features)
+        self.feature_number: int = len(self.features)
         self.weights = weights if weights is not None else np.zeros((self.class_number, self.feature_number), dtype=np.float64)
 
     # This is an activation function of the sigmoid type
@@ -29,11 +29,17 @@ class Brain:
         return self._diffs
 
     def loss(self, xs, ys):
-        self.log_loss_sum = np.log(np.where(ys == 1.0, self._outputs, 1 - self._outputs)).sum(axis=1)
-        self._loss = -self.log_loss_sum / len(xs)
+        self.log_loss = np.log(np.where(ys == 1.0, self._outputs, 1 - self._outputs))
+        if len(xs.shape) == 1:
+            self._loss = -self.log_loss
+        else:
+            self._loss = -self.log_loss.sum(axis=1) / len(xs)
         return self._loss
 
     def update_weights(self, xs, learning_rate):
+        if len(xs.shape) == 1:
+            self._diffs = self._diffs.reshape(-1, 1)  # Reshape to (4, 1)
+            xs = xs.reshape(1, -1)
         self._derivative = self._diffs @ xs
         self._derivative /= len(xs)
         self.weights -= learning_rate * self._derivative
