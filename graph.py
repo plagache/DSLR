@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from data_preprocessing import create_dataframe
-from variables import colors
+from variables import colors, learning_rate, stochastic
 
 
 def draw_losses(losses, classes):
@@ -15,7 +15,8 @@ def draw_losses(losses, classes):
         plt.xlabel("step")
         plt.ylabel("loss")
     plt.legend(classes)
-    plt.savefig("static/Image/loss/losses.png")
+    plt.title(f"learning rate: {learning_rate} | Stochastic: {stochastic}")
+    plt.savefig(f"static/Image/loss/lr_{learning_rate}_st_{stochastic}.png", dpi=200)
     plt.show()
     plt.close()
 
