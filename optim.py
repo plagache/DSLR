@@ -2,6 +2,7 @@ import numpy as np
 from numpy.typing import NDArray
 
 from nn import Brain
+from variables import learning_rate_decay, scheduler
 
 # differente class of hyperparamater optimization
 
@@ -29,3 +30,19 @@ def gd(brain: Brain, learning_rate: float, tensor: NDArray[np.float64], labels_t
     brain.loss(tensor, labels_tensor)
     brain.update_weights(tensor, learning_rate)
     return brain._loss
+
+
+def learning_rate_scheduler(initial_learning_rate, step):
+    if scheduler == "linear":
+        return linear_scheduler(initial_learning_rate, step)
+    elif scheduler == "exp":
+        return exponential_scheduler(initial_learning_rate, step)
+    else:
+        raise ValueError(f"scheduler can only be 'exp' or 'linear'\nscheduler == '{scheduler}'")
+
+
+def exponential_scheduler(initial_learning_rate, step):
+    return initial_learning_rate * np.exp(-learning_rate_decay * step)
+
+def linear_scheduler(initial_learning_rate, step):
+    return (1 / (1 + learning_rate_decay * step)) * initial_learning_rate

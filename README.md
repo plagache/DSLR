@@ -1,7 +1,7 @@
 # DSLR
 Data Science X Logistic Regression
 
-### ToDo
+## ToDo
 
 - [x] [Describe](describe.py)
     - [x] get list of cleaned numerical dataset
@@ -46,7 +46,7 @@ Data Science X Logistic Regression
 
 - [ ] Web UI for training, predict, accuracy, weight, loss, display
 
-### Questions
+## FAQ
 
 what about the absence of data ?
 during training and during prediction

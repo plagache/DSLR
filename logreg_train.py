@@ -8,7 +8,7 @@ from accuracy_test import test_accuracy
 from data_preprocessing import create_classes, create_dataframe, create_labels, create_training_data
 from logreg_predict import predict
 from nn import Brain
-from optim import gd, sgd
+from optim import gd, learning_rate_scheduler, sgd
 from variables import labels_column, learning_rate, steps, stochastic
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
@@ -39,6 +39,7 @@ accuracies = []
 learning_rate = learning_rate
 steps = steps
 for step in (t := tqdm(range(steps))):
+    learning_rate = learning_rate_scheduler(learning_rate, step)
     if stochastic is True:
         loss = sgd(brain, learning_rate, features_tensor, labels_tensor)
     else:
