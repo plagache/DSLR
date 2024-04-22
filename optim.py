@@ -33,12 +33,15 @@ def gd(brain: Brain, learning_rate: float, tensor: NDArray[np.float64], labels_t
 
 
 def learning_rate_scheduler(initial_learning_rate, step):
-    if scheduler == "linear":
-        return linear_scheduler(initial_learning_rate, step)
-    elif scheduler == "exp":
-        return exponential_scheduler(initial_learning_rate, step)
-    else:
-        raise ValueError(f"scheduler can only be 'exp' or 'linear'\nscheduler == '{scheduler}'")
+    match scheduler:
+        case None:
+            return initial_learning_rate
+        case "linear":
+            return linear_scheduler(initial_learning_rate, step)
+        case "exp":
+            return exponential_scheduler(initial_learning_rate, step)
+        case _:
+            raise ValueError(f"scheduler can only be 'exp' or 'linear'\nscheduler == '{scheduler}'")
 
 
 def exponential_scheduler(initial_learning_rate, step):

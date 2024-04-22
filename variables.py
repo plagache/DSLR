@@ -1,24 +1,12 @@
 # https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)
 
 # HYPERPARAMETERS
-# learning_rate = 1e-1
-# learning_rate = 2
-learning_rate = 4
-# learning_rate = 8
-# learning_rate_decay = 1e1
-# learning_rate_decay = 1e-2
-# learning_rate_decay = 0
-learning_rate_decay = 1e-5
-# learning_rate_decay = 1e-7
-# learning_rate_decay = 1e-1
-# steps = 50
-# steps = 100
-# steps = 600
-steps = 1600
-stochastic = False
-# stochastic = True
-scheduler = "exp"
 sampling = 0
+stochastic = False
+steps = 1000
+learning_rate = 4
+scheduler = None
+learning_rate_decay = 0
 
 
 # FEATURES
