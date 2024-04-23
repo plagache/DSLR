@@ -55,18 +55,9 @@
 	<p>This is the list of features which answers the following question :</p>
 	<p>From this visualization, what features are you going to use for your logistic regression?</p>
 	<ul>
-        <li>Arithmancy</li>
-        <li>Astronomy</li>
-        <li>Herbology</li>
-        <li>Defense Against the Dark Arts</li>
-        <li>Divination</li>
-        <li>Muggle Studies</li>
-        <li>Ancient Runes</li>
-        <li>History of Magic</li>
-        <li>Transfiguration</li>
-        <li>Potions</li>
-        <li>Charms</li>
-        <li>Flying</li>
+		{% for feature in features %}
+		<li>{{feature}}</li>
+		{% endfor %}
     </ul>
 	{% endif %}
 

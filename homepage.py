@@ -2,6 +2,7 @@ import os
 import subprocess
 
 from flask import Flask, render_template, request
+from variables import selected_features
 
 app = Flask(__name__)
 
@@ -76,4 +77,4 @@ def pair():
     image_names.sort()
     images = [os.path.join(image_path, i) for i in image_names]
 
-    return render_template("pair.html", images=images)
+    return render_template("pair.html", images=images, features=selected_features)

@@ -47,6 +47,7 @@ def getDescribeDataframe(cleaned_df):
 
 
 described_df = getDescribeDataframe(cleaned)
+described_df.rename_axis("All dataset", axis="columns", inplace=True)
 
 
 def writeToHtmlTable(dataframe, table_name=""):
@@ -68,6 +69,7 @@ if args.web is True:
     for dataset, class_name in zip(datasets, classes):
         dataset = cleanup_nan(dataset.select_dtypes(include=["float64"]))
         described_dataset = getDescribeDataframe(dataset)
+        described_dataset.rename_axis(class_name, axis="columns", inplace=True)
         writeToHtmlTable(described_dataset, class_name)
 else:
     print(described_df.to_string())
