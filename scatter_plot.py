@@ -43,6 +43,6 @@ for given_feature, other_features in features_pairs:
         pyplot.savefig(filename, format="png")
         print(f"created {filename}")
 
-        if args.show is True:
+        if args.show is True and title == "Arithmancy - Care of Magical Creatures":
             pyplot.show()
         pyplot.close()

@@ -31,6 +31,6 @@ for feature in features:
     pyplot.savefig(filename, format="png")
     print(f"created {filename}")
 
-    if args.show is True:
+    if args.show is True and feature == "Care of Magical Creatures":
         pyplot.show()
     pyplot.close()

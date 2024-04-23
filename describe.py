@@ -20,14 +20,14 @@ cleaned = cleanup_nan(numerical_features)
 def dataset_to_dic(dataset):
     dictionnaire = {
         "name": dataset.name,
-        "count": ft_count(dataset),
-        "mean": ft_mean(dataset),
-        "standard deviation": standard_deviation(dataset),
-        "min": minimum(dataset),
-        "first": percentile(dataset, 0.25),
-        "second": percentile(dataset, 0.5),
-        "third": percentile(dataset, 0.75),
-        "max": maximum(dataset),
+        "Count": ft_count(dataset),
+        "Mean": ft_mean(dataset),
+        "Std": standard_deviation(dataset),
+        "Min": minimum(dataset),
+        "25%": percentile(dataset, 0.25),
+        "50%": percentile(dataset, 0.5),
+        "75%": percentile(dataset, 0.75),
+        "Max": maximum(dataset),
     }
     return dictionnaire
 
@@ -47,7 +47,7 @@ def getDescribeDataframe(cleaned_df):
 
 
 described_df = getDescribeDataframe(cleaned)
-described_df.rename_axis("All dataset", axis="columns", inplace=True)
+described_df.rename_axis(None, axis="columns", inplace=True)
 
 
 def writeToHtmlTable(dataframe, table_name=""):
@@ -62,6 +62,7 @@ def writeToHtmlTable(dataframe, table_name=""):
 
 
 if args.web is True:
+    described_df.rename_axis("All dataset", axis="columns", inplace=True)
     writeToHtmlTable(described_df)
 
     datasets = split_by_classes(dataset)
