@@ -18,12 +18,7 @@ install:
 upgrade:
 	${BIN_PATH}/pip install -r requirements.txt --upgrade
 
-web: static
-	# export FLASK_APP=homepage && export FLASK_ENV=development &&
-	${BIN_PATH}/flask --app homepage.py run --host=0.0.0.0
-
-debugweb: static
-	${BIN_PATH}/flask --app homepage.py --debug run --host=0.0.0.0
+###### DS
 
 extract:
 	tar -xf datasets.tgz
@@ -31,44 +26,61 @@ extract:
 describe: extract
 	${BIN_PATH}/python describe.py ${TRAIN_SET}
 
-sample: static extract
-	${BIN_PATH}/python sampler.py ${TRAIN_SET}
-
-train: static
-	${BIN_PATH}/python logreg_train.py ${TRAIN_SET} ${TEST_SET}
-
-graph: extract static
-	${BIN_PATH}/python graph.py tmp/losses.csv tmp/accuracies.csv
-
-predict:
-	${BIN_PATH}/python logreg_predict.py ${TEST_SET} tmp/weights.csv tmp/quartiles.csv
-
-accuracy:
-	${BIN_PATH}/python accuracy_test.py ${TEST_SET} houses.csv
-
-fullaccuracy: sample train predict accuracy
-	
-
-webdescribe: extract
-	${BIN_PATH}/python describe.py --web ${TRAIN_SET}
+histogram: extract static
+	${BIN_PATH}/python histogram.py --show ${TRAIN_SET}
 
 scatter: extract static
 	${BIN_PATH}/python scatter_plot.py --show ${TRAIN_SET}
 
+pair: extract static
+	${BIN_PATH}/python pair_plot.py --show ${TRAIN_SET}
+
+###### LR
+
+train: extract
+	${BIN_PATH}/python logreg_train.py ${TRAIN_SET}
+
+predict: tmp/weights.csv tmp/quartiles.csv
+	${BIN_PATH}/python logreg_predict.py ${TEST_SET} tmp/weights.csv tmp/quartiles.csv
+
+###### UI
+
+web: static
+	# export FLASK_APP=homepage && export FLASK_ENV=development &&
+	${BIN_PATH}/flask --app homepage.py run --host=0.0.0.0
+
+debugweb: static
+	${BIN_PATH}/flask --app homepage.py --debug run --host=0.0.0.0
+
+webdescribe: extract
+	${BIN_PATH}/python describe.py --web ${TRAIN_SET}
+
 webscatter: extract static
 	${BIN_PATH}/python scatter_plot.py ${TRAIN_SET}
-
-histogram: extract static
-	${BIN_PATH}/python histogram.py --show ${TRAIN_SET}
 
 webhistogram: extract static
 	${BIN_PATH}/python histogram.py ${TRAIN_SET}
 
-pair: extract static
-	${BIN_PATH}/python pair_plot.py --show ${TRAIN_SET}
-
 webpair: extract static
 	${BIN_PATH}/python pair_plot.py ${TRAIN_SET}
+	
+###### Accuracy
+
+sample: static extract
+	${BIN_PATH}/python sampler.py ${TRAIN_SET}
+
+trainacc:
+	${BIN_PATH}/python logreg_train.py ${TRAIN_SET} --accuracy ${TEST_SET}
+
+accuracy:
+	${BIN_PATH}/python accuracy_test.py ${TEST_SET} houses.csv
+
+fullaccuracy: sample trainacc predict accuracy
+
+graph: static
+	${BIN_PATH}/python graph.py tmp/losses.csv tmp/accuracies.csv
+
+###### Houskeeping
 
 static:
 	mkdir -p static/Image/hist
@@ -88,4 +100,6 @@ fclean: clean
 	rm -f activate
 
 .SILENT:
-.PHONY: env clean fclean static histogram webhistogram scatter webscatter webdescribe describe extract web debugweb
+.PHONY: env pip_upgrade install upgrade extract clean fclean static histogram \
+	webhistogram scatter webscatter pair webpair webdescribe describe web \
+	debugweb sample trainacc accuracy fullaccuracy graph

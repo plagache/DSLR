@@ -13,15 +13,23 @@ from variables import labels_column, learning_rate, steps, stochastic
 
 parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
 parser.add_argument("train_set", help="the dataset csv file")
-parser.add_argument("test_set", help="the dataset csv file")
+parser.add_argument("--accuracy", action="store", help="use accuracy", dest="test_set", default=None)
 args = parser.parse_args()
 
 train_sample = create_dataframe(args.train_set)
-test_sample = create_dataframe(args.test_set)
+
+test_sample = None
+samples = None
+
+accuracy = True
+if args.test_set is None:
+    accuracy = False
+else:
+    test_sample = create_dataframe(args.test_set)
+    samples = create_training_data(test_sample)
+
 
 print("\n------------ Training -----------")
-
-samples = create_training_data(test_sample)
 
 x_train = create_training_data(train_sample)
 features = x_train.columns.tolist()
@@ -47,15 +55,18 @@ for step in (t := tqdm(range(steps))):
 
     losses.append(loss)
 
-    prediction_test = predict(brain, samples)
-    accuracy = test_accuracy(test_sample, prediction_test, labels_column)
-    accuracies.append(accuracy)
+    description = f"loss: {loss}"
 
-    t.set_description(f"accuracy: {accuracy * 100:.2f}%")
+    if accuracy is True:
+        prediction_test = predict(brain, samples)
+        calculated_accuracy = test_accuracy(test_sample, prediction_test, labels_column)
+        accuracies.append(calculated_accuracy)
+
+        description = f"accuracy: {calculated_accuracy * 100:.2f}%"
+
+    t.set_description(description)
 
 
-accuracy_df = pandas.DataFrame(accuracies)
-accuracy_df.to_csv("tmp/accuracies.csv", index=False)
 
 losses = np.stack(losses)
 losses_df = pandas.DataFrame(losses, columns=classes)
@@ -63,3 +74,7 @@ losses_df.to_csv("tmp/losses.csv", index=False)
 
 weights_df = pandas.DataFrame(brain.weights, index=classes, columns=features)
 weights_df.to_csv("tmp/weights.csv", index_label=labels_column)
+
+if accuracy is True:
+    accuracy_df = pandas.DataFrame(accuracies)
+    accuracy_df.to_csv("tmp/accuracies.csv", index=False)
