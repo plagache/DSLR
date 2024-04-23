@@ -8,3 +8,4 @@ scikit-learn
 seaborn
 pyarrow
 tqdm
+PyQt5==5.15.10
