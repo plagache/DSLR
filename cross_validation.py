@@ -1,12 +1,13 @@
 import argparse
 
 from data_preprocessing import create_dataframe, split_dataframe
+from logreg_train import training
 from variables import number_of_fold
+from variables import learning_rate, steps
 
 
 def k_fold(dataframe, k):
     folds = []
-    # cent = 100
     while k > 1:
         percentage = 1 / k
         fold, dataframe = split_dataframe(dataframe, percentage)
@@ -23,7 +24,11 @@ if __name__ == "__main__":
 
     dataset = create_dataframe(args.dataset)
 
-    print(k_fold(dataset, number_of_fold))
-    print(dataset)
-    # test_sample.to_csv("datasets/dataset_test.csv")
-    # train_sample.to_csv("datasets/dataset_train.csv")
+    folds = k_fold(dataset, number_of_fold)
+    for fold in folds:
+        test_sample = fold
+        train_sample = dataset.drop(test_sample.index)
+        # print(test_sample, train_sample)
+        losses, weights = training(train_sample, learning_rate, steps, test_sample)
+        print(weights)
+        # print(losses, weights)

@@ -28,7 +28,10 @@ def training(train_sample, learning_rate, steps, test_sample=None):
     x_test = None
     samples = None
     if test_sample is not None:
-        x_test = create_dataframe(test_sample)
+        if isinstance(test_sample, pandas.DataFrame):
+            x_test = test_sample
+        else:
+            x_test = create_dataframe(test_sample)
         samples = create_training_data(x_test)
 
     losses = []
@@ -47,7 +50,6 @@ def training(train_sample, learning_rate, steps, test_sample=None):
 
         description = f"loss: {loss}"
 
-        # if accuracy is True:
         if test_sample is not None:
             prediction_test = predict(brain, samples)
             calculated_accuracy = test_accuracy(x_test, prediction_test, labels_column)
@@ -64,10 +66,12 @@ def training(train_sample, learning_rate, steps, test_sample=None):
     weights_df = pandas.DataFrame(brain.weights, index=classes, columns=features)
     weights_df.to_csv("tmp/weights.csv", index_label=labels_column)
 
-    # if accuracy is True:
     if test_sample is not None:
         accuracy_df = pandas.DataFrame(accuracies)
         accuracy_df.to_csv("tmp/accuracies.csv", index=False)
+        # return losses_df, weights_df, accuracy_df
+
+    return losses_df, weights_df
 
 
 if __name__ == "__main__":

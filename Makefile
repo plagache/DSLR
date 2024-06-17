@@ -105,7 +105,6 @@ static:
 	mkdir -p static/Image/scatter
 	mkdir -p static/Image/pair
 	mkdir -p static/Image/loss
-	mkdir -p cross_validation
 
 clean:
 	rm -rf datasets
