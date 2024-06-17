@@ -43,6 +43,8 @@ train: extract
 predict: tmp/weights.csv tmp/quartiles.csv
 	${BIN_PATH}/python logreg_predict.py ${TEST_SET} tmp/weights.csv tmp/quartiles.csv
 
+repredict: extract predict
+
 ###### UI
 
 web: static

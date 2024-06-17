@@ -18,19 +18,19 @@ selected_features = [
     "Ancient Runes",
     "Astronomy",
     "Charms",
-    "Divination",
-    "Flying",
     "Defense Against the Dark Arts",
-    "Muggle Studies",
-    "Transfiguration",
-    "History of Magic",
+    "Divination",
     "Herbology",
 ]
 
 unselected_features = [
     "Arithmancy",
     "Care of Magical Creatures",
+    "Flying",
+    "History of Magic",
+    "Muggle Studies",
     "Potions",
+    "Transfiguration",
 ]
 
 
