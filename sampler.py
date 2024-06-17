@@ -1,13 +1,7 @@
 import argparse
 
-from data_preprocessing import create_dataframe
-from variables import labels_column, sampling
-
-
-def split_dataframe(dataframe, test_percent: float):
-    test_sample = dataframe.groupby(labels_column).sample(frac=test_percent)
-    train_sample = dataframe.drop(test_sample.index)
-    return test_sample, train_sample
+from data_preprocessing import create_dataframe, split_dataframe
+from variables import sampling
 
 
 if __name__ == "__main__":
@@ -22,7 +16,7 @@ if __name__ == "__main__":
         test_sample, train_sample = split_dataframe(dataset, sampling)
     else:
         test_sample, train_sample = dataset, dataset
-    print("Sample fraction:", sampling)
+    print(f"Sample fraction: {sampling * 100}%")
 
     test_sample.to_csv("datasets/dataset_test.csv")
     train_sample.to_csv("datasets/dataset_train.csv")

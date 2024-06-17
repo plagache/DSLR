@@ -53,6 +53,12 @@ def create_classes(dataset):
     return classes
 
 
+def split_dataframe(dataframe, test_percent: float):
+    test_sample = dataframe.groupby(labels_column).sample(frac=test_percent)
+    train_sample = dataframe.drop(test_sample.index)
+    return test_sample, train_sample
+
+
 def numerization(dataset):
     dataset["Birthday"] = pandas.to_datetime(dataset["Birthday"]).astype(int)
     numerized_dataset = dataset.replace(regex={"Right": 1, "Left": -1})

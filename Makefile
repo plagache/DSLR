@@ -80,6 +80,24 @@ fullaccuracy: sample trainacc predict accuracy
 graph: static
 	${BIN_PATH}/python graph.py tmp/losses.csv tmp/accuracies.csv
 
+histogram_test: extract static
+	${BIN_PATH}/python histogram_test.py --show ${TRAIN_SET} ${TEST_SET}
+
+scatter_test: extract static
+	${BIN_PATH}/python scatter_test.py --show ${TRAIN_SET} ${TEST_SET}
+
+pair_test: extract static
+	${BIN_PATH}/python pair_test.py --show ${TRAIN_SET} ${TEST_SET}
+
+scikit_logreg: extract static
+	${BIN_PATH}/python scikit_logreg.py ${TRAIN_SET} --test_set ${TEST_SET}
+
+###### Cross Validation
+
+cross_validation: extract static
+	${BIN_PATH}/python cross_validation.py ${TRAIN_SET}
+
+
 ###### Houskeeping
 
 static:
@@ -87,6 +105,7 @@ static:
 	mkdir -p static/Image/scatter
 	mkdir -p static/Image/pair
 	mkdir -p static/Image/loss
+	mkdir -p cross_validation
 
 clean:
 	rm -rf datasets

@@ -45,7 +45,7 @@ Data Science X Logistic Regression
 - [x] split loss formula to prevent log(0), only compute the y truth side in SGD
 
 - [ ] Web UI for training, predict, accuracy, weight, loss, display
-- [ ] plot dataset_test with 5th color to determine classes
+- [x] plot dataset_test with 5th color to determine classes
 - [ ] use scikit Logistic Regression to compare result on dataset_test
 
 ## FAQ
