@@ -2,17 +2,52 @@
 
 # HYPERPARAMETERS
 number_of_fold = 5
-sampling = 0.2
+sampling = 0
 stochastic = False
-steps = 1000
+steps = 2000
 # learning_rate = 4
-learning_rate = 0.2
+learning_rate = 0.4
 scheduler = None
 learning_rate_decay = 0
 
 
 # FEATURES
 labels_column = "Hogwarts House"
+# 'Ancient Runes',
+# 'Arithmancy',
+# 'Astronomy',
+# 'Best Hand',
+# 'Birthday',
+# 'Care of Magical Creatures',
+# 'Charms',
+# 'Defense Against the Dark Arts',
+# 'Divination',
+# 'First Name',
+# 'Flying',
+# 'Herbology',
+# 'History of Magic',
+# 'Hogwarts House',
+# 'Index',
+# 'Last Name',
+# 'Muggle Studies',
+# 'Potions',
+# 'Transfiguration'
+
+# alex
+    # "Ancient Runes",
+    # "Astronomy",
+    # "Charms",
+    # "Defense Against the Dark Arts",
+    # "Divination",
+    # "Herbology",
+# visual intuition
+    # "Ancient Runes",
+    # "Astronomy",
+    # "Charms",
+    # "Defense Against the Dark Arts",
+    # "Divination",
+    # "Flying",
+    # "Herbology",
 
 selected_features = [
     "Ancient Runes",
@@ -20,13 +55,13 @@ selected_features = [
     "Charms",
     "Defense Against the Dark Arts",
     "Divination",
+    "Flying",
     "Herbology",
 ]
 
 unselected_features = [
     "Arithmancy",
     "Care of Magical Creatures",
-    "Flying",
     "History of Magic",
     "Muggle Studies",
     "Potions",

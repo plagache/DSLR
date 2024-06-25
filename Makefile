@@ -94,6 +94,9 @@ pair_test: extract static
 scikit_logreg: extract static
 	${BIN_PATH}/python scikit_logreg.py ${TRAIN_SET} --test_set ${TEST_SET}
 
+diff_scikit:
+	diff -y --suppress-common-lines houses.csv houses_scikit.csv | wc -l
+
 ###### Cross Validation
 
 cross_validation: extract static
@@ -114,6 +117,7 @@ clean:
 	rm -rf templates/describe_table*.html
 	rm -rf tmp/*
 	rm -rf houses.csv
+	rm -rf houses_scikit.csv
 
 fclean: clean
 	rm -rf ${VENV_PATH}
