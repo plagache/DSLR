@@ -46,7 +46,10 @@ Data Science X Logistic Regression
 
 - [ ] Web UI for training, predict, accuracy, weight, loss, display
 - [x] plot dataset_test with 5th color to determine classes
-- [ ] use scikit Logistic Regression to compare result on dataset_test
+- [x] use scikit Logistic Regression to compare result on dataset_test
+- [x] cross validation
+- [x] features selection / removing features can improve learning, by not having to learn an inefficient features
+- [x] visualy understanding features selection with scatter plot
 
 ## FAQ
 
@@ -56,3 +59,9 @@ fill with mean
 
 During prediciton if multiple classes found for a given student how to decide which one?
 Choose class with highest probability
+
+Modify data :
+	- remove outliers
+	- data augmentation: good labeled data
+
+L1, l2 regularization; not a fan of this one
