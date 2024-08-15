@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, json
 from variables import selected_features
 
 app = Flask(__name__)
@@ -78,3 +78,26 @@ def pair():
     images = [os.path.join(image_path, i) for i in image_names]
 
     return render_template("pair.html", images=images, features=selected_features)
+
+
+@app.route("/train", methods=["POST", "GET"])
+def train():
+    json_path = os.path.join("static", "variables.json")
+
+    if request.method == 'POST':
+        data = request.form.to_dict()
+        with open(json_path, 'w') as file:
+            json.dump(data, file, indent=4)
+        match request.form["type"]:
+            case "kfold":
+                print("kfold")
+            case "update":
+                print("update")
+            case "train":
+                print("train")
+        # subprocess.call(["make train"], shell=True)
+
+    with open(json_path, "r") as json_file:
+        parsed_json = json.load(json_file)
+
+    return render_template("train.html", content=parsed_json)
