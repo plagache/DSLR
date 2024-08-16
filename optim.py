@@ -10,7 +10,7 @@ from variables import learning_rate_decay, scheduler
 
 
 # should get the all Tensor same as GD, and select an item randomly
-def sgd(brain: Brain, learning_rate: float, tensor: NDArray[np.float64], labels_tensor: NDArray[np.float64]):
+def stochastic_gradient_descent(brain: Brain, learning_rate: float, tensor: NDArray[np.float64], labels_tensor: NDArray[np.float64]):
     # we want to select an element of the tensor randomly and do the prediction
     random_index = np.random.randint(tensor.shape[0])  # Randomly select an index along the first axis
     selected_item = tensor[random_index]
@@ -24,7 +24,7 @@ def sgd(brain: Brain, learning_rate: float, tensor: NDArray[np.float64], labels_
     return brain._loss
 
 
-def gd(brain: Brain, learning_rate: float, tensor: NDArray[np.float64], labels_tensor: NDArray[np.float64]):
+def gradient_descent(brain: Brain, learning_rate: float, tensor: NDArray[np.float64], labels_tensor: NDArray[np.float64]):
     brain.predictions(tensor)
     brain.diffs(labels_tensor)
     brain.loss(tensor, labels_tensor)

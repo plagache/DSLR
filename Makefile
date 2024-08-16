@@ -27,13 +27,13 @@ describe: extract
 	${BIN_PATH}/python describe.py ${TRAIN_SET}
 
 histogram: extract static
-	${BIN_PATH}/python histogram.py --show ${TRAIN_SET}
+	${BIN_PATH}/python histogram.py ${TRAIN_SET}
 
 scatter: extract static
-	${BIN_PATH}/python scatter_plot.py --show ${TRAIN_SET}
+	${BIN_PATH}/python scatter_plot.py ${TRAIN_SET}
 
 pair: extract static
-	${BIN_PATH}/python pair_plot.py --show ${TRAIN_SET}
+	${BIN_PATH}/python pair_plot.py ${TRAIN_SET}
 
 ###### LR
 
@@ -58,13 +58,13 @@ webdescribe: extract
 	${BIN_PATH}/python describe.py --web ${TRAIN_SET}
 
 webscatter: extract static
-	${BIN_PATH}/python scatter_plot.py ${TRAIN_SET}
+	${BIN_PATH}/python scatter_plot.py --web ${TRAIN_SET}
 
 webhistogram: extract static
-	${BIN_PATH}/python histogram.py ${TRAIN_SET}
+	${BIN_PATH}/python histogram.py --web ${TRAIN_SET}
 
 webpair: extract static
-	${BIN_PATH}/python pair_plot.py ${TRAIN_SET}
+	${BIN_PATH}/python pair_plot.py --web ${TRAIN_SET}
 	
 ###### Accuracy
 
@@ -83,13 +83,13 @@ graph: static
 	${BIN_PATH}/python graph.py tmp/losses.csv tmp/accuracies.csv
 
 histogram_test: extract static
-	${BIN_PATH}/python histogram_test.py --show ${TRAIN_SET} ${TEST_SET}
+	${BIN_PATH}/python histogram_test.py --web ${TRAIN_SET} ${TEST_SET}
 
 scatter_test: extract static
-	${BIN_PATH}/python scatter_test.py --show ${TRAIN_SET} ${TEST_SET}
+	${BIN_PATH}/python scatter_test.py --web ${TRAIN_SET} ${TEST_SET}
 
 pair_test: extract static
-	${BIN_PATH}/python pair_test.py --show ${TRAIN_SET} ${TEST_SET}
+	${BIN_PATH}/python pair_test.py --web ${TRAIN_SET} ${TEST_SET}
 
 scikit_logreg: extract static
 	${BIN_PATH}/python scikit_logreg.py ${TRAIN_SET} --test_set ${TEST_SET}

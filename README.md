@@ -6,17 +6,17 @@ Data Science X Logistic Regression
 - [x] [Describe](describe.py)
     - [x] get list of cleaned numerical dataset
     - [x] func(dataset: Series[float]) -> dic(min: float, max: float, ...)
-    - [ ] add __main__
-    - [ ] join html string / avoid multiple write
+    - [x] add __main__
+    - [x] join html string / avoid multiple write
 
 - [x] Data Visualization
     - [x] [Histogram](histogram.py)
     - [x] [Scatter Plot](scatter_plot.py) (each pair of feature/course transfiguration/flying...)]
     - [x] [Pair Plot](pair_plot.py) (matrice of scatter plots with histograms on matrice diagonal)
     - [x] [Loss Plot](graph.py)
-    - [ ] add __main__
-    - [ ] extract string answers in variables.py
-    - [ ] rework --show in --web
+    - [x] add __main__
+    - [x] extract string answers in variables.py
+    - [x] rework --show in --web
 
 
 - [x] Logistic Regression [Formule markdown](/formula.md)
@@ -28,8 +28,8 @@ Data Science X Logistic Regression
     - [x] Refactor save weight, loss with pandas csv
     - [x] load weight
     - [x] [Logreg Predict](logreg_predict.py)
-    - [ ] explicit the 2 function gradient_descente and Stochastique
-    - [ ] refacto test_sample/args.test_set into accuracy
+    - [x] explicit the 2 function gradient_descente and Stochastique
+    - [x] refacto test_sample/args.test_set into accuracy
 
 - [x] NaN Values to deal with
     - [x] Training or prediction of class1 >> use class1 mean/median value of feature

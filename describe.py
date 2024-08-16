@@ -5,17 +5,6 @@ import pandas
 from data_preprocessing import cleanup_nan, create_classes, create_dataframe, split_by_classes
 from f_statistics import ft_count, ft_mean, maximum, minimum, percentile, standard_deviation
 
-parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
-parser.add_argument("filename", help="the dataset csv file")
-parser.add_argument("--web", action="store_true", help="export data to html output")
-args = parser.parse_args()
-
-dataset = create_dataframe(args.filename)
-
-numerical_features = dataset.select_dtypes(include=["float64"])
-
-cleaned = cleanup_nan(numerical_features)
-
 
 def dataset_to_dic(dataset):
     dictionnaire = {
@@ -37,17 +26,12 @@ def getDescribeDataframe(cleaned_df):
     for _, serie in cleaned_df.items():
         column_list.append(dataset_to_dic(serie))
 
-    described_df = pandas.DataFrame(column_list)
-    described_transposed = described_df.transpose()
+    described_transposed = pandas.DataFrame(column_list).transpose()
 
     header = described_transposed.iloc[0]
     described_transposed = described_transposed[1:]
     described_transposed.columns = header
     return described_transposed
-
-
-described_df = getDescribeDataframe(cleaned)
-described_df.rename_axis(None, axis="columns", inplace=True)
 
 
 def writeToHtmlTable(dataframe, table_name=""):
@@ -56,21 +40,34 @@ def writeToHtmlTable(dataframe, table_name=""):
         filename = "templates/describe_table_{}.html".format(table_name)
 
     with open(filename, "w") as table_html:
-        table_html.write("<html>")
-        table_html.write(dataframe.to_html())
-        table_html.write("</html>")
+        table_html.write(f"<html>{dataframe.to_html()}</html>")
 
 
-if args.web is True:
-    described_df.rename_axis("All dataset", axis="columns", inplace=True)
-    writeToHtmlTable(described_df)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="A simple python program to print a summary of a given csv dataset")
+    parser.add_argument("filename", help="the dataset csv file")
+    parser.add_argument("--web", action="store_true", help="export data to html output")
+    args = parser.parse_args()
 
-    datasets = split_by_classes(dataset)
-    classes = create_classes(dataset)
-    for dataset, class_name in zip(datasets, classes):
-        dataset = cleanup_nan(dataset.select_dtypes(include=["float64"]))
-        described_dataset = getDescribeDataframe(dataset)
-        described_dataset.rename_axis(class_name, axis="columns", inplace=True)
-        writeToHtmlTable(described_dataset, class_name)
-else:
-    print(described_df.to_string())
+    dataframe = create_dataframe(args.filename)
+
+    numerical_features = dataframe.select_dtypes(include=["float64"])
+
+    cleaned = cleanup_nan(numerical_features)
+
+    described_dataframe = getDescribeDataframe(cleaned)
+    described_dataframe.rename_axis(None, axis="columns", inplace=True)
+
+    if args.web is True:
+        described_dataframe.rename_axis("All dataset", axis="columns", inplace=True)
+        writeToHtmlTable(described_dataframe)
+
+        split_dataframes = split_by_classes(dataframe)
+        classes = create_classes(dataframe)
+        for class_dataframe, class_name in zip(split_dataframes, classes):
+            class_dataframe = cleanup_nan(dataframe.select_dtypes(include=["float64"]))
+            described_dataframe = getDescribeDataframe(class_dataframe)
+            described_dataframe.rename_axis(class_name, axis="columns", inplace=True)
+            writeToHtmlTable(described_dataframe, class_name)
+    else:
+        print(described_dataframe.to_string())

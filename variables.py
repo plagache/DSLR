@@ -68,6 +68,8 @@ unselected_features = [
     "Transfiguration",
 ]
 
+histogram_feature = "Care of Magical Creatures"
+scatter_feature_pair = "Arithmancy - Care of Magical Creatures"
 
 # FILES
 prediction_file = "houses.csv"
