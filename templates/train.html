@@ -2,51 +2,92 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>DSLR</title>
-	<style type="text/css">
-		body {
-			margin: 40px auto;
-			max-width: 650px;
-			line-height: 1.6;
-			font-size: 18px;
-			color: #444;
-			padding: 0 10px
-		}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DSLR</title>
+    <style type="text/css">
+        body {
+            margin: 40px auto;
+            max-width: 650px;
+            line-height: 1.6;
+            font-size: 18px;
+            color: #444;
+            padding: 0 10px
+        }
 
-		h1,
-		h2,
-		h3 {
-			line-height: 1.2
-		}
-	</style>
+        h1,
+        h2,
+        h3 {
+            line-height: 1.2
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 160px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .sidenav a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+    </style>
 </head>
 
 <body>
-	<header>
-		<h1> Train </h1>
-	</header>
+    <header>
+        <h1> Train </h1>
+    </header>
 
-	<hr>
+    <hr>
 
-	<p>This is the variables we have saved in our file</p>
-	<hr>
-	<ul>
-    <form method="post">
-        <label for="learning_rate">Learning Rate:</label>
-        <input type="number" id="learning_rate" name="learning_rate" value="{{ content['learning_rate'] }}" required><br><br>
-        
-        <label for="steps">Steps:</label>
-        <input type="number" id="steps" name="steps" value="{{ content['steps'] }}" required><br><br>
-        
-        <button type="submit" name="type" value="kfold">Train cross Validation</button>
-        <button type="submit" name="type" value="update">Update File</button>
-        <button type="submit" name="type" value="train">Update File & Train</button>
-    </form>
+    <p>This is the variables we have saved in our file</p>
+    <hr>
+    <ul>
+        <form method="post">
+            <label for="learning_rate">Learning Rate:</label>
+            <input type="float" id="learning_rate" name="learning_rate" min="0.000001" max="20.0"
+                value="{{ content['learning_rate'] }}" required><br><br>
+
+            <label for="steps">Steps:</label>
+            <input type="number" id="steps" name="steps" min="1" max="10000" value="{{ content['steps'] }}"
+                required><br><br>
+
+            <label for="kflod">kfold:</label>
+            <input type="number" id="kfold" name="kfold" min="1" max="10" value="{{ content['kfold'] }}"
+                required><br><br>
+
+            <div>
+                {% for key, value in data.items() %}
+                <div>
+                    <label>
+                        {{ key }}
+                        <input type="checkbox" name="{{ key }}" value="true" {% if value %}checked{% endif %}>
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+
+            <button type="submit" name="type" value="kfold">Train cross Validation</button>
+            <button type="submit" name="type" value="update">Update File</button>
+            <button type="submit" name="type" value="train">Update File & Train</button>
+        </form>
     </ul>
 
-	<hr>
+    <hr>
 </body>
 
 </html>

@@ -53,6 +53,7 @@ Data Science X Logistic Regression
 - [x] split loss formula to prevent log(0), only compute the y truth side in SGD
 
 - [ ] Web UI for training, predict, accuracy, weight, loss, display
+    - [ ] features in another files / construct json {list of features{}, other data}
 	- [ ] Get Variables.py / change format
 	- [ ] Create HTML form with all features / training variables
 	- [ ] Post run save html form and run training
