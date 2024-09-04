@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from flask import Flask, render_template, request, json, redirect, url_for
+from flask import Flask, render_template, request
 from variables import selected_features
 
 app = Flask(__name__)
@@ -78,55 +78,3 @@ def pair():
     images = [os.path.join(image_path, i) for i in image_names]
 
     return render_template("pair.html", images=images, features=selected_features)
-
-
-def parse_value(value):
-    try:
-        return float(value)
-    except ValueError:
-        if value.lower() in ["true", "1", "yes"]:
-            return True
-        elif value.lower() in ["false", "0", "no"]:
-            return False
-        else:
-            raise ValueError(f"Unexpected value format: {value}")
-
-
-@app.route("/train", methods=["POST", "GET"])
-def train():
-    json_path = os.path.join("static", "variables.json")
-
-    with open(json_path, "r") as json_file:
-        parsed_json = json.load(json_file)
-        features = {key: value for key, value in parsed_json.items() if isinstance(value, bool)}
-
-    if request.method == "POST":
-        form_data = request.form.to_dict()
-        form_data.pop("type")
-        parsed_data = {}
-
-        for key in parsed_json.keys():
-            if key in form_data:
-                parsed_data[key] = parse_value(form_data[key])
-            else:
-                parsed_data[key] = False if isinstance(parsed_json[key], bool) else parsed_json[key]
-
-        # for key in parsed_json.keys():
-        #     if key in form_data:
-        #         parsed_data[key] = parse_value(form_data[key])
-        #     else:
-        #         parsed_data[key] = False if isinstance(parsed_json[key], bool) else parsed_json[key]
-
-        with open(json_path, "w") as file:
-            json.dump(parsed_data, file, indent=4)
-        return redirect(url_for("train"))
-        match request.form["type"]:
-            case "kfold":
-                print("kfold")
-            case "update":
-                print("update")
-            case "train":
-                print("train")
-        # subprocess.call(["make train"], shell=True)
-
-    return render_template("train.html", content=parsed_json, data=features)

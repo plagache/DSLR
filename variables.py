@@ -1,7 +1,7 @@
 # https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)
 
 # HYPERPARAMETERS
-number_of_fold = 5
+number_of_fold = 6
 sampling = 0
 stochastic = False
 steps = 2000

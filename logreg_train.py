@@ -12,7 +12,7 @@ from optim import gradient_descent, learning_rate_scheduler, stochastic_gradient
 from variables import labels_column, learning_rate, steps, stochastic
 
 
-def training(train_sample, learning_rate, steps, test_sample=None):
+def training(train_sample, learning_rate, steps, labels_column, stochastic, test_sample=None):
     print("\n------------ Training -----------")
 
     x_train = create_training_data(train_sample)
@@ -80,7 +80,7 @@ if __name__ == "__main__":
     train_sample = create_dataframe(args.train_set)
 
     if args.test_set is None:
-        training(train_sample, learning_rate, steps)
+        training(train_sample, learning_rate, steps, labels_column, stochastic)
     else:
         test_sample = create_dataframe(args.test_set)
-        training(train_sample, learning_rate, steps, test_sample)
+        training(train_sample, learning_rate, steps, labels_column, stochastic, test_sample)

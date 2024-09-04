@@ -18,6 +18,13 @@ install:
 upgrade:
 	${BIN_PATH}/pip install -r requirements.txt --upgrade
 
+list:
+	${BIN_PATH}/pip list
+
+size:
+	du -hd 0
+	du -hd 0 ${VENV}
+
 ###### DS
 
 extract:
@@ -65,6 +72,9 @@ webhistogram: extract static
 
 webpair: extract static
 	${BIN_PATH}/python pair_plot.py --web ${TRAIN_SET}
+
+gradio_interface: extract static
+	${BIN_PATH}/gradio gradio_interface.py
 	
 ###### Accuracy
 

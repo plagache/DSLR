@@ -52,12 +52,11 @@ Data Science X Logistic Regression
 - [x] split loss formula to prevent log(0), only compute the y truth side.
 - [x] split loss formula to prevent log(0), only compute the y truth side in SGD
 
-- [ ] Web UI for training, predict, accuracy, weight, loss, display
-    - [ ] features in another files / construct json {list of features{}, other data}
-	- [ ] Get Variables.py / change format
-	- [ ] Create HTML form with all features / training variables
-	- [ ] Post run save html form and run training
-	- [ ] Get images
+- [ ] Web UI for selecting variables, training and display graph of accuracy, weight, loss
+    - [ ] refacto training / exctract data modification
+    - [ ] Gradio interface to selecte parameters / same as in variables.py
+    - [ ] button train with parameters
+    - [ ] display losses images
 - [x] plot dataset_test with 5th color to determine classes
 - [x] use scikit Logistic Regression to compare result on dataset_test
 - [x] cross validation

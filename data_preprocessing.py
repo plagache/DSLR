@@ -34,9 +34,9 @@ def remove_unselected_features(dataset, features_to_remove):
 def create_training_data(dataset):
     # dataset = numerization(dataset)
     numerical_features = dataset.select_dtypes(include=["float64"])
-    numerical_features = remove_unselected_features(numerical_features, unselected_features)
-    quartiles = set_quartiles(numerical_features)
-    rescaled = robust_scale(numerical_features, quartiles)
+    selected_features = remove_unselected_features(numerical_features, unselected_features)
+    quartiles = set_quartiles(selected_features)
+    rescaled = robust_scale(selected_features, quartiles)
     return rescaled
 
 
