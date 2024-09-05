@@ -14,12 +14,13 @@ def draw_graphs(losses, classes, accuracies):
         plt.plot(np.linspace(0, total, total), content, ".", c=colors[class_name])
         plt.xlabel("step")
         plt.ylabel("loss")
-    plt.plot(np.linspace(0, total, total), accuracies, ".", c="#ebdbb2")
+    figure = plt.plot(np.linspace(0, total, total), accuracies, ".", c="#ebdbb2")
     plt.legend(classes)
     plt.title(f"learning rate: {learning_rate} | Stochastic: {stochastic}")
     plt.savefig(f"static/Image/loss/lr_{learning_rate}_st_{stochastic}.png", dpi=200)
     plt.show()
     plt.close()
+    return figure
 
 
 if __name__ == "__main__":

@@ -30,11 +30,14 @@ def split_by_classes(dataframe):
 def remove_unselected_features(dataset, features_to_remove):
     return dataset.drop(columns=features_to_remove)
 
+def select_numerical_features(dataset):
+    return dataset.select_dtypes(include=["float64"])
 
-def create_training_data(dataset):
+def create_training_data(selected_features):
+# def create_training_data(dataset):
     # dataset = numerization(dataset)
-    numerical_features = dataset.select_dtypes(include=["float64"])
-    selected_features = remove_unselected_features(numerical_features, unselected_features)
+    # numerical_features = select_numerical_features(dataset)
+    # selected_features = remove_unselected_features(numerical_features, unselected_features)
     quartiles = set_quartiles(selected_features)
     rescaled = robust_scale(selected_features, quartiles)
     return rescaled

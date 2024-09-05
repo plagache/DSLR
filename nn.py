@@ -45,6 +45,9 @@ class Brain:
         self.weights -= learning_rate * self._derivative
         return self.weights
 
+    # refacto 
+    # def __repr__(self):
+    #     return f"{self.classes}\nNumber of Neurons: {self.class_number}"
     def neurons(self):
         print(self.classes)
         print("Number of Neurons: ", self.class_number)
