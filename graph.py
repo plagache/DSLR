@@ -12,7 +12,7 @@ def draw_graphs(losses, classes, accuracies):
 
     plt.style.use("gruvbox.mplstyle")
 
-    figure, axes = plt.subplots()
+    figure, axes = plt.subplots(figsize=(12, 8), dpi=500)
 
     for class_name, content in losses.items():
         axes.plot(np.linspace(0, total, total), content, ".", c=colors[class_name])

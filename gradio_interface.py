@@ -35,6 +35,7 @@ def filter_dataset(selected_features):
 
 def gradio_train(selected_features, learning_rate, steps, stochastic):
     if len(selected_features) == 0:
+        print("on est dedans")
         return "No features selected"
     else:
         dataset_selected = dataset_train[selected_features]
@@ -56,7 +57,8 @@ def gradio_train(selected_features, learning_rate, steps, stochastic):
         losses_df = pd.DataFrame(losses, columns=classes)
         accuracy_df = pd.DataFrame(accuracies)
         # return draw_graphs(losses, classes, accuracies)
-        return draw_graphs(losses_df, classes, accuracy_df)
+        figure = draw_graphs(losses_df, classes, accuracy_df)
+        return figure, accuracies[-1]
 
 
 def load_code():
@@ -82,13 +84,14 @@ with gr.Blocks() as demo:
                 # )
                 selected_features = gr.CheckboxGroup(choices=list(numerical_features.columns), label="Select Features")
                 stochastic = gr.Checkbox(value=False, label="stochastic")
-                learning_rate = gr.Number(value=0.2, label="learning_rate")
-                steps = gr.Number(value=2000, label="steps")
+                learning_rate = gr.Number(value=0.2, minimum=1e-3, maximum=10, label="learning_rate")
+                steps = gr.Number(value=1000, minimum=1, maximum=4000, label="steps")
                 submit_btn = gr.Button(value="Train")
             with gr.Column():
-                result = gr.Plot()
+                accuracy = gr.Number(label="Final Accuracy", interactive=False)
+                figure = gr.Plot(label="Losses")
 
-        submit_btn.click(gradio_train, inputs=[selected_features, learning_rate, steps, stochastic], outputs=result)
+        submit_btn.click(gradio_train, inputs=[selected_features, learning_rate, steps, stochastic], outputs=[figure, accuracy])
 
 
 if __name__ == "__main__":
