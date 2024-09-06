@@ -19,7 +19,7 @@ from optim import gradient_descent, learning_rate_scheduler, stochastic_gradient
 from variables import labels_column, learning_rate, steps, stochastic, unselected_features
 
 
-def training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic, test_sample=None):
+def training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic, test_features=None, test_labels=None):
     print("\n------------ Training -----------")
 
     losses = []
@@ -36,9 +36,9 @@ def training(brain, features_tensor, labels_tensor, learning_rate, steps, stocha
 
         description = f"loss: {loss}"
 
-        if test_sample is not None:
-            predictions = predict(brain, x_test)
-            calculated_accuracy = test_accuracy(test_sample, predictions, labels_column)
+        if test_features is not None:
+            predictions = predict(brain, test_features)
+            calculated_accuracy = test_accuracy(test_labels, predictions, labels_column)
             accuracies.append(calculated_accuracy)
 
             description = f"accuracy: {calculated_accuracy * 100:.2f}%"
@@ -89,5 +89,5 @@ if __name__ == "__main__":
         numerical_features = select_numerical_features(test_sample)
         selected_features = remove_unselected_features(numerical_features, unselected_features)
         x_test = create_training_data(selected_features)
-        losses, weights, accuracies = training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic, test_sample)
+        losses, weights, accuracies = training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic, x_test, test_sample)
         save_training_data(losses, weights, accuracies)

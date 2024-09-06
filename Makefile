@@ -73,7 +73,7 @@ webhistogram: extract static
 webpair: extract static
 	${BIN_PATH}/python pair_plot.py --web ${TRAIN_SET}
 
-gradio_interface: extract static
+gradio_interface: extract static sample
 	${BIN_PATH}/gradio gradio_interface.py
 	
 ###### Accuracy

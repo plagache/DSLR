@@ -11,6 +11,7 @@ from graph import draw_graphs
 from logreg_train import training
 from nn import Brain
 
+from variables import labels_column
 
 # Function to select only the features list
 def load_features(data):
@@ -47,10 +48,15 @@ def gradio_train(selected_features, learning_rate, steps, stochastic):
 
         brain = Brain(classes, features)
 
-        test_sample = dataset_test[selected_features]
+        test_sample = pd.DataFrame(dataset_test)
+        numerical_features = select_numerical_features(test_sample)
+        selected_features = numerical_features[selected_features]
         x_test = create_training_data(selected_features)
-        losses, weights, accuracies = training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic, test_sample)
-        return draw_graphs(losses, classes, accuracies)
+        losses, weights, accuracies = training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic, x_test, test_sample)
+        losses_df = pd.DataFrame(losses, columns=classes)
+        accuracy_df = pd.DataFrame(accuracies)
+        # return draw_graphs(losses, classes, accuracies)
+        return draw_graphs(losses_df, classes, accuracy_df)
 
 
 def load_code():
@@ -82,7 +88,7 @@ with gr.Blocks() as demo:
             with gr.Column():
                 result = gr.Plot()
 
-        submit_btn.click(gradio_train, inputs=[selected_features, learning_rate, steps, stochastic], outputs=[result], api_name=False)
+        submit_btn.click(gradio_train, inputs=[selected_features, learning_rate, steps, stochastic], outputs=result)
 
 
 if __name__ == "__main__":
