@@ -10,16 +10,19 @@ from variables import colors, learning_rate, stochastic
 def draw_graphs(losses, classes, accuracies):
     total = len(losses)
 
+    plt.style.use("gruvbox.mplstyle")
+
+    figure, axes = plt.subplots()
+
     for class_name, content in losses.items():
-        plt.plot(np.linspace(0, total, total), content, ".", c=colors[class_name])
-        plt.xlabel("step")
-        plt.ylabel("loss")
-    figure = plt.plot(np.linspace(0, total, total), accuracies, ".", c="#ebdbb2")
-    plt.legend(classes)
-    plt.title(f"learning rate: {learning_rate} | Stochastic: {stochastic}")
-    plt.savefig(f"static/Image/loss/lr_{learning_rate}_st_{stochastic}.png", dpi=200)
-    plt.show()
-    plt.close()
+        axes.plot(np.linspace(0, total, total), content, ".", c=colors[class_name])
+
+    axes.plot(np.linspace(0, total, total), accuracies, ".", c="#ebdbb2")
+
+    axes.set_xlabel("step")
+    axes.set_ylabel("loss")
+    axes.legend(classes)
+
     return figure
 
 
@@ -34,8 +37,11 @@ if __name__ == "__main__":
     losses = create_dataframe(args.losses)
     accuracies = create_dataframe(args.accuracies)
 
-    plt.style.use("gruvbox.mplstyle")
-
     classes = losses.columns.tolist()
-    # plt = draw_graphs(losses, classes)
-    plt = draw_graphs(losses, classes, accuracies)
+
+    figure = draw_graphs(losses, classes, accuracies)
+
+    figure.suptitle(f"learning rate: {learning_rate} | Stochastic: {stochastic}")
+    figure.savefig(f"static/Image/loss/lr_{learning_rate}_st_{stochastic}.png", dpi=200)
+    plt.show()
+    plt.close()
