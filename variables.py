@@ -8,7 +8,8 @@ steps = 2000
 # learning_rate = 4
 learning_rate = 0.4
 scheduler = None
-learning_rate_decay = 0
+scheduler_type = ["exp", "linear", None]
+learning_rate_decay = 0.001
 
 
 # FEATURES
