@@ -100,40 +100,30 @@ with gr.Blocks() as demo:
                 stochastic = gr.Checkbox(value=stochastic, label="stochastic")
                 with gr.Row(visible=False) as panel:
                     learning_rate_decay = gr.Number(value=learning_rate_decay, minimum=1e-7, maximum=10, label="learning rate decay")
-                    scheduler = gr.CheckboxGroup(choices=scheduler_type, label="Scheduler")
+                    scheduler = gr.Radio(choices=scheduler_type, label="Scheduler")
 
                 # Update the panel visibility based on the checkbox
                 stochastic.change(toggle_panel, inputs=stochastic, outputs=panel)
 
                 learning_rate = gr.Number(value=learning_rate, minimum=1e-7, maximum=10, label="learning rate")
                 steps = gr.Number(value=steps, minimum=1, maximum=4000, label="steps")
-                submit_btn = gr.Button(value="Train")
+                train_button = gr.Button(value="Train")
             with gr.Column():
                 accuracy = gr.Textbox(label="Final Accuracy", interactive=False)
                 figure = gr.Plot(label="Losses")
 
-        submit_btn.click(
+        train_button.click(
             fn=gradio_train,
             inputs=[selected_features, learning_rate, steps, stochastic, learning_rate_decay, scheduler],
             outputs=[figure, accuracy, selected_features_state],
         )
     with gr.Tab("Predict"):
         with gr.Row():
-            # with gr.Column():
-            #     # Show the selected features in the predict tab
-            #     display_selected_features = gr.Textbox(label="Selected Features in Predict Tab", interactive=False)
-            #
-            #     # Automatically update the predict tab with selected features from the train tab
-            #     selected_features_state.change(
-            #         fn=lambda selected: ", ".join(selected) if selected else "No features selected",
-            #         inputs=selected_features_state,
-            #         outputs=display_selected_features,
-            #     )
             with gr.Column():
                 prediction = gr.DataFrame(label="Prediction")
                 predict_button = gr.Button(value="Predict")
 
-                predict_button.click(fn=gradio_predict, inputs=[selected_features_state], outputs=[prediction])
+            predict_button.click(fn=gradio_predict, inputs=[selected_features_state], outputs=[prediction])
 
 
 if __name__ == "__main__":
