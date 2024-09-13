@@ -57,15 +57,15 @@ def gradio_train(selected_features, learning_rate, steps, stochastic, learning_r
         x_test = create_training_data(selected_features)
         losses, weights, accuracies = training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic, x_test, test_sample)
         losses_df = pd.DataFrame(losses, columns=classes)
+        weights_df = pd.DataFrame(weights, index=classes, columns=features)
         accuracy_df = pd.DataFrame(accuracies)
         figure = draw_graphs(losses_df, classes, accuracy_df)
         final_accuracy = f"{accuracies[-1] * 100}%"
-        return figure, final_accuracy, selected_features
+        return figure, final_accuracy, selected_features, weights_df
 
 
-def gradio_predict(selected_features):
-    assert learned_quartiles is not None, "Error: CSV file 'tmp/quartiles.csv' could not be read"
-    assert learned_weights is not None, "Error: CSV file 'tmp/weights.csv' could not be read"
+def gradio_predict(selected_features, weights):
+    # assert learned_quartiles is not None, "Error: CSV file 'tmp/quartiles.csv' could not be read"
     if selected_features is None:
         return "No features selected"
 
@@ -73,15 +73,14 @@ def gradio_predict(selected_features):
     dataset = dataset.select_dtypes(include=["float64"])
     dataset = dataset[selected_features.columns]
 
-    parameters = learned_weights
+    parameters = weights
     quartiles = learned_quartiles
 
     list_quartiles = list(quartiles.itertuples(index=False, name=None))
 
     scaleddataset = robust_scale(dataset, list_quartiles).to_numpy()
 
-    classes = parameters[labels_column].tolist()
-    parameters = parameters.set_index(labels_column)
+    classes = parameters.index
     features = parameters.columns.tolist()
 
     brain = Brain(classes, features, weights=parameters.to_numpy())
@@ -91,7 +90,9 @@ def gradio_predict(selected_features):
 
 
 with gr.Blocks() as demo:
-    selected_features_state = gr.State()
+    selected_features_state = gr.State(selected_features)
+    weights_state = gr.State()
+    # quartiles ?
     with gr.Tab("Train"):
         with gr.Row():
             with gr.Column():
@@ -115,7 +116,7 @@ with gr.Blocks() as demo:
         train_button.click(
             fn=gradio_train,
             inputs=[selected_features, learning_rate, steps, stochastic, learning_rate_decay, scheduler],
-            outputs=[figure, accuracy, selected_features_state],
+            outputs=[figure, accuracy, selected_features_state, weights_state],
         )
     with gr.Tab("Predict"):
         with gr.Row():
@@ -123,7 +124,7 @@ with gr.Blocks() as demo:
                 prediction = gr.DataFrame(label="Prediction")
                 predict_button = gr.Button(value="Predict")
 
-            predict_button.click(fn=gradio_predict, inputs=[selected_features_state], outputs=[prediction])
+            predict_button.click(fn=gradio_predict, inputs=[selected_features_state, weights_state], outputs=[prediction])
 
 
 if __name__ == "__main__":
