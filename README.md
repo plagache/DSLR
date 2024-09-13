@@ -57,6 +57,10 @@ Data Science X Logistic Regression
     - [ ] Gradio interface to selecte parameters / same as in variables.py
     - [ ] button train with parameters
     - [ ] display losses images
+    - [ ] create a group of tabs (train, predict)
+    - [ ] defer rendering of predict tab
+    - [ ] add a weights state and listen for changes of weights state to start predict rendering
+    ...
 - [x] plot dataset_test with 5th color to determine classes
 - [x] use scikit Logistic Regression to compare result on dataset_test
 - [x] cross validation

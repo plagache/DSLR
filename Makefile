@@ -6,17 +6,17 @@ TEST_SET = datasets/dataset_test.csv
 setup: env pip_upgrade install
 
 env:
-	python3.11 -m venv ${VENV_PATH}
+	uv venv --python 3.11
 	ln -sf ${BIN_PATH}/activate activate
 
 pip_upgrade:
-	${BIN_PATH}/pip install --upgrade pip
+	uv pip install --upgrade pip
 
 install:
-	${BIN_PATH}/pip install -r requirements.txt
+	uv pip install -r requirements.txt
 
 upgrade:
-	${BIN_PATH}/pip install -r requirements.txt --upgrade
+	uv pip install -r requirements.txt --upgrade
 
 list:
 	${BIN_PATH}/pip list
