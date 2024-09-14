@@ -60,12 +60,17 @@ Data Science X Logistic Regression
     - [ ] create a group of tabs (train, predict)
     - [ ] defer rendering of predict tab
     - [ ] add a weights state and listen for changes of weights state to start predict rendering
-    ...
+    - [ ] add cross entropy tab
 - [x] plot dataset_test with 5th color to determine classes
 - [x] use scikit Logistic Regression to compare result on dataset_test
 - [x] cross validation
 - [x] features selection / removing features can improve learning, by not having to learn an inefficient features
 - [x] visualy understanding features selection with scatter plot
+
+
+- [ ] organize files by theme:
+    - [ ] Data Science -> describe, histogram, scatter, pair, flask ...
+    - [ ] Logistic Regression -> train, predict, accuracy, sample, gradio ...
 
 ## Bonus
 

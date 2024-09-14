@@ -2,7 +2,7 @@
 
 # HYPERPARAMETERS
 number_of_fold = 6
-sampling = 0
+sampling = 0.2
 stochastic = False
 steps = 2000
 # learning_rate = 4
