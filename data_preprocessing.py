@@ -40,7 +40,7 @@ def create_training_data(selected_features):
     # selected_features = remove_unselected_features(numerical_features, unselected_features)
     quartiles = set_quartiles(selected_features)
     rescaled = robust_scale(selected_features, quartiles)
-    return rescaled
+    return rescaled, quartiles
 
 
 def create_labels(dataset, classes):

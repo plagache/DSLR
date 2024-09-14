@@ -71,7 +71,7 @@ if __name__ == "__main__":
     train_sample = create_dataframe(args.train_set)
     numerical_features = select_numerical_features(train_sample)
     selected_features = remove_unselected_features(numerical_features, unselected_features)
-    x_train = create_training_data(selected_features)
+    x_train, _ = create_training_data(selected_features)
     features = x_train.columns.tolist()
     features_tensor = x_train.to_numpy()
 
@@ -88,6 +88,6 @@ if __name__ == "__main__":
         test_sample = create_dataframe(args.test_set)
         numerical_features = select_numerical_features(test_sample)
         selected_features = remove_unselected_features(numerical_features, unselected_features)
-        x_test = create_training_data(selected_features)
+        x_test, _ = create_training_data(selected_features)
         losses, weights, accuracies = training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic, x_test, test_sample)
         save_training_data(losses, weights, accuracies)
