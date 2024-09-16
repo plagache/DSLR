@@ -1,9 +1,9 @@
 import argparse
 
-from data_preprocessing import create_dataframe, split_dataframe
+from data_preprocessing import create_classes, create_dataframe, create_labels, create_training_data, get_selected_features, split_dataframe
 from logreg_train import training
-from variables import number_of_fold
-from variables import learning_rate, steps
+from nn import Brain
+from variables import learning_rate, number_of_fold, selected_features, steps
 
 
 def k_fold(dataframe, k):
@@ -24,11 +24,23 @@ if __name__ == "__main__":
 
     dataset = create_dataframe(args.dataset)
 
-    folds = k_fold(dataset, number_of_fold)
-    for fold in folds:
+    classes = create_classes(dataset)
+
+    brain = Brain(classes, selected_features)
+
+    for fold in k_fold(dataset, number_of_fold):
         test_sample = fold
         train_sample = dataset.drop(test_sample.index)
-        # print(test_sample, train_sample)
-        losses, weights = training(train_sample, learning_rate, steps, test_sample)
-        print(weights)
+
+        labels = create_labels(train_sample, classes)
+        labels_tensor = labels.to_numpy().T
+
+        train_selected = get_selected_features(train_sample, selected_features)
+        x_train, _ = create_training_data(train_selected)
+        features_tensor = x_train.to_numpy()
+
+        test_selected = get_selected_features(test_sample, selected_features)
+        x_test, _ = create_training_data(test_selected)
+
+        losses, weights, accuracies = training(brain, features_tensor, labels_tensor, learning_rate, steps, False, x_test, test_sample)
         # print(losses, weights)

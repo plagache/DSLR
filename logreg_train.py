@@ -19,7 +19,7 @@ from optim import gradient_descent, learning_rate_scheduler, stochastic_gradient
 from variables import labels_column, learning_rate, steps, stochastic, selected_features
 
 
-def training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic, test_features=None, test_labels=None):
+def training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic=False, test_features=None, test_labels=None):
     print("\n------------ Training -----------")
 
     losses = []
@@ -54,7 +54,7 @@ def save_training_data(losses, weights, accuracies=None):
     losses_df = pandas.DataFrame(losses, columns=classes)
     losses_df.to_csv("tmp/losses.csv", index=False)
 
-    weights_df = pandas.DataFrame(weights, index=classes, columns=features)
+    weights_df = pandas.DataFrame(weights, index=classes, columns=selected_features)
     weights_df.to_csv("tmp/weights.csv", index_label=labels_column)
 
     if accuracies is not None:
@@ -71,14 +71,13 @@ if __name__ == "__main__":
     train_sample = create_dataframe(args.train_set)
     train_selected = get_selected_features(train_sample, selected_features)
     x_train, _ = create_training_data(train_selected)
-    features = x_train.columns.tolist()
     features_tensor = x_train.to_numpy()
 
     classes = create_classes(train_sample)
     labels = create_labels(train_sample, classes)
     labels_tensor = labels.to_numpy().T
 
-    brain = Brain(classes, features)
+    brain = Brain(classes, selected_features)
 
     if args.test_set is None:
         losses, weights, accuracies = training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic)
