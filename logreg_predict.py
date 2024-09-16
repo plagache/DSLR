@@ -5,7 +5,7 @@ import pandas
 
 from data_preprocessing import create_dataframe, get_selected_features, robust_scale
 from nn import Brain
-from variables import labels_column, prediction_file, selected_features
+from variables import labels_column, selected_features
 
 
 def predict(brain: Brain, inputs):
