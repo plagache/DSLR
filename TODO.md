@@ -53,18 +53,20 @@ Data Science X Logistic Regression
 - [x] split loss formula to prevent log(0), only compute the y truth side in SGD
 
 - [ ] Web UI for selecting variables, training and display graph of accuracy, weight, loss
-    - [ ] refacto training / exctract data modification
-    - [ ] Gradio interface to selecte parameters / same as in variables.py
-    - [ ] button train with parameters
-    - [ ] display losses images
-    - [ ] create a group of tabs (train, predict)
+    - [x] refacto training / exctract data modification
+    - [x] Gradio interface to selecte parameters / same as in variables.py
+    - [x] button train with parameters
+    - [x] display losses images
+    - [x] create a group of tabs (train, predict)
     - [ ] defer rendering of predict tab
     - [ ] add a weights state and listen for changes of weights state to start predict rendering
     - [ ] add cross entropy tab
 - [x] plot dataset_test with 5th color to determine classes
 - [x] use scikit Logistic Regression to compare result on dataset_test
-- [ ] cross validation:
-    - [ ] refacto cross validation to work with new training prototype
+- [x] cross validation:
+    - [x] refacto cross validation to work with new training prototype
+- [ ] modify set_quartiles to: set and get / refacto in consequence
+- [ ] use selected_features for brain creation
 - [x] features selection / removing features can improve learning, by not having to learn an inefficient features
 - [x] visualy understanding features selection with scatter plot
 

@@ -1,20 +1,13 @@
 import gradio as gr
 import pandas as pd
 
-from data_preprocessing import (
-    create_classes,
-    create_labels,
-    create_training_data,
-    robust_scale,
-    select_numerical_features,
-    get_selected_features
-)
+from data_preprocessing import create_classes, create_labels, get_quartiles, get_selected_features, robust_scale, select_numerical_features
 from graph import draw_graphs
 from logreg_predict import predict
 from logreg_train import training
 from nn import Brain
 from sampler import sample
-from variables import learning_rate, learning_rate_decay, sampling, scheduler_type, selected_features, steps, stochastic, labels_column
+from variables import labels_column, learning_rate, learning_rate_decay, sampling, scheduler_type, selected_features, steps, stochastic
 
 train_set = pd.read_csv("datasets/dataset_train.csv")
 # Load the dataset
@@ -49,7 +42,8 @@ def gradio_train(selected_features, learning_rate, steps, stochastic, learning_r
         scheduler = scheduler
 
         train_selected = get_selected_features(dataset_train, selected_features)
-        x_train, quartiles = create_training_data(train_selected)
+        quartiles = get_quartiles(train_selected)
+        x_train = robust_scale(train_selected, quartiles)
 
         features = x_train.columns.tolist()
         features_tensor = x_train.to_numpy()
@@ -61,7 +55,7 @@ def gradio_train(selected_features, learning_rate, steps, stochastic, learning_r
         brain = Brain(classes, features)
 
         test_selected = get_selected_features(dataset_test, selected_features)
-        x_test, _ = create_training_data(test_selected)
+        x_test = robust_scale(test_selected, quartiles)
 
         losses, weights, accuracies = training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic, x_test, dataset_test)
 

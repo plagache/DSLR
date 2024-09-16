@@ -14,41 +14,6 @@ learning_rate_decay = 0.001
 
 # FEATURES
 labels_column = "Hogwarts House"
-# 'Ancient Runes',
-# 'Arithmancy',
-# 'Astronomy',
-# 'Best Hand',
-# 'Birthday',
-# 'Care of Magical Creatures',
-# 'Charms',
-# 'Defense Against the Dark Arts',
-# 'Divination',
-# 'First Name',
-# 'Flying',
-# 'Herbology',
-# 'History of Magic',
-# 'Hogwarts House',
-# 'Index',
-# 'Last Name',
-# 'Muggle Studies',
-# 'Potions',
-# 'Transfiguration'
-
-# alex
-    # "Ancient Runes",
-    # "Astronomy",
-    # "Charms",
-    # "Defense Against the Dark Arts",
-    # "Divination",
-    # "Herbology",
-# visual intuition
-    # "Ancient Runes",
-    # "Astronomy",
-    # "Charms",
-    # "Defense Against the Dark Arts",
-    # "Divination",
-    # "Flying",
-    # "Herbology",
 
 selected_features = [
     "Ancient Runes",
@@ -71,9 +36,6 @@ unselected_features = [
 
 histogram_feature = "Care of Magical Creatures"
 scatter_feature_pair = "Arithmancy - Care of Magical Creatures"
-
-# FILES
-prediction_file = "houses.csv"
 
 
 # COLORS

@@ -30,20 +30,13 @@ def split_by_classes(dataframe):
 def remove_unselected_features(dataset, features_to_remove):
     return dataset.drop(columns=features_to_remove)
 
+
 def get_selected_features(dataset, features_to_select):
     return dataset[features_to_select]
 
+
 def select_numerical_features(dataset):
     return dataset.select_dtypes(include=["float64"])
-
-def create_training_data(selected_features):
-# def create_training_data(dataset):
-    # dataset = numerization(dataset)
-    # numerical_features = select_numerical_features(dataset)
-    # selected_features = remove_unselected_features(numerical_features, unselected_features)
-    quartiles = set_quartiles(selected_features)
-    rescaled = robust_scale(selected_features, quartiles)
-    return rescaled, quartiles
 
 
 def create_labels(dataset, classes):
@@ -71,9 +64,8 @@ def numerization(dataset):
     return numerized_dataset
 
 
-def set_quartiles(dataframe):
+def get_quartiles(dataframe):
     quartiles = []
-
     for _, data in dataframe.items():
         first = percentile(data, 0.25)
         second = percentile(data, 0.5)
@@ -81,11 +73,11 @@ def set_quartiles(dataframe):
         # First replace nan with median value
         # Then scale the values
         quartiles.append((data.name, first, second, third))
-
-    df = pandas.DataFrame(quartiles, columns=["Courses", "Q1", "Q2", "Q3"])
-    df.to_csv("tmp/quartiles.csv", index=False)
-
     return quartiles
+
+
+def save_quartiles(quartiles):
+    pandas.DataFrame(quartiles, columns=["Courses", "Q1", "Q2", "Q3"]).to_csv("tmp/quartiles.csv", index=False)
 
 
 def robust_scale(dataframe: pandas.DataFrame, quartiles):

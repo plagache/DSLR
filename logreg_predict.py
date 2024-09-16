@@ -41,4 +41,4 @@ if __name__ == "__main__":
     brain = Brain(classes, features, weights=parameters.to_numpy())
 
     prediction = predict(brain, scaleddataset)
-    prediction.to_csv(prediction_file, index_label="Index", header=[labels_column])
+    prediction.to_csv("houses.csv", index_label="Index", header=[labels_column])
