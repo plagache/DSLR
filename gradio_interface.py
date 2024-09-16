@@ -7,19 +7,19 @@ from data_preprocessing import (
     create_training_data,
     robust_scale,
     select_numerical_features,
+    get_selected_features
 )
 from graph import draw_graphs
 from logreg_predict import predict
 from logreg_train import training
 from nn import Brain
 from sampler import sample
-from variables import learning_rate, learning_rate_decay, sampling, scheduler_type, selected_features, steps, stochastic
+from variables import learning_rate, learning_rate_decay, sampling, scheduler_type, selected_features, steps, stochastic, labels_column
 
 train_set = pd.read_csv("datasets/dataset_train.csv")
 # Load the dataset
 dataset_train = pd.read_csv("datasets/dataset_train.csv")
-selectable_features = list(select_numerical_features(dataset_train).columns)
-selectable_features.sort()
+selectable_features = sorted(list(select_numerical_features(dataset_train).columns))
 dataset_test = pd.read_csv("datasets/dataset_test.csv")
 
 
@@ -48,7 +48,7 @@ def gradio_train(selected_features, learning_rate, steps, stochastic, learning_r
         resample(sampling)
         scheduler = scheduler
 
-        train_selected = dataset_train[selected_features]
+        train_selected = get_selected_features(dataset_train, selected_features)
         x_train, quartiles = create_training_data(train_selected)
 
         features = x_train.columns.tolist()
@@ -60,7 +60,7 @@ def gradio_train(selected_features, learning_rate, steps, stochastic, learning_r
 
         brain = Brain(classes, features)
 
-        test_selected = dataset_test[selected_features]
+        test_selected = get_selected_features(dataset_test, selected_features)
         x_test, _ = create_training_data(test_selected)
 
         losses, weights, accuracies = training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic, x_test, dataset_test)
@@ -81,9 +81,7 @@ def gradio_predict(selected_features, weights, quartiles):
     if selected_features is None:
         return "No features selected"
 
-    dataset = dataset_test
-    dataset = dataset.select_dtypes(include=["float64"])
-    dataset = dataset[selected_features]
+    dataset = get_selected_features(dataset_test, selected_features)
 
     scaleddataset = robust_scale(dataset, quartiles).to_numpy()
 
@@ -93,6 +91,9 @@ def gradio_predict(selected_features, weights, quartiles):
     brain = Brain(classes, features, weights=weights.to_numpy())
 
     prediction = predict(brain, scaleddataset)
+
+    prediction["Truth"] = dataset_test[labels_column].values
+    prediction["Good prediction"] = prediction["Truth"] == prediction[labels_column]
     return prediction
 
 

@@ -30,6 +30,9 @@ def split_by_classes(dataframe):
 def remove_unselected_features(dataset, features_to_remove):
     return dataset.drop(columns=features_to_remove)
 
+def get_selected_features(dataset, features_to_select):
+    return dataset[features_to_select]
+
 def select_numerical_features(dataset):
     return dataset.select_dtypes(include=["float64"])
 

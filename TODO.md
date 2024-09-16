@@ -63,7 +63,8 @@ Data Science X Logistic Regression
     - [ ] add cross entropy tab
 - [x] plot dataset_test with 5th color to determine classes
 - [x] use scikit Logistic Regression to compare result on dataset_test
-- [x] cross validation
+- [ ] cross validation:
+    - [ ] refacto cross validation to work with new training prototype
 - [x] features selection / removing features can improve learning, by not having to learn an inefficient features
 - [x] visualy understanding features selection with scatter plot
 

@@ -3,16 +3,16 @@ import argparse
 import numpy as np
 import pandas
 
-from data_preprocessing import create_dataframe, remove_unselected_features, robust_scale
+from data_preprocessing import create_dataframe, get_selected_features, robust_scale
 from nn import Brain
-from variables import labels_column, prediction_file, unselected_features
+from variables import labels_column, prediction_file, selected_features
 
 
 def predict(brain: Brain, inputs):
     prediction = brain.predictions(inputs)
     max_indices = np.argmax(prediction.T, axis=1)
     prediction = [brain.classes[index] for index in max_indices]
-    prediction = pandas.DataFrame({"Hogwarts House": prediction})
+    prediction = pandas.DataFrame({labels_column: prediction})
     return prediction
 
 
@@ -25,8 +25,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     dataset = create_dataframe(args.dataset)
-    dataset = dataset.select_dtypes(include=["float64"])
-    dataset = remove_unselected_features(dataset, unselected_features)
+    dataset = get_selected_features(dataset, selected_features)
 
     parameters = create_dataframe(args.weights)
     quartiles = create_dataframe(args.quartiles)

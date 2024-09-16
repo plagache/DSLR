@@ -10,13 +10,13 @@ from data_preprocessing import (
     create_dataframe,
     create_labels,
     create_training_data,
-    remove_unselected_features,
+    get_selected_features,
     select_numerical_features,
 )
 from logreg_predict import predict
 from nn import Brain
 from optim import gradient_descent, learning_rate_scheduler, stochastic_gradient_descent
-from variables import labels_column, learning_rate, steps, stochastic, unselected_features
+from variables import labels_column, learning_rate, steps, stochastic, selected_features
 
 
 def training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic, test_features=None, test_labels=None):
@@ -69,9 +69,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     train_sample = create_dataframe(args.train_set)
-    numerical_features = select_numerical_features(train_sample)
-    selected_features = remove_unselected_features(numerical_features, unselected_features)
-    x_train, _ = create_training_data(selected_features)
+    train_selected = get_selected_features(train_sample, selected_features)
+    x_train, _ = create_training_data(train_selected)
     features = x_train.columns.tolist()
     features_tensor = x_train.to_numpy()
 
@@ -86,8 +85,8 @@ if __name__ == "__main__":
         save_training_data(losses, weights)
     else:
         test_sample = create_dataframe(args.test_set)
-        numerical_features = select_numerical_features(test_sample)
-        selected_features = remove_unselected_features(numerical_features, unselected_features)
-        x_test, _ = create_training_data(selected_features)
+        test_selected = get_selected_features(test_sample, selected_features)
+        x_test, _ = create_training_data(test_selected)
+
         losses, weights, accuracies = training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic, x_test, test_sample)
         save_training_data(losses, weights, accuracies)
