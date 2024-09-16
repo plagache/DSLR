@@ -65,8 +65,8 @@ Data Science X Logistic Regression
 - [x] use scikit Logistic Regression to compare result on dataset_test
 - [x] cross validation:
     - [x] refacto cross validation to work with new training prototype
-- [ ] modify set_quartiles to: set and get / refacto in consequence
-- [ ] use selected_features for brain creation
+- [x] modify set_quartiles to: set and get / refacto in consequence
+- [x] use selected_features for brain creation
 - [x] features selection / removing features can improve learning, by not having to learn an inefficient features
 - [x] visualy understanding features selection with scatter plot
 

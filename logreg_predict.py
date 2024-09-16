@@ -25,20 +25,19 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     dataset = create_dataframe(args.dataset)
-    dataset = get_selected_features(dataset, selected_features)
+    selected_dataset = get_selected_features(dataset, selected_features)
 
     parameters = create_dataframe(args.weights)
     quartiles = create_dataframe(args.quartiles)
 
     list_quartiles = list(quartiles.itertuples(index=False, name=None))
 
-    scaleddataset = robust_scale(dataset, list_quartiles).to_numpy()
+    scaleddataset = robust_scale(selected_dataset, list_quartiles).to_numpy()
 
     classes = parameters[labels_column].tolist()
     parameters = parameters.set_index(labels_column)
-    features = parameters.columns.tolist()
 
-    brain = Brain(classes, features, weights=parameters.to_numpy())
+    brain = Brain(classes, selected_features, weights=parameters.to_numpy())
 
     prediction = predict(brain, scaleddataset)
     prediction.to_csv("houses.csv", index_label="Index", header=[labels_column])

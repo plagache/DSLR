@@ -45,14 +45,13 @@ def gradio_train(selected_features, learning_rate, steps, stochastic, learning_r
         quartiles = get_quartiles(train_selected)
         x_train = robust_scale(train_selected, quartiles)
 
-        features = x_train.columns.tolist()
         features_tensor = x_train.to_numpy()
 
         classes = create_classes(dataset_train)
         labels = create_labels(dataset_train, classes)
         labels_tensor = labels.to_numpy().T
 
-        brain = Brain(classes, features)
+        brain = Brain(classes, selected_features)
 
         test_selected = get_selected_features(dataset_test, selected_features)
         x_test = robust_scale(test_selected, quartiles)
@@ -80,9 +79,8 @@ def gradio_predict(selected_features, weights, quartiles):
     scaleddataset = robust_scale(dataset, quartiles).to_numpy()
 
     classes = weights.index
-    features = weights.columns.tolist()
 
-    brain = Brain(classes, features, weights=weights.to_numpy())
+    brain = Brain(classes, selected_features, weights=weights.to_numpy())
 
     prediction = predict(brain, scaleddataset)
 
