@@ -59,7 +59,7 @@ def gradio_train(selected_features, learning_rate, steps, stochastic, learning_r
         losses, weights, accuracies = training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic, x_test, dataset_test)
 
         losses_df = pd.DataFrame(losses, columns=classes)
-        weights_df = pd.DataFrame(weights, index=classes, columns=features)
+        weights_df = pd.DataFrame(weights, index=classes, columns=selected_features)
         accuracy_df = pd.DataFrame(accuracies)
 
         figure = draw_graphs(losses_df, classes, accuracy_df)
