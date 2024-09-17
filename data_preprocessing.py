@@ -1,7 +1,7 @@
 import pandas
 
 from f_statistics import percentile
-from variables import labels_column, unselected_features
+from variables import labels_column
 
 
 def create_dataframe(csv_string):
@@ -25,10 +25,6 @@ def split_by_classes(dataframe):
     for class_name in classes:
         data_classes.append(dataframe.loc[dataframe[labels_column] == class_name])
     return data_classes
-
-
-def remove_unselected_features(dataset, features_to_remove):
-    return dataset.drop(columns=features_to_remove)
 
 
 def get_selected_features(dataset, features_to_select):
@@ -70,20 +66,16 @@ def get_quartiles(dataframe):
         first = percentile(data, 0.25)
         second = percentile(data, 0.5)
         third = percentile(data, 0.75)
-        # First replace nan with median value
-        # Then scale the values
         quartiles.append((data.name, first, second, third))
     return quartiles
 
 
-def save_quartiles(quartiles):
-    pandas.DataFrame(quartiles, columns=["Courses", "Q1", "Q2", "Q3"]).to_csv("tmp/quartiles.csv", index=False)
-
-
 def robust_scale(dataframe: pandas.DataFrame, quartiles):
+    """
+    Replace nan with median value
+    Then scale
+    """
     ret = pandas.DataFrame()
     for (name, data), (courses, first, second, third) in zip(dataframe.items(), quartiles):
-        # First replace nan with median value
-        # Then scale the values
         ret[name] = data.fillna(second).map(lambda x: (x - second) / (third - first))
     return ret

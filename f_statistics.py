@@ -55,11 +55,13 @@ def maximum(array):
 
 
 def percentile(array, percent: float):
+    """
+    méthode recommandée par le National Institute of Standards and Technology (NIST)
+    1 + P*(n-1)/100
+    """
     sorted_array = array.sort_values(ignore_index=True)
     value = 0
     count = ft_count(array)
-    # méthode recommandée par le National Institute of Standards and Technology (NIST)
-    # 1 + P*(n-1)/100
     rank = 1 + percent * (count - 1)
     index = rank - 1
     floor = math.floor(index)

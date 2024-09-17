@@ -1,10 +1,6 @@
 import numpy as np
 
-# here we should have only numpy array/object
 
-
-# Brain input: the class to detect, the features to train
-# create parameters matrix with shape
 class Brain:
     def __init__(self, classes, features, weights=None):
         self.classes = classes
@@ -13,10 +9,12 @@ class Brain:
         self.feature_number: int = len(self.features)
         self.weights = weights if weights is not None else np.zeros((self.class_number, self.feature_number), dtype=np.float64)
 
-    # This is an activation function of the sigmoid type
-    # in our case a logistic one (it normalize our result between 0 and 1)
-    # https://en.wikipedia.org/wiki/Logistic_function
     def logistic(self, z):
+        """
+        This is an activation function of the sigmoid type
+        in our case a logistic one (it normalize our result between 0 and 1)
+        https://en.wikipedia.org/wiki/Logistic_function
+        """
         return 1.0 / (1 + np.exp(-z))
 
     def predictions(self, xs):
@@ -45,7 +43,7 @@ class Brain:
         self.weights -= learning_rate * self._derivative
         return self.weights
 
-    # refacto 
+    # refacto
     # def __repr__(self):
     #     return f"{self.classes}\nNumber of Neurons: {self.class_number}"
     def neurons(self):

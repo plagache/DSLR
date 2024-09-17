@@ -51,16 +51,15 @@ def training(brain, features_tensor, labels_tensor, learning_rate, steps, stocha
     return losses, brain.weights, accuracies
 
 
-def save_training_data(losses, weights, accuracies=None):
-    losses_df = pandas.DataFrame(losses, columns=classes)
-    losses_df.to_csv("tmp/losses.csv", index=False)
+def save_training_data(quartiles, losses, weights, accuracies=None):
+    pandas.DataFrame(quartiles, columns=["Courses", "Q1", "Q2", "Q3"]).to_csv("tmp/quartiles.csv", index=False)
 
-    weights_df = pandas.DataFrame(weights, index=classes, columns=selected_features)
-    weights_df.to_csv("tmp/weights.csv", index_label=labels_column)
+    pandas.DataFrame(losses, columns=classes).to_csv("tmp/losses.csv", index=False)
+
+    pandas.DataFrame(weights, index=classes, columns=selected_features).to_csv("tmp/weights.csv", index_label=labels_column)
 
     if accuracies is not None:
-        accuracy_df = pandas.DataFrame(accuracies)
-        accuracy_df.to_csv("tmp/accuracies.csv", index=False)
+        pandas.DataFrame(accuracies).to_csv("tmp/accuracies.csv", index=False)
 
 
 if __name__ == "__main__":
@@ -72,7 +71,6 @@ if __name__ == "__main__":
     train_sample = create_dataframe(args.train_set)
     train_selected = get_selected_features(train_sample, selected_features)
     quartiles = get_quartiles(train_selected)
-    save_quartiles(quartiles)
     x_train = robust_scale(train_selected, quartiles)
     features_tensor = x_train.to_numpy()
 
@@ -84,11 +82,11 @@ if __name__ == "__main__":
 
     if args.test_set is None:
         losses, weights, accuracies = training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic)
-        save_training_data(losses, weights)
+        save_training_data(quartiles, losses, weights)
     else:
         test_sample = create_dataframe(args.test_set)
         test_selected = get_selected_features(test_sample, selected_features)
         x_test = robust_scale(test_selected, quartiles)
 
         losses, weights, accuracies = training(brain, features_tensor, labels_tensor, learning_rate, steps, stochastic, x_test, test_sample)
-        save_training_data(losses, weights, accuracies)
+        save_training_data(quartiles, losses, weights, accuracies)
