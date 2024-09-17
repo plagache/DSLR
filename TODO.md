@@ -60,7 +60,7 @@ Data Science X Logistic Regression
     - [x] create a group of tabs (train, predict)
     - [ ] defer rendering of predict tab
     - [ ] add a weights state and listen for changes of weights state to start predict rendering
-    - [ ] add cross entropy tab
+    - [x] add cross entropy tab
 - [x] plot dataset_test with 5th color to determine classes
 - [x] use scikit Logistic Regression to compare result on dataset_test
 - [x] cross validation:
