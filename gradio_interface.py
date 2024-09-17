@@ -8,7 +8,17 @@ from logreg_predict import predict
 from logreg_train import training
 from nn import Brain
 from sampler import sample
-from variables import labels_column, learning_rate, learning_rate_decay, number_of_fold, sampling, scheduler_type, selected_features, steps, stochastic
+from variables import (
+    labels_column,
+    learning_rate,
+    learning_rate_decay,
+    number_of_fold,
+    sampling,
+    scheduler_type,
+    selected_features,
+    steps,
+    stochastic,
+)
 
 train_set = pd.read_csv("datasets/dataset_train.csv")
 # Load the dataset
@@ -28,6 +38,7 @@ def filter_dataset(selected_features):
 
 def toggle_panel(stochastic):
     return gr.update(visible=stochastic)
+
 
 def resample(rate):
     global dataset_test
@@ -88,6 +99,7 @@ def gradio_predict(selected_features, weights, quartiles):
     prediction["Truth"] = dataset_test[labels_column].values
     prediction["Good prediction"] = prediction["Truth"] == prediction[labels_column]
     return prediction
+
 
 def gradio_cross(number_of_fold):
     i = 0
@@ -154,7 +166,6 @@ with gr.Blocks() as demo:
                     gr.Markdown(f"### Validation folds")
                     for figure in figures:
                         gr.Plot(value=figure)
-
 
             cross_button.click(fn=gradio_cross, inputs=[number_of_fold], outputs=[figures])
 

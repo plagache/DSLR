@@ -66,14 +66,14 @@ Data Science X Logistic Regression
 - [x] display losses images
 - [x] create a group of tabs (train, predict)
 - [x] add cross entropy tab
+- [ ] refacto predict tab
+    - [ ] add dataframe false
+    - [ ] add number of true / false / total
+    - [ ] add % of true
 
 ### Cross Validation
 - [x] refacto cross validation to work with new training prototype
 
-
-### organize files by theme
-- [ ] Data Science -> describe, histogram, scatter, pair, flask ...
-- [ ] Logistic Regression -> train, predict, accuracy, sample, gradio ...
 
 ## Bonus
 
