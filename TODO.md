@@ -18,6 +18,8 @@ Data Science X Logistic Regression
 - [x] extract string answers in variables.py
 - [x] rework --show in --web
 - [x] visualy understanding features selection with scatter plot
+- [x] plot dataset_test with 5th color to determine classes
+    - [ ] refacto
 
 
 ### Logistic Regression [Formule markdown](/formula.md)
@@ -55,6 +57,7 @@ Data Science X Logistic Regression
 - [x] modify set_quartiles to: set and get / refacto in consequence
 - [x] use selected_features for brain creation
 - [x] features selection / removing features can improve learning, by not having to learn an inefficient features
+- [x] use scikit Logistic Regression to compare result on dataset_test
 
 ### Web UI
 - [x] refacto training / exctract data modification
@@ -62,12 +65,7 @@ Data Science X Logistic Regression
 - [x] button train with parameters
 - [x] display losses images
 - [x] create a group of tabs (train, predict)
-- [-] defer rendering of predict tab
-- [ ] add a weights state and listen for changes of weights state to start predict rendering
 - [x] add cross entropy tab
-- [x] plot dataset_test with 5th color to determine classes
-    - [ ] refacto
-- [x] use scikit Logistic Regression to compare result on dataset_test
 
 ### Cross Validation
 - [x] refacto cross validation to work with new training prototype
