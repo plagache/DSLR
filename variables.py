@@ -50,5 +50,5 @@ colors = {
     "Slytherin": green,
     "Hufflepuff": yellow,
     "Gryffindor": red,
-    "Test_Set": purple,
+    "unknown": purple,
 }

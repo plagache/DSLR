@@ -19,7 +19,7 @@ Data Science X Logistic Regression
 - [x] rework --show in --web
 - [x] visualy understanding features selection with scatter plot
 - [x] plot dataset_test with 5th color to determine classes
-    - [ ] refacto
+    - [x] refacto
 
 
 ### Logistic Regression [Formule markdown](/formula.md)

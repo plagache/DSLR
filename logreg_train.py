@@ -12,7 +12,6 @@ from data_preprocessing import (
     get_quartiles,
     get_selected_features,
     robust_scale,
-    save_quartiles,
 )
 from logreg_predict import predict
 from nn import Brain

@@ -25,10 +25,10 @@ size:
 	du -hd 0
 	du -hd 0 ${VENV}
 
-###### DS
-
 extract:
 	tar -xf datasets.tgz
+
+###### DS
 
 describe: extract
 	${BIN_PATH}/python describe.py ${TRAIN_SET}
@@ -64,11 +64,11 @@ debugweb: static
 webdescribe: extract
 	${BIN_PATH}/python describe.py --web ${TRAIN_SET}
 
-webscatter: extract static
-	${BIN_PATH}/python scatter_plot.py --web ${TRAIN_SET}
-
 webhistogram: extract static
 	${BIN_PATH}/python histogram.py --web ${TRAIN_SET}
+
+webscatter: extract static
+	${BIN_PATH}/python scatter_plot.py --web ${TRAIN_SET}
 
 webpair: extract static
 	${BIN_PATH}/python pair_plot.py --web ${TRAIN_SET}
@@ -92,14 +92,21 @@ fullaccuracy: sample trainacc predict accuracy
 graph: static
 	${BIN_PATH}/python graph.py tmp/losses.csv tmp/accuracies.csv
 
-histogram_test: extract static
-	${BIN_PATH}/python histogram_test.py --web ${TRAIN_SET} ${TEST_SET}
+###### Test
 
-scatter_test: extract static
-	${BIN_PATH}/python scatter_test.py --web ${TRAIN_SET} ${TEST_SET}
+concat:
+	${BIN_PATH}/python concat_dataset.py ${TRAIN_SET} ${TEST_SET}
 
-pair_test: extract static
-	${BIN_PATH}/python pair_test.py --web ${TRAIN_SET} ${TEST_SET}
+histogram_test: extract static concat
+	${BIN_PATH}/python histogram.py ${TRAIN_SET}
+
+scatter_test: extract static concat
+	${BIN_PATH}/python scatter_plot.py ${TRAIN_SET}
+
+pair_test: extract static concat
+	${BIN_PATH}/python pair_plot.py ${TRAIN_SET}
+
+###### Scikit
 
 scikit_logreg: extract static
 	${BIN_PATH}/python scikit_logreg.py ${TRAIN_SET} --test_set ${TEST_SET}
@@ -134,6 +141,7 @@ fclean: clean
 	rm -f activate
 
 .SILENT:
-.PHONY: env pip_upgrade install upgrade extract clean fclean static histogram \
-	webhistogram scatter webscatter pair webpair webdescribe describe web \
+.PHONY: setup env pip_upgrade install upgrade list size extract clean fclean static \
+	webdescribe describe histogram webhistogram scatter webscatter pair webpair web \
+	concat histogram_test scatter_test pair_test \
 	debugweb sample trainacc accuracy fullaccuracy graph
