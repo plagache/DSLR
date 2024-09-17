@@ -8,22 +8,22 @@ from variables import learning_rate, number_of_fold, selected_features, steps
 
 def k_fold(dataframe, k):
     folds = []
-    while k > 1:
+    while k >= 1:
         percentage = 1 / k
         fold, dataframe = split_dataframe(dataframe, percentage)
+        # print(percentage, len(fold.index), len(dataframe.index))
         folds.append(fold)
         k -= 1
     return folds
 
-def cross_validation(dataset):
-
+def cross_validation(dataset, number_of_fold):
     classes = create_classes(dataset)
-
-    brain = Brain(classes, selected_features)
 
     cross_validation_data = []
 
     for fold in k_fold(dataset, number_of_fold):
+        brain = Brain(classes, selected_features)
+
         test_sample = fold
         train_sample = dataset.drop(test_sample.index)
 
@@ -53,5 +53,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     dataset = create_dataframe(args.dataset)
-    data = cross_validation(dataset)
-    print(data)
+    data = cross_validation(dataset, number_of_fold)
+    # print(data)

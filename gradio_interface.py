@@ -1,13 +1,14 @@
 import gradio as gr
 import pandas as pd
 
+from cross_validation import cross_validation
 from data_preprocessing import create_classes, create_labels, get_quartiles, get_selected_features, robust_scale, select_numerical_features
 from graph import draw_graphs
 from logreg_predict import predict
 from logreg_train import training
 from nn import Brain
 from sampler import sample
-from variables import labels_column, learning_rate, learning_rate_decay, sampling, scheduler_type, selected_features, steps, stochastic
+from variables import labels_column, learning_rate, learning_rate_decay, number_of_fold, sampling, scheduler_type, selected_features, steps, stochastic
 
 train_set = pd.read_csv("datasets/dataset_train.csv")
 # Load the dataset
@@ -88,10 +89,24 @@ def gradio_predict(selected_features, weights, quartiles):
     prediction["Good prediction"] = prediction["Truth"] == prediction[labels_column]
     return prediction
 
+def gradio_cross(number_of_fold):
+    i = 0
+    figures = []
+    classes = create_classes(train_set)
+    for data in cross_validation(train_set, number_of_fold):
+        i += 1
+        losses_df = pd.DataFrame(data["losses"], columns=classes)
+        accuracy_df = pd.DataFrame(data["accuracies"])
+        figure = draw_graphs(losses_df, classes, accuracy_df)
+        figure.suptitle(f"validation fold #{i}")
+        figures.append(figure)
+    return figures
+
 
 with gr.Blocks() as demo:
     weights_state = gr.State(None)
     quartiles_state = gr.State(None)
+    figures = gr.State([])
     with gr.Tab("Train"):
         with gr.Row():
             with gr.Column():
@@ -127,6 +142,21 @@ with gr.Blocks() as demo:
                 predict_button = gr.Button(value="Predict")
 
             predict_button.click(fn=gradio_predict, inputs=[selected_features, weights_state, quartiles_state], outputs=[prediction])
+    with gr.Tab("Cross validation"):
+        with gr.Row():
+            with gr.Column():
+                number_of_fold = gr.Number(value=number_of_fold, minimum=2, maximum=10, label="number_of_fold")
+                cross_button = gr.Button(value="validate")
+
+                # render....
+                @gr.render(inputs=figures)
+                def render_figures(figures):
+                    gr.Markdown(f"### Validation folds")
+                    for figure in figures:
+                        gr.Plot(value=figure)
+
+
+            cross_button.click(fn=gradio_cross, inputs=[number_of_fold], outputs=[figures])
 
 
 if __name__ == "__main__":
