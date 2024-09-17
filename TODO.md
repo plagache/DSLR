@@ -3,33 +3,34 @@ Data Science X Logistic Regression
 
 ## ToDo
 
-- [x] [Describe](describe.py)
-    - [x] get list of cleaned numerical dataset
-    - [x] func(dataset: Series[float]) -> dic(min: float, max: float, ...)
-    - [x] add __main__
-    - [x] join html string / avoid multiple write
+### [Describe](describe.py)
+- [x] get list of cleaned numerical dataset
+- [x] func(dataset: Series[float]) -> dic(min: float, max: float, ...)
+- [x] add __main__
+- [x] join html string / avoid multiple write
 
-- [x] Data Visualization
-    - [x] [Histogram](histogram.py)
-    - [x] [Scatter Plot](scatter_plot.py) (each pair of feature/course transfiguration/flying...)]
-    - [x] [Pair Plot](pair_plot.py) (matrice of scatter plots with histograms on matrice diagonal)
-    - [x] [Loss Plot](graph.py)
-    - [x] add __main__
-    - [x] extract string answers in variables.py
-    - [x] rework --show in --web
+### Data Visualization
+- [x] [Histogram](histogram.py)
+- [x] [Scatter Plot](scatter_plot.py) (each pair of feature/course transfiguration/flying...)]
+- [x] [Pair Plot](pair_plot.py) (matrice of scatter plots with histograms on matrice diagonal)
+- [x] [Loss Plot](graph.py)
+- [x] add __main__
+- [x] extract string answers in variables.py
+- [x] rework --show in --web
+- [x] visualy understanding features selection with scatter plot
 
 
-- [x] Logistic Regression [Formule markdown](/formula.md)
-    - [x] [Logreg Train](logreg_train.py)
-    - [x] Optimizer
-        - [x] exctract GD and SGD
-        - [x] run GD and SGD and compare plot
-    - [x] Save weight, loss
-    - [x] Refactor save weight, loss with pandas csv
-    - [x] load weight
-    - [x] [Logreg Predict](logreg_predict.py)
-    - [x] explicit the 2 function gradient_descente and Stochastique
-    - [x] refacto test_sample/args.test_set into accuracy
+### Logistic Regression [Formule markdown](/formula.md)
+- [x] [Logreg Train](logreg_train.py)
+- [x] Optimizer
+    - [x] exctract GD and SGD
+    - [x] run GD and SGD and compare plot
+- [x] Save weight, loss
+- [x] Refactor save weight, loss with pandas csv
+- [x] load weight
+- [x] [Logreg Predict](logreg_predict.py)
+- [x] explicit the 2 function gradient_descente and Stochastique
+- [x] refacto test_sample/args.test_set into accuracy
 
 - [x] NaN Values to deal with
     - [x] Training or prediction of class1 >> use class1 mean/median value of feature
@@ -51,29 +52,30 @@ Data Science X Logistic Regression
     - [x] exctract scaling from classer && courses list creation from Training
 - [x] split loss formula to prevent log(0), only compute the y truth side.
 - [x] split loss formula to prevent log(0), only compute the y truth side in SGD
-
-- [ ] Web UI for selecting variables, training and display graph of accuracy, weight, loss
-    - [x] refacto training / exctract data modification
-    - [x] Gradio interface to selecte parameters / same as in variables.py
-    - [x] button train with parameters
-    - [x] display losses images
-    - [x] create a group of tabs (train, predict)
-    - [ ] defer rendering of predict tab
-    - [ ] add a weights state and listen for changes of weights state to start predict rendering
-    - [x] add cross entropy tab
-- [x] plot dataset_test with 5th color to determine classes
-- [x] use scikit Logistic Regression to compare result on dataset_test
-- [x] cross validation:
-    - [x] refacto cross validation to work with new training prototype
 - [x] modify set_quartiles to: set and get / refacto in consequence
 - [x] use selected_features for brain creation
 - [x] features selection / removing features can improve learning, by not having to learn an inefficient features
-- [x] visualy understanding features selection with scatter plot
+
+### Web UI
+- [x] refacto training / exctract data modification
+- [x] Gradio interface to selecte parameters / same as in variables.py
+- [x] button train with parameters
+- [x] display losses images
+- [x] create a group of tabs (train, predict)
+- [-] defer rendering of predict tab
+- [ ] add a weights state and listen for changes of weights state to start predict rendering
+- [x] add cross entropy tab
+- [x] plot dataset_test with 5th color to determine classes
+    - [ ] refacto
+- [x] use scikit Logistic Regression to compare result on dataset_test
+
+### Cross Validation
+- [x] refacto cross validation to work with new training prototype
 
 
-- [ ] organize files by theme:
-    - [ ] Data Science -> describe, histogram, scatter, pair, flask ...
-    - [ ] Logistic Regression -> train, predict, accuracy, sample, gradio ...
+### organize files by theme
+- [ ] Data Science -> describe, histogram, scatter, pair, flask ...
+- [ ] Logistic Regression -> train, predict, accuracy, sample, gradio ...
 
 ## Bonus
 
