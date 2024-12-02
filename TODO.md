@@ -85,6 +85,9 @@ Data Science X Logistic Regression
 
 ## FAQ
 
+What does it mean for 2 features to be similar ?
+They have the same repartition does not allow us to learn more
+
 what about the absence of data ?
 during training and during prediction
 fill with mean
