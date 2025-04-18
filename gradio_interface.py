@@ -8,6 +8,7 @@ from logreg_predict import predict
 from logreg_train import training
 from nn import Brain
 from sampler import sample
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from variables import (
     labels_column,
     learning_rate,
@@ -96,9 +97,11 @@ def gradio_predict(selected_features, weights, quartiles):
 
     prediction = predict(brain, scaleddataset)
 
-    prediction["Truth"] = dataset_test[labels_column].values
-    prediction["Good prediction"] = prediction["Truth"] == prediction[labels_column]
-    return prediction
+    truth = dataset_test[labels_column].values
+    pred = prediction[labels_column]
+    cm = confusion_matrix(truth, pred, labels=classes)
+    display = ConfusionMatrixDisplay(cm, display_labels=classes).plot()
+    return display.figure_
 
 
 def gradio_cross(number_of_fold):
@@ -150,10 +153,10 @@ with gr.Blocks() as demo:
     with gr.Tab("Predict"):
         with gr.Row():
             with gr.Column():
-                prediction = gr.DataFrame(label="Prediction")
+                confusion = gr.Plot(label="Confusion matrix")
                 predict_button = gr.Button(value="Predict")
 
-            predict_button.click(fn=gradio_predict, inputs=[selected_features, weights_state, quartiles_state], outputs=[prediction])
+            predict_button.click(fn=gradio_predict, inputs=[selected_features, weights_state, quartiles_state], outputs=[confusion])
     with gr.Tab("Cross validation"):
         with gr.Row():
             with gr.Column():
